@@ -141,7 +141,7 @@
 
 <script>
     function saveWS(){
-        var website = {}
+        var website = {};
 
 //        var websiteName = $("#websiteName").val();
 //        var websiteUrl = $("#websiteUrl").val();

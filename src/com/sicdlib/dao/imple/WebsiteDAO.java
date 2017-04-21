@@ -34,4 +34,20 @@ public class WebsiteDAO implements IWebsiteDAO{
     public List<WebsiteEntity> listWebsite() {
         return null;
     }
+
+    @Override
+    public WebsiteEntity getWebsiteByName(String websiteName) {
+        String hql = "from WebsiteEntity ws where ws.websiteName = '" + websiteName + "'";
+        WebsiteEntity website = (WebsiteEntity) baseDAO.get(hql);
+
+        return website;
+    }
+
+    @Override
+    public WebsiteEntity getWebsiteByUrl(String url) {
+        String hql = "from WebsiteEntity ws where ws.websiteUrl = '" + url + "'";
+        WebsiteEntity website = (WebsiteEntity) baseDAO.get(hql);
+
+        return website;
+    }
 }

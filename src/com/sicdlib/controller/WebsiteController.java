@@ -56,7 +56,7 @@ public class WebsiteController {
 
     @RequestMapping("checkSiteUrl")
     public void isExistUrl(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String url = req.getParameter("websiteUrl");
+        String url = req.getParameter("siteUrl");
 
         PrintWriter out = res.getWriter();
 
@@ -75,7 +75,7 @@ public class WebsiteController {
 
     @RequestMapping("checkSiteName")
     public void isExistName(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String name = req.getParameter("websiteName");
+        String name = req.getParameter("siteName");
 
         PrintWriter out = res.getWriter();
 

@@ -44,7 +44,7 @@ public class WebsiteController {
 //                              @RequestParam("url") String url,
 //                              @RequestParam("siteType") String siteType,
 //                              Model model) {
-    public String saveWebsite(WebsiteEntity website, HttpServletRequest req, HttpServletResponse res) throws IOException {
+    public void saveWebsite(WebsiteEntity website, HttpServletRequest req, HttpServletResponse res) throws IOException {
         PrintWriter out = res.getWriter();
 
         boolean result = websiteService.saveNoIDWebsite(website);
@@ -55,9 +55,6 @@ public class WebsiteController {
             out.print("failure");
         }
         out.print("success");
-
-
-        return null;
     }
 
 }

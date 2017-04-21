@@ -105,14 +105,17 @@
                         <div class="control-group">
                             <label class="control-label">网站名称</label>
                             <div class="controls">
-                                <input type="text" name="websiteName" id="websiteName" placeholder="网站名称"/>
+                                <input type="text" name="websiteName" id="websiteName" onblur="checkSiteName()" placeholder="网站名称"/>
+                                <label id="prompt_site_name" ></label>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">URL</label>
                             <div class="controls">
-                                <input name="websiteUrl" type="text" id="websiteUrl" placeholder="url"/>
+                                <input name="websiteUrl" type="text" id="websiteUrl" onblur="checkSiteUrl()" placeholder="url"/>
+                                <label id="prompt_site_url" style="font-size: 9px;display: none"></label>
                             </div>
+
                         </div>
                         <div class="control-group">
                             <label class="control-label">网站类型</label>
@@ -141,7 +144,7 @@
 
 <script>
     function saveWS(){
-        var website = {}
+        var website = {};
 
 //        var websiteName = $("#websiteName").val();
 //        var websiteUrl = $("#websiteUrl").val();
@@ -153,19 +156,122 @@
         $.ajax({
             async : false,//将async设置为false,才能使得return 返回true/false有效
             type : 'post',
-//            url : 'saveWebsite?websiteName='+websiteName+'&websiteUrl='+websiteUrl+'&siteType='+siteType,
             url : 'saveWebsite',
-//            dataType: "json",
             data: website,
             success : function (msg){
                 if(msg == 'success'){
                     alert("添加成功");
-                    //location.reload(true);
+                    location.reload(true);
                 }else{
                     alert("添加失败");
                 }
             }
         });
+    }
+
+    function checkSiteName() {
+        var siteName = $("#websiteName").val();
+        var flag = 0;
+
+        if(siteName == "") {
+            $("#prompt_site_name").html("网站名称不能为空！！");
+            $("#prompt_site_name").css("display", "inline");
+            $("#prompt_site_name").css("color", "red");
+            $("#prompt_site_name").css("font-size", "14px");
+
+            return false;
+        }
+
+        $.ajax({
+            type : 'post',
+            url : 'checkSiteName?siteName=' + siteName,
+            success : function (msg) {
+                if(msg == "exist") {
+                    $("#prompt_site_name").html("网站名称已存在！！");
+                    $("#prompt_site_name").css("display", "inline");
+                    $("#prompt_site_name").css("color", "red");
+                    $("#prompt_site_name").css("font-size", "14px");
+                    flag = 1;
+                } else {
+                    $("#prompt_site_name").html("");
+                    $("#prompt_site_name").css("display", "inline");
+                }
+            }
+        });
+
+        if(flag == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkSiteUrl() {
+        var siteUrl = $("#websiteUrl").val();
+        var flag = 0;
+
+        if(siteUrl == "") {
+            $("#prompt_site_url").html("Url不能为空！！");
+            $("#prompt_site_url").css("display", "inline");
+            $("#prompt_site_url").css("color", "red");
+            $("#prompt_site_url").css("font-size", "14px");
+
+            return false;
+        }
+
+        var is_url = isUrl(siteUrl);
+
+        if(!is_url) {
+            $("#prompt_site_url").html("不是正确的URL！！");
+            $("#prompt_site_url").css("display", "inline");
+            $("#prompt_site_url").css("color", "red");
+            $("#prompt_site_url").css("font-size", "14px");
+
+            return false;
+        }
+
+        $.ajax({
+            type : 'post',
+            url : 'checkSiteUrl?siteUrl=' + siteUrl,
+            success : function (msg) {
+                if(msg == "exist") {
+                    $("#prompt_site_url").html("网站URL已存在！！");
+                    $("#prompt_site_url").css("display", "inline");
+                    $("#prompt_site_url").css("color", "red");
+                    $("#prompt_site_url").css("font-size", "14px");
+                    flag = 1;
+                } else {
+                    $("#prompt_site_url").html("");
+                    $("#prompt_site_url").css("display", "inline");
+                }
+            }
+        });
+
+        if(flag == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function isUrl(str_url) {
+        var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+            + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+            + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+            + "|" // 允许IP和DOMAIN（域名）
+            + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+            + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+            + "[a-z]{2,6})" // first level domain- .com or .museum
+            + "(:[0-9]{1,4})?" // 端口- :80
+            + "((/?)|" // a slash isn't required if there is no file name
+            + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+        var re=new RegExp(strRegex);
+        //re.test()
+        if (re.test(str_url)){
+            return true;
+        }else{
+            return false;
+        }
     }
 </script>
 

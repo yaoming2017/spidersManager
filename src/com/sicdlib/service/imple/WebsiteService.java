@@ -29,4 +29,24 @@ public class WebsiteService implements IWebsiteService {
     public boolean saveWebsite(WebsiteEntity website) {
         return websiteDAO.saveWebsite(website);
     }
+
+    @Override
+    public boolean isExistUrl(String url) {
+        WebsiteEntity website = websiteDAO.getWebsiteByUrl(url);
+
+        if(website == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isExistName(String name) {
+        WebsiteEntity website = websiteDAO.getWebsiteByUrl(name);
+
+        if(website == null) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface IWebsiteDAO {
     boolean saveWebsite(WebsiteEntity website);
     List<WebsiteEntity> listWebsite();
+    WebsiteEntity getWebsiteByName(String websiteName);
+    WebsiteEntity getWebsiteByUrl(String url);
 }

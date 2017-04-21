@@ -9,4 +9,6 @@ import com.sicdlib.dto.WebsiteEntity;
 public interface IWebsiteService {
     boolean saveNoIDWebsite(WebsiteEntity website);
     boolean saveWebsite(WebsiteEntity website);
+    boolean isExistUrl(String url);
+    boolean isExistName(String name);
 }

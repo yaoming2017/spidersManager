@@ -40,11 +40,7 @@ public class WebsiteController {
     }
 
     @RequestMapping("saveWebsite")
-//    public String saveWebsite(@RequestParam("siteName") String siteName,
-//                              @RequestParam("url") String url,
-//                              @RequestParam("siteType") String siteType,
-//                              Model model) {
-    public void saveWebsite(WebsiteEntity website, HttpServletRequest req, HttpServletResponse res) throws IOException {
+    public void saveWebsite(WebsiteEntity website, HttpServletResponse res) throws IOException {
         PrintWriter out = res.getWriter();
 
         boolean result = websiteService.saveNoIDWebsite(website);
@@ -54,7 +50,46 @@ public class WebsiteController {
         } else {
             out.print("failure");
         }
+
         out.print("success");
+    }
+
+    @RequestMapping("checkSiteUrl")
+    public void isExistUrl(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String url = req.getParameter("websiteUrl");
+
+        PrintWriter out = res.getWriter();
+
+        if(url == null || url.equals("")) {
+            out.print("null");
+        } else {
+            boolean result = websiteService.isExistUrl(url);
+
+            if(result) {
+                out.print("success");
+            } else {
+                out.print("failure");
+            }
+        }
+    }
+
+    @RequestMapping("checkSiteName")
+    public void isExistName(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        String name = req.getParameter("websiteName");
+
+        PrintWriter out = res.getWriter();
+
+        if (name == null || name.equals("")) {
+            out.print("null");
+        } else {
+            boolean result = websiteService.isExistName(name);
+
+            if (result) {
+                out.print("success");
+            } else {
+                out.print("failure");
+            }
+        }
     }
 
 }

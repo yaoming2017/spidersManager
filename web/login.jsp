@@ -1,42 +1,60 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-	    <title>微博舆情分析系统</title>
-	</head>
 
-	<body id="body_back" class="light-gray-bg" >
-		<div class="templatemo-content-widget templatemo-login-widget white-bg">
-			<header class="text-center">
-	          <div class="square"></div>
-	          <h1 style="font-family: '华文行楷';font-size: 34px;">login</h1>
-	        </header>
-	       	<form action="login" method="post">
-	        	<div class="form-group">
-	        		<div class="input-group">
-		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
-		              	<input name="u_name" id="u_name" type="text" class="form-control" placeholder="username">
-		          	</div>	
-	        	</div>
-	        	<div class="form-group">
-	        		<div class="input-group">
-		        		<div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>	        		
-		              	<input name="u_pwd" id="u_pwd" type="password" class="form-control" placeholder="******">
-		          	</div>	
-	        	</div>
-	        	<!-- <div class="form-group">
-	        		<div class="input-group">
-		        		<div class="input-group-addon"><i class="fa fa-heart-o fa-fw"></i></div>	        		
-		              	<select name="usertype_id" class="form-control">
-		              		<option value="1">管理员</option>
-		              		<option value="2">普通用户</option>
-		              	</select>           
-		          	</div>
-	        	</div> -->S
-				<div class="form-group">
-					<input type="submit" value="Submit">login</input>
+<head>
+	<title>Social Mind 后台管理</title><meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+	<link rel="stylesheet" href="css/maruti-login.css" />
+</head>
+<body>
+<div id="logo">
+	<img src="img/login-logo.png" alt="" />
+</div>
+<div id="loginbox">
+	<form id="loginform" class="form-vertical" action="index.html">
+		<div class="control-group normal_text"><h3>登 录</h3></div>
+		<div class="control-group">
+			<div class="controls">
+				<div class="main_input_box">
+					<span class="add-on"><i class="icon-user"></i></span><input type="text" placeholder="用户名" />
 				</div>
-	        </form>
+			</div>
 		</div>
-	</body>
+		<div class="control-group">
+			<div class="controls">
+				<div class="main_input_box">
+					<span class="add-on"><i class="icon-lock"></i></span><input type="password" placeholder="密码" />
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<span class="pull-left"><a href="#" class="flip-link btn btn-warning" id="to-recover">忘记密码?</a></span>
+			<span class="pull-left"><a href="register.jsp" class="flip-link btn btn-warning" style="background-color: #5bc0de" id="to-recover">立即注册</a></span>
+			<span class="pull-right"><input type="submit" class="btn btn-success" value="登录" /></span>
+		</div>
+
+	</form>
+	<form id="recoverform" action="#" class="form-vertical">
+		<p class="normal_text">密码找回 <br/><font color="#FF6633"></font></p>
+
+		<div class="controls">
+			<div class="main_input_box">
+				<span class="add-on"><i class="icon-envelope"></i></span><input type="text" placeholder="请输入要找回密码的邮箱地址" />
+			</div>
+		</div>
+
+		<div class="form-actions">
+			<span class="pull-left"><a href="#" class="flip-link btn btn-warning" id="to-login">&laquo; 返回登录</a></span>
+			<span class="pull-right"><input type="submit" class="btn btn-info" value="发送" /></span>
+		</div>
+	</form>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/maruti.login.js"></script>
+</body>
+
 </html>

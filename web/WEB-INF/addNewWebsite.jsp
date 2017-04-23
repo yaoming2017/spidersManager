@@ -1,4 +1,4 @@
-<%@ page import="com.sicdlib.dto.WebsiteEntity" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: haoyang
   Date: 2017/4/20
@@ -143,6 +143,8 @@
 </div>
 
 <script>
+    var validate_url = false;
+    var validate_name = false;
     function saveWS(){
         var website = {};
 
@@ -153,20 +155,24 @@
         website['websiteName'] = $("#websiteName").val();
         website['websiteUrl'] = $("#websiteUrl").val();
 
-        $.ajax({
-            async : false,//将async设置为false,才能使得return 返回true/false有效
-            type : 'post',
-            url : 'saveWebsite',
-            data: website,
-            success : function (msg){
-                if(msg == 'success'){
-                    alert("添加成功");
-                    location.reload(true);
-                }else{
-                    alert("添加失败");
+        if(!validate_url || !validate_name) {
+            alert("输入不正确");
+            return false;
+        } else {
+            $.ajax({
+                async : false,//将async设置为false,才能使得return 返回true/false有效
+                type : 'post',
+                url : 'saveWebsite',
+                data: website,
+                success : function (msg){
+                    if(msg == 'success'){
+                        alert("添加成功");
+                    }else{
+                        alert("添加失败");
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     function checkSiteName() {
@@ -178,6 +184,8 @@
             $("#prompt_site_name").css("display", "inline");
             $("#prompt_site_name").css("color", "red");
             $("#prompt_site_name").css("font-size", "14px");
+
+            validate_name = false;
 
             return false;
         }
@@ -191,10 +199,12 @@
                     $("#prompt_site_name").css("display", "inline");
                     $("#prompt_site_name").css("color", "red");
                     $("#prompt_site_name").css("font-size", "14px");
-                    flag = 1;
+                    validate_name = false;
                 } else {
                     $("#prompt_site_name").html("");
                     $("#prompt_site_name").css("display", "inline");
+                    validate_name = true;
+                    flag = 0;
                 }
             }
         });
@@ -208,13 +218,14 @@
 
     function checkSiteUrl() {
         var siteUrl = $("#websiteUrl").val();
-        var flag = 0;
+        var flag = 1;
 
         if(siteUrl == "") {
             $("#prompt_site_url").html("Url不能为空！！");
             $("#prompt_site_url").css("display", "inline");
             $("#prompt_site_url").css("color", "red");
             $("#prompt_site_url").css("font-size", "14px");
+            validate_url = false;
 
             return false;
         }
@@ -226,6 +237,7 @@
             $("#prompt_site_url").css("display", "inline");
             $("#prompt_site_url").css("color", "red");
             $("#prompt_site_url").css("font-size", "14px");
+            validate_url = false;
 
             return false;
         }
@@ -239,10 +251,12 @@
                     $("#prompt_site_url").css("display", "inline");
                     $("#prompt_site_url").css("color", "red");
                     $("#prompt_site_url").css("font-size", "14px");
-                    flag = 1;
+                    validate_url = false;
                 } else {
                     $("#prompt_site_url").html("");
                     $("#prompt_site_url").css("display", "inline");
+                    validate_url = true;
+                    flag = 0;
                 }
             }
         });

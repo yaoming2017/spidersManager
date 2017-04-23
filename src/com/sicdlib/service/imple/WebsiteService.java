@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by haoyang on 2017/4/20.
  */
@@ -48,5 +50,12 @@ public class WebsiteService implements IWebsiteService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<WebsiteEntity> listAllWebsite() {
+        List<WebsiteEntity> wsList = websiteDAO.listWebsite();
+
+        return wsList;
     }
 }

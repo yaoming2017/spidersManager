@@ -50,8 +50,6 @@ public class WebsiteController {
         } else {
             out.print("failure");
         }
-
-        out.print("success");
     }
 
     @RequestMapping("checkSiteUrl")
@@ -66,9 +64,9 @@ public class WebsiteController {
             boolean result = websiteService.isExistUrl(url);
 
             if(result) {
-                out.print("success");
+                out.print("exist");
             } else {
-                out.print("failure");
+                out.print("notExist");
             }
         }
     }
@@ -85,9 +83,9 @@ public class WebsiteController {
             boolean result = websiteService.isExistName(name);
 
             if (result) {
-                out.print("success");
+                out.print("exist");
             } else {
-                out.print("failure");
+                out.print("notExist");
             }
         }
     }

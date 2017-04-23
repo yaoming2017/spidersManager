@@ -32,7 +32,10 @@ public class WebsiteDAO implements IWebsiteDAO{
 
     @Override
     public List<WebsiteEntity> listWebsite() {
-        return null;
+        String hql = "from WebsiteEntity ws";
+        List<WebsiteEntity> wsList = (List<WebsiteEntity>)baseDAO.find(hql);
+
+        return wsList;
     }
 
     @Override

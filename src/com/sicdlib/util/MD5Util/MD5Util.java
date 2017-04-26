@@ -1,5 +1,6 @@
 package com.sicdlib.util.MD5Util;
 import java.security.MessageDigest;
+import java.util.Date;
 
 
 public class MD5Util {
@@ -70,5 +71,7 @@ public class MD5Util {
 		String strTemp = "qqqq";
 		System.out.println("MD5加密："+generatePassword(strTemp));
 		System.out.println("验证："+validatePassword(generatePassword(strTemp),strTemp));
+        Date dt = new Date();
+        System.out.println("当前时间"+dt.getTime());
 	}
 }

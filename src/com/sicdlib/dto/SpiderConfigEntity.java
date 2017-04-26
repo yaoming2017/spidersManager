@@ -3,12 +3,13 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "spider_config", schema = "socialMind")
+@Table(name = "spider_config", schema = "socialMind", catalog = "")
 public class SpiderConfigEntity {
     private String id;
+    private String spiderId;
     private Integer isDefault;
     private String configTime;
     private Integer spiderFrequency;
@@ -23,6 +24,16 @@ public class SpiderConfigEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "spider_id")
+    public String getSpiderId() {
+        return spiderId;
+    }
+
+    public void setSpiderId(String spiderId) {
+        this.spiderId = spiderId;
     }
 
     @Basic
@@ -83,6 +94,7 @@ public class SpiderConfigEntity {
         SpiderConfigEntity that = (SpiderConfigEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (spiderId != null ? !spiderId.equals(that.spiderId) : that.spiderId != null) return false;
         if (isDefault != null ? !isDefault.equals(that.isDefault) : that.isDefault != null) return false;
         if (configTime != null ? !configTime.equals(that.configTime) : that.configTime != null) return false;
         if (spiderFrequency != null ? !spiderFrequency.equals(that.spiderFrequency) : that.spiderFrequency != null)
@@ -97,6 +109,7 @@ public class SpiderConfigEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (spiderId != null ? spiderId.hashCode() : 0);
         result = 31 * result + (isDefault != null ? isDefault.hashCode() : 0);
         result = 31 * result + (configTime != null ? configTime.hashCode() : 0);
         result = 31 * result + (spiderFrequency != null ? spiderFrequency.hashCode() : 0);

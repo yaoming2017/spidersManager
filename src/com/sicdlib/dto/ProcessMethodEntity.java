@@ -3,7 +3,7 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
 @Table(name = "process_method", schema = "socialMind", catalog = "")

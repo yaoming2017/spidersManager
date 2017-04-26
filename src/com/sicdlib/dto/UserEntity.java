@@ -3,10 +3,10 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "user", schema = "socialMind")
+@Table(name = "user", schema = "socialMind", catalog = "")
 public class UserEntity {
     private String id;
     private String userName;
@@ -15,6 +15,7 @@ public class UserEntity {
     private String telephone;
     private String gender;
     private String description;
+    private String roleId;
 
     @Id
     @Column(name = "id")
@@ -86,6 +87,16 @@ public class UserEntity {
         this.description = description;
     }
 
+    @Basic
+    @Column(name = "role_id")
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,6 +111,7 @@ public class UserEntity {
         if (telephone != null ? !telephone.equals(that.telephone) : that.telephone != null) return false;
         if (gender != null ? !gender.equals(that.gender) : that.gender != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
 
         return true;
     }
@@ -113,6 +125,7 @@ public class UserEntity {
         result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (roleId != null ? roleId.hashCode() : 0);
         return result;
     }
 }

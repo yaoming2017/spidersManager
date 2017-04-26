@@ -2,7 +2,10 @@ package com.sicdlib.controller;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.sicdlib.dto.SpiderInfoEntity;
 import com.sicdlib.dto.WebsiteEntity;
+import com.sicdlib.service.IDataDictService;
+import com.sicdlib.service.ISpiderService;
 import com.sicdlib.service.IWebsiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,8 +27,16 @@ import java.util.List;
 @Controller
 public class spiderInfoController {
     @Autowired
+    @Qualifier("dataDictService")
+    private IDataDictService dataDictService;
+
+    @Autowired
     @Qualifier("websiteService")
     private IWebsiteService websiteService;
+
+    @Autowired
+    @Qualifier("spiderService")
+    private ISpiderService spiderService;
 
     @RequestMapping("addNewSpider")
     public String listWebsites(Model model) {
@@ -35,38 +46,26 @@ public class spiderInfoController {
         return "addNewSpider";
     }
 
-    @RequestMapping(value = "saveSpider", produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "saveSpiderFile", produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String sync(
             @RequestParam(value = "file", required = false) MultipartFile file,
-            HttpServletRequest request, HttpServletResponse response)
+            HttpServletRequest req)
             throws IOException {
+        String filePath = dataDictService.getDataDictValue("SPIDER_SOURCE_TMP").get(0);
+        String realPath = req.getSession().getServletContext().getRealPath(filePath);
+//        String fileName = file.getOriginalFilename();
+        String fileName = req.getParameter("uid");
+        File targetFile = new File(realPath, fileName);
 
-
-        if (request.getParameter("chunk") == null) {
-
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath("/Upload/");
-            String fileName = file.getOriginalFilename();
-
-            File targetFile = new File(realPath, fileName);
-            if (!targetFile.exists()) {
-                targetFile.mkdirs();
-            }
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+        
+        if (req.getParameter("chunk") == null) {
             file.transferTo(targetFile); // 小文件，直接拷贝
-
-            return "";
         } else {
-            int chunk = Integer.parseInt(request.getParameter("chunk")); // 当前分片
-            int chunks = Integer.parseInt(request.getParameter("chunks")); // 分片总计
-
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath("/Upload/");
-
-            String Ogfilename = file.getOriginalFilename();
-
-            File tempFile = new File(realPath, Ogfilename);
-            OutputStream outputStream = new FileOutputStream(tempFile, true);
+            OutputStream outputStream = new FileOutputStream(targetFile, true);
             InputStream inputStream = file.getInputStream();
 
             byte buffer[] = new byte[1024];
@@ -76,9 +75,33 @@ public class spiderInfoController {
             }
             inputStream.close();
             outputStream.close();
+        }
+        return "";
+    }
 
-            return "";
+    @RequestMapping("saveSpiderInfo")
+    public void saveSpider(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        String spiderName = req.getParameter("spiderName");
+        String websiteID = req.getParameter("websiteID");
+        String fileID = req.getParameter("fileID");
+        String fileName = req.getParameter("fileName");
+        if(fileName.endsWith(".zip")) {
+            fileName = fileName.substring(0, fileName.length() - 4);
         }
 
+        SpiderInfoEntity spiderInfo = new SpiderInfoEntity();
+        spiderInfo.setSpiderName(spiderName);
+        spiderInfo.setWebsiteId(websiteID);
+        spiderInfo.setFileId(fileID);
+        spiderInfo.setFileName(fileName);
+
+        boolean result = spiderService.saveSpiderInfo(req, spiderInfo);
+
+        PrintWriter out = res.getWriter();
+        if(result) {
+            out.print("success");
+        } else {
+            out.print("failure");
+        }
     }
 }

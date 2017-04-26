@@ -3,10 +3,10 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "process", schema = "socialMind")
+@Table(name = "process", schema = "socialMind", catalog = "")
 public class ProcessEntity {
     private String id;
     private String processName;

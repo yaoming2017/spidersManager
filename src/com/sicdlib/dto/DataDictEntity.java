@@ -3,10 +3,10 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "data_dict", schema = "socialMind")
+@Table(name = "data_dict", schema = "socialMind", catalog = "")
 public class DataDictEntity {
     private String id;
     private String name;

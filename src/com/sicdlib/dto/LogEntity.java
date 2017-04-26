@@ -3,12 +3,13 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "log", schema = "socialMind")
+@Table(name = "log", schema = "socialMind", catalog = "")
 public class LogEntity {
     private String id;
+    private String userId;
     private String loginIp;
     private String operateType;
     private String operateObject;
@@ -23,6 +24,16 @@ public class LogEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "user_id")
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Basic
@@ -83,6 +94,7 @@ public class LogEntity {
         LogEntity logEntity = (LogEntity) o;
 
         if (id != null ? !id.equals(logEntity.id) : logEntity.id != null) return false;
+        if (userId != null ? !userId.equals(logEntity.userId) : logEntity.userId != null) return false;
         if (loginIp != null ? !loginIp.equals(logEntity.loginIp) : logEntity.loginIp != null) return false;
         if (operateType != null ? !operateType.equals(logEntity.operateType) : logEntity.operateType != null)
             return false;
@@ -98,6 +110,7 @@ public class LogEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (loginIp != null ? loginIp.hashCode() : 0);
         result = 31 * result + (operateType != null ? operateType.hashCode() : 0);
         result = 31 * result + (operateObject != null ? operateObject.hashCode() : 0);

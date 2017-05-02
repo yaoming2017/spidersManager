@@ -1,5 +1,6 @@
 package com.sicdlib.controller;
 
+import com.google.gson.Gson;
 import com.sicdlib.dto.SpiderConfigItemEntity;
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
 import com.sicdlib.service.imple.ISpiderInfoService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by YH on 2017/4/28.
@@ -38,6 +40,10 @@ public class spiderConfigController {
     public void saveSpiderConfig(HttpServletRequest req, Model model) {
         String spider_id = req.getParameter("spider_id");
         String config = req.getParameter("config");
+
+        Gson gson = new Gson();
+        Map map = gson.fromJson(config, Map.class);
+
 
     }
 }

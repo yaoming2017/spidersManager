@@ -2,11 +2,13 @@ package com.sicdlib.controller;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.google.gson.Gson;
 import com.sicdlib.dto.SpiderInfoEntity;
 import com.sicdlib.dto.WebsiteEntity;
 import com.sicdlib.service.IDataDictService;
 import com.sicdlib.service.ISpiderService;
 import com.sicdlib.service.IWebsiteService;
+import com.sicdlib.service.imple.DataDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by haoyang on 2017/4/23.
@@ -95,13 +99,23 @@ public class spiderInfoController {
         spiderInfo.setFileId(fileID);
         spiderInfo.setFileName(fileName);
 
-        boolean result = spiderService.saveSpiderInfo(req, spiderInfo);
+        String spiderID = spiderService.saveSpiderInfo(req, spiderInfo);
+
+        Map<String, String> param = new HashMap<>();
 
         PrintWriter out = res.getWriter();
-        if(result) {
-            out.print("success");
+        if(!spiderID.equals("")) {
+            param.put("result", "success");
+            param.put("spiderID", spiderID);
         } else {
-            out.print("failure");
+            param.put("result", "failure");
+            param.put("spiderID", spiderID);
         }
+        Gson gson = new Gson();
+        String paramJson = gson.toJson(param);
+
+        out.write(paramJson);
+        out.flush();
+        out.close();
     }
 }

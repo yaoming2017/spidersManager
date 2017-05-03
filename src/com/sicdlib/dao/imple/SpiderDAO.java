@@ -17,12 +17,12 @@ public class SpiderDAO implements ISpiderDAO {
     private IBaseDAO baseDAO;
 
     @Override
-    public boolean saveSpiderInfo(SpiderInfoEntity spiderInfo) {
+    public String saveSpiderInfo(SpiderInfoEntity spiderInfo) {
         try {
-            baseDAO.save(spiderInfo);
-            return true;
+            String spiderID = (String) baseDAO.save(spiderInfo);
+            return spiderID;
         } catch (Exception e) {
-            return false;
+            return "";
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.sicdlib.dao.imple;
+package com.sicdlib.dao;
 
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
 

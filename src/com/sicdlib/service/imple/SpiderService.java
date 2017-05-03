@@ -53,7 +53,7 @@ public class SpiderService implements ISpiderService {
     private int timeout;
 
     @Override
-    public boolean saveSpiderInfo(HttpServletRequest req, SpiderInfoEntity spiderInfo) throws Exception {
+    public String saveSpiderInfo(HttpServletRequest req, SpiderInfoEntity spiderInfo) throws Exception {
         //使用sftp传输文件
         Map<String, String> sftpDetails = new HashMap<String, String>();
         // 设置主机ip，端口，用户名，密码
@@ -67,33 +67,33 @@ public class SpiderService implements ISpiderService {
 
         String src = dataDictDAO.getDictValue("SPIDER_SOURCE_TMP").get(0);
         String dest = dataDictDAO.getDictValue("SPIDER_SOURCE_DEST").get(0);
-        String logs_path = dataDictDAO.getDictValue("SPIDER_LOGS_PATH").get(0);
-        String files_path = dataDictDAO.getDictValue("SPIDER_FILES_PATH").get(0);
+//        String logs_path = dataDictDAO.getDictValue("SPIDER_LOGS_PATH").get(0);
+//        String files_path = dataDictDAO.getDictValue("SPIDER_FILES_PATH").get(0);
 
         Session execSession = ExecUtils.getInstance().connect(sftpDetails);
 
         src += fileID;
         String realSrc = req.getSession().getServletContext().getRealPath(src);
         String srcPath = dest + "spiderSource/";
-        String logPath = logs_path + fileName + "/";
-        String filePath = files_path + fileName + "/";
+//        String logPath = logs_path + fileName + "/";
+//        String filePath = files_path + fileName + "/";
         String sftpDest = srcPath + fileName + ".zip";
 
-        try {
-            String mkdirFilesCommand = "mkdir -p " + filePath;
-            String mkdirLogsCommand = "mkdir -p " + logPath;
-            String command = mkdirLogsCommand + "; " + mkdirFilesCommand;
-            String result = "";
-            try {
-                result = ExecUtils.getInstance().execCmd(execSession, command);// 多条命令之间以;分隔
-            } catch (Exception e) {
-                System.out.println(e + result);
-                return false;
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
+//        try {
+//            String mkdirFilesCommand = "mkdir -p " + filePath;
+//            String mkdirLogsCommand = "mkdir -p " + logPath;
+//            String command = mkdirLogsCommand + "; " + mkdirFilesCommand;
+//            String result = "";
+//            try {
+//                result = ExecUtils.getInstance().execCmd(execSession, command);// 多条命令之间以;分隔
+//            } catch (Exception e) {
+//                System.out.println(e + result);
+//                return false;
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            return false;
+//        }
 
 
         SFTPChannel sftpChannel = new SFTPChannel();
@@ -103,7 +103,7 @@ public class SpiderService implements ISpiderService {
             chSftp.put(realSrc, sftpDest, ChannelSftp.OVERWRITE);
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+            return "";
         }
 
         chSftp.quit();
@@ -117,16 +117,13 @@ public class SpiderService implements ISpiderService {
             ExecUtils.getInstance().clear(execSession);
         } catch (Exception e) {
             System.out.println(e + result);
-            return false;
+            return "";
         }
 
         String uuid = UUIDUtil.getUUID();
         spiderInfo.setId(uuid);
         spiderInfo.setSpiderSourcePath(srcPath);
-        spiderInfo.setSpiderLogPath(logPath + "scrapy.log");
-        spiderInfo.setSpiderFilePath(filePath);
 
-        boolean s_result = spiderDAO.saveSpiderInfo(spiderInfo);
-        return s_result;
+        return spiderDAO.saveSpiderInfo(spiderInfo);
     }
 }

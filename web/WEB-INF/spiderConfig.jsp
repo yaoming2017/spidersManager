@@ -103,7 +103,7 @@
 								<span class="icon">
 									<i class="icon-align-justify"></i>
 								</span>
-                            <h5>配置项</h5>
+                            <h5>第二步 爬虫配置</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <div class="form-horizontal">
@@ -113,20 +113,22 @@
                                         <div class="control-group">
                                             <label class="control-label">${configItem.displayName} :</label>
                                             <div class="controls">
-                                                &nbsp;:&nbsp;
+                                                &nbsp;&nbsp;
                                                 <c:if test="${configItem.type == 'int'}">
-                                                    <input id="sel_${configItem.id}" type="text" class="span6" placeholder="默认值" onblur="checkType('int', '${configItem.id}');"/>
+                                                    <input id="sel_${status.index}" conf-id="${configItem.id}" type="text" class="span6" placeholder="默认值" onblur="checkType('int', '${configItem.id}');"/>
                                                 </c:if>
                                                 <c:if test="${configItem.type == 'boolean'}">
-                                                    <select id="sel_${configItem.id}" class="span6">
+                                                    <select id="sel_${status.index}" conf-id="${configItem.id}" class="span6">
+                                                        <option value="" selected="selected">默认值</option>
                                                         <option value="True">True</option>
                                                         <option value="False">False</option>
                                                     </select>
                                                 </c:if>
                                                 <c:if test="${configItem.type == 'text'}">
-                                                    <textarea id="sel_${configItem.id}" class="span6"></textarea>
+                                                    <textarea id="sel_${status.index}" conf-id="${configItem.id}" placeholder="默认值" class="span6"></textarea>
                                                 </c:if>
-                                                <label id="prompt_${configItem.id}" style="font-size: 9px;display: none"></label>
+
+                                                <label id="prompt_${status.index}" style="font-size: 9px;display: none"></label>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -209,7 +211,7 @@
         var shit = $("#conf-info").attr("fuck");
         var configJSON = "{";
         for(var i = 0; i < shit; i++) {
-            configJSON = configJSON + "'" + i + "': '" + $("#sel_" + i).val() + "'";
+            configJSON = configJSON + "'" + $("#sel_" + i).attr("conf-id") + "': '" + $("#sel_" + i).val() + "'";
             if(i < shit - 1) {
                 configJSON += ","
             }
@@ -226,12 +228,12 @@
             success : function (msg) {
                 if(msg == "success") {
                     alert("保存成功！！");
+                    window.location.reload();
                 } else {
-                    alert("保存失败是！！");
+                    alert("保存失败！！");
                 }
             }
         })
-
     }
 </script>
 

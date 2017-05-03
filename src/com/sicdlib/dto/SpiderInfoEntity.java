@@ -3,17 +3,15 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/24.
+ * Created by YH on 2017/5/3.
  */
 @Entity
-@Table(name = "spider_info", schema = "socialMind", catalog = "")
+@Table(name = "spider_info", schema = "socialMind")
 public class SpiderInfoEntity {
     private String id;
     private String spiderAction;
     private String spiderActionTime;
     private String spiderSourcePath;
-    private String spiderLogPath;
-    private String spiderFilePath;
     private String websiteId;
     private String spiderName;
     private String fileName;
@@ -57,26 +55,6 @@ public class SpiderInfoEntity {
 
     public void setSpiderSourcePath(String spiderSourcePath) {
         this.spiderSourcePath = spiderSourcePath;
-    }
-
-    @Basic
-    @Column(name = "spider_log_path")
-    public String getSpiderLogPath() {
-        return spiderLogPath;
-    }
-
-    public void setSpiderLogPath(String spiderLogPath) {
-        this.spiderLogPath = spiderLogPath;
-    }
-
-    @Basic
-    @Column(name = "spider_file_path")
-    public String getSpiderFilePath() {
-        return spiderFilePath;
-    }
-
-    public void setSpiderFilePath(String spiderFilePath) {
-        this.spiderFilePath = spiderFilePath;
     }
 
     @Basic
@@ -132,10 +110,6 @@ public class SpiderInfoEntity {
             return false;
         if (spiderSourcePath != null ? !spiderSourcePath.equals(that.spiderSourcePath) : that.spiderSourcePath != null)
             return false;
-        if (spiderLogPath != null ? !spiderLogPath.equals(that.spiderLogPath) : that.spiderLogPath != null)
-            return false;
-        if (spiderFilePath != null ? !spiderFilePath.equals(that.spiderFilePath) : that.spiderFilePath != null)
-            return false;
         if (websiteId != null ? !websiteId.equals(that.websiteId) : that.websiteId != null) return false;
         if (spiderName != null ? !spiderName.equals(that.spiderName) : that.spiderName != null) return false;
         if (fileName != null ? !fileName.equals(that.fileName) : that.fileName != null) return false;
@@ -150,8 +124,6 @@ public class SpiderInfoEntity {
         result = 31 * result + (spiderAction != null ? spiderAction.hashCode() : 0);
         result = 31 * result + (spiderActionTime != null ? spiderActionTime.hashCode() : 0);
         result = 31 * result + (spiderSourcePath != null ? spiderSourcePath.hashCode() : 0);
-        result = 31 * result + (spiderLogPath != null ? spiderLogPath.hashCode() : 0);
-        result = 31 * result + (spiderFilePath != null ? spiderFilePath.hashCode() : 0);
         result = 31 * result + (websiteId != null ? websiteId.hashCode() : 0);
         result = 31 * result + (spiderName != null ? spiderName.hashCode() : 0);
         result = 31 * result + (fileName != null ? fileName.hashCode() : 0);

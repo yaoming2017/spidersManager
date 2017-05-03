@@ -1,6 +1,7 @@
-package com.sicdlib.dao;
+package com.sicdlib.dao.imple;
 
-import com.sicdlib.dao.imple.ISpiderInfoItemDAO;
+import com.sicdlib.dao.IBaseDAO;
+import com.sicdlib.dao.ISpiderInfoItemDAO;
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -114,7 +114,7 @@
 								<span class="icon">
 									<i class="icon-align-justify"></i>
 								</span>
-                            <h5>新增爬虫</h5>
+                            <h5>第一步：新增爬虫</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <div class="form-horizontal">
@@ -150,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button id="saveBtn" class="btn btn-success" disabled="disabled"> 保存 </button>
+                                    <button id="saveBtn" class="btn btn-success" disabled="disabled"> 下一步 </button>
                                 </div>
                             </div>
                         </div>
@@ -261,12 +261,18 @@
                 url : "saveSpiderInfo?spiderName=" + spiderName + "&websiteID=" + websiteID
                                 + "&fileID=" + uid + "&fileName=" + fileName,
                 success : function (msg){
-                    if(msg == 'success'){
+                    var msgJson = JSON.parse(msg);
+
+                    var result = msgJson.result;
+                    if(result == 'success'){
                         alert("添加成功");
-                        window.location.reload();
+                        window.location.href="spiderConfig?spiderID=" + msgJson.spiderID;
                     }else{
                         alert("添加失败");
                     }
+                },
+                error : function(msg) {
+                    alert(msg)
                 }
             })
         } else {

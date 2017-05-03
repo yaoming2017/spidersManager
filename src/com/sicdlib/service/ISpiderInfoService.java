@@ -1,4 +1,4 @@
-package com.sicdlib.service.imple;
+package com.sicdlib.service;
 
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
 

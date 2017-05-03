@@ -1,8 +1,8 @@
-package com.sicdlib.service;
+package com.sicdlib.service.imple;
 
-import com.sicdlib.dao.imple.ISpiderInfoItemDAO;
+import com.sicdlib.dao.ISpiderInfoItemDAO;
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
-import com.sicdlib.service.imple.ISpiderInfoService;
+import com.sicdlib.service.ISpiderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

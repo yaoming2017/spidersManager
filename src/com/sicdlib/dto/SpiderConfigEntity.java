@@ -3,18 +3,19 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/24.
+ * Created by YH on 2017/5/3.
  */
 @Entity
 @Table(name = "spider_config", schema = "socialMind", catalog = "")
 public class SpiderConfigEntity {
     private String id;
     private String spiderId;
-    private Integer isDefault;
     private String configTime;
     private Integer spiderFrequency;
     private Long spiderRunTime;
     private String remark;
+    private String logPath;
+    private String filePath;
 
     @Id
     @Column(name = "id")
@@ -34,16 +35,6 @@ public class SpiderConfigEntity {
 
     public void setSpiderId(String spiderId) {
         this.spiderId = spiderId;
-    }
-
-    @Basic
-    @Column(name = "is_default")
-    public Integer getIsDefault() {
-        return isDefault;
-    }
-
-    public void setIsDefault(Integer isDefault) {
-        this.isDefault = isDefault;
     }
 
     @Basic
@@ -86,6 +77,26 @@ public class SpiderConfigEntity {
         this.remark = remark;
     }
 
+    @Basic
+    @Column(name = "log_path")
+    public String getLogPath() {
+        return logPath;
+    }
+
+    public void setLogPath(String logPath) {
+        this.logPath = logPath;
+    }
+
+    @Basic
+    @Column(name = "file_path")
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,13 +106,14 @@ public class SpiderConfigEntity {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (spiderId != null ? !spiderId.equals(that.spiderId) : that.spiderId != null) return false;
-        if (isDefault != null ? !isDefault.equals(that.isDefault) : that.isDefault != null) return false;
         if (configTime != null ? !configTime.equals(that.configTime) : that.configTime != null) return false;
         if (spiderFrequency != null ? !spiderFrequency.equals(that.spiderFrequency) : that.spiderFrequency != null)
             return false;
         if (spiderRunTime != null ? !spiderRunTime.equals(that.spiderRunTime) : that.spiderRunTime != null)
             return false;
         if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
+        if (logPath != null ? !logPath.equals(that.logPath) : that.logPath != null) return false;
+        if (filePath != null ? !filePath.equals(that.filePath) : that.filePath != null) return false;
 
         return true;
     }
@@ -110,11 +122,12 @@ public class SpiderConfigEntity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (spiderId != null ? spiderId.hashCode() : 0);
-        result = 31 * result + (isDefault != null ? isDefault.hashCode() : 0);
         result = 31 * result + (configTime != null ? configTime.hashCode() : 0);
         result = 31 * result + (spiderFrequency != null ? spiderFrequency.hashCode() : 0);
         result = 31 * result + (spiderRunTime != null ? spiderRunTime.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (logPath != null ? logPath.hashCode() : 0);
+        result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
         return result;
     }
 }

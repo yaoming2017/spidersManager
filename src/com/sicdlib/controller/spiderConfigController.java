@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,31 @@ public class spiderConfigController {
         } else {
             out.print("failure");
         }
+
+        out.flush();
+        out.close();
+    }
+
+    @RequestMapping("getConfigItem")
+    public void getConfigItem(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String spiderID = req.getParameter("spider_id");
+        Map<String, List<Object[]>> configMap = spiderConfigService.getSpiderConfigItem(spiderID);
+
+        Map result = new HashMap();
+        if(configMap!=null) {
+            result.put("result", "success");
+            result.put("data", configMap);
+        } else {
+            result.put("result", "failure");
+            result.put("data", "");
+        }
+        Gson gson = new Gson();
+        String resultGson = gson.toJson(result);
+
+        resp.setContentType("text/html;charset=utf-8");
+        PrintWriter out = resp.getWriter();
+
+        out.print(resultGson);
 
         out.flush();
         out.close();

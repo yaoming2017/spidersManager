@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +100,9 @@ public class spiderInfoController {
         spiderInfo.setWebsiteId(websiteID);
         spiderInfo.setFileId(fileID);
         spiderInfo.setFileName(fileName);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDate = df.format(new Date());
+        spiderInfo.setAddTime(currentDate);
 
         String spiderID = spiderService.saveSpiderInfo(req, spiderInfo);
 
@@ -117,5 +122,14 @@ public class spiderInfoController {
         out.write(paramJson);
         out.flush();
         out.close();
+    }
+
+    @RequestMapping("viewSpiderConfig")
+    public String getSpiderInfo(Model model) {
+        List<Object[]> infoList = spiderService.getAllSpiderInfoWebsite();
+
+        model.addAttribute("spiderInfoList", infoList);
+
+        return "viewSpiderConfig";
     }
 }

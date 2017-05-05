@@ -164,6 +164,13 @@
 <script src="js/bootstrap-datepicker.js"></script>
 
 <script>
+    var headerHeight = $('#headerId').height();
+    var bottomHeight = $('#bottomId').height();
+    var minBodyHeight = window.screen.height - headerHeight - bottomHeight;
+    $('#body').style.minHeight = minBodyHeight;
+</script>
+
+<script>
     var validate = true;
     function checkType(type, id) {
         var input_id = 'sel_' + id;

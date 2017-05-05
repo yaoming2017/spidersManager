@@ -7,14 +7,12 @@ import com.sicdlib.dto.SpiderConfigEntity;
 import com.sicdlib.dto.SpiderConfigItemEntity;
 import com.sicdlib.service.ISpiderConfigService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by YH on 2017/5/3.
@@ -70,5 +68,22 @@ public class spiderConfigService implements ISpiderConfigService {
             }
         }
         return true;
+    }
+
+    @Override
+    public Map<String, List<Object[]>> getSpiderConfigItem(String spiderID) {
+        List<Object[]> configList = spiderConfigDAO.getSpiderConfigItem(spiderID);
+        Map<String, List<Object[]>> resultMap = new HashMap<>();
+        for(Object[] config:  configList) {
+            String configID = ((SpiderConfigItemEntity)config[0]).getConfigId();
+            if(resultMap.containsKey(configID)) {
+                resultMap.get(configID).add(config);
+            } else {
+                List<Object[]> tmp = new ArrayList<>();
+                tmp.add(config);
+                resultMap.put(configID, tmp);
+            }
+        }
+        return resultMap;
     }
 }

@@ -1,6 +1,5 @@
 package com.sicdlib.service.imple;
 
-import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import com.sicdlib.dao.IDataDictDAO;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -125,5 +125,15 @@ public class SpiderService implements ISpiderService {
         spiderInfo.setSpiderSourcePath(srcPath);
 
         return spiderDAO.saveSpiderInfo(spiderInfo);
+    }
+
+    @Override
+    public List<SpiderInfoEntity> getAllSpiderInfo() {
+        return spiderDAO.getAllSpiderInfo();
+    }
+
+    @Override
+    public List<Object[]> getAllSpiderInfoWebsite() {
+        return spiderDAO.getAllSpiderInfoWebsite();
     }
 }

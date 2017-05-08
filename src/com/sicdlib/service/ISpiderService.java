@@ -12,4 +12,6 @@ public interface ISpiderService {
     String saveSpiderInfo(HttpServletRequest req, SpiderInfoEntity spiderInfo) throws Exception;
     List<SpiderInfoEntity> getAllSpiderInfo();
     List<Object[]> getAllSpiderInfoWebsite();
+    List<Object[]> getSpiderInfoWebsite(String spiderID);
+    boolean updateSpiderInfo(String spiderID, String spiderName, String websiteID);
 }

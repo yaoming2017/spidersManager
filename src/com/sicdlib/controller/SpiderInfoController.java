@@ -3,6 +3,7 @@ package com.sicdlib.controller;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
+import com.sicdlib.dto.Constant;
 import com.sicdlib.dto.SpiderInfoEntity;
 import com.sicdlib.dto.WebsiteEntity;
 import com.sicdlib.service.IDataDictService;
@@ -31,7 +32,7 @@ import java.util.Map;
  * Created by haoyang on 2017/4/23.
  */
 @Controller
-public class spiderInfoController {
+public class SpiderInfoController {
     @Autowired
     @Qualifier("dataDictService")
     private IDataDictService dataDictService;
@@ -126,6 +127,38 @@ public class spiderInfoController {
 
     @RequestMapping("viewSpiderConfig")
     public String getSpiderInfo(Model model) {
+        List<Object[]> infoList = spiderService.getAllSpiderInfoWebsite();
+
+        model.addAttribute("spiderInfoList", infoList);
+
+        return "viewSpiderConfig";
+    }
+
+    @RequestMapping("updateSpiderConfig")
+    public String updateSpiderConfig(HttpServletRequest req, Model model) {
+        String spiderID = req.getParameter("spiderID");
+
+        //获取spider和website的信息
+        List<Object[]> spiderInfo = spiderService.getSpiderInfoWebsite(spiderID);
+
+        //获取所有的website的信息
+        List<WebsiteEntity> websites = websiteService.listAllWebsite();
+
+        model.addAttribute("spiderID", spiderID);
+        model.addAttribute("spiderInfo", spiderInfo.get(0));
+        model.addAttribute("websiteList", websites);
+
+        return "update-spider";
+    }
+
+    @RequestMapping("updateSpider")
+    public String updateSpider(HttpServletRequest req, Model model) {
+        String spiderID = req.getParameter("spiderID");
+        String spiderName = req.getParameter("spiderName");
+        String websiteId = req.getParameter("website-name");
+
+        spiderService.updateSpiderInfo(spiderID, spiderName, websiteId);
+
         List<Object[]> infoList = spiderService.getAllSpiderInfoWebsite();
 
         model.addAttribute("spiderInfoList", infoList);

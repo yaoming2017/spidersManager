@@ -16,4 +16,20 @@ public interface ISpiderDAO {
      * @return
      */
     List getAllSpiderInfoWebsite();
+
+    /**
+     * 根据爬虫ID获取爬虫信息和对应的网站信息
+     * @param spiderID
+     * @return
+     */
+    List<Object[]> getSpiderInfoWebsite(String spiderID);
+
+    /**
+     * 更新爬虫信息
+     * @param spiderInfo
+     * @return
+     */
+    void updateSpiderInfo(SpiderInfoEntity spiderInfo);
+
+    SpiderInfoEntity getSpiderInfo(String spiderID);
 }

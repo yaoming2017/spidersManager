@@ -46,4 +46,27 @@ public class SpiderDAO implements ISpiderDAO {
 
         return result;
     }
+
+    @Override
+    public List<Object[]> getSpiderInfoWebsite(String spiderID) {
+        Session session = baseDAO.getCurrentSession();
+        String sql = "SELECT {spiderInfo.*}, {website.*} " +
+                "FROM spider_info spiderInfo, website website " +
+                "WHERE spiderInfo.website_id = website.id AND spiderInfo.id = '" + spiderID + "'";
+        List result = session.createSQLQuery(sql)
+                .addEntity("spiderInfo", SpiderInfoEntity.class)
+                .addEntity("website", WebsiteEntity.class).list();
+
+        return result;
+    }
+
+    @Override
+    public void updateSpiderInfo(SpiderInfoEntity spiderInfo) {
+        baseDAO.update(spiderInfo);
+    }
+
+    @Override
+    public SpiderInfoEntity getSpiderInfo(String spiderID) {
+        return (SpiderInfoEntity) baseDAO.get(SpiderInfoEntity.class,  spiderID);
+    }
 }

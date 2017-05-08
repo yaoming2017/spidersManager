@@ -22,7 +22,7 @@ import java.util.Map;
  * Created by YH on 2017/4/28.
  */
 @Controller
-public class spiderConfigController {
+public class SpiderConfigController {
     @Autowired
     @Qualifier("spiderInfoService")
     private ISpiderInfoService spiderInfoService;

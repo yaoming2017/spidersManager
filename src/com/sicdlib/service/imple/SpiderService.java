@@ -136,4 +136,24 @@ public class SpiderService implements ISpiderService {
     public List<Object[]> getAllSpiderInfoWebsite() {
         return spiderDAO.getAllSpiderInfoWebsite();
     }
+
+    @Override
+    public List<Object[]> getSpiderInfoWebsite(String spiderID) {
+        return spiderDAO.getSpiderInfoWebsite(spiderID);
+    }
+
+    @Override
+    public boolean updateSpiderInfo(String spiderID, String spiderName, String websiteID) {
+        SpiderInfoEntity spiderInfo = spiderDAO.getSpiderInfo(spiderID);
+        if(spiderInfo !=  null) {
+            spiderInfo.setSpiderName(spiderName);
+            spiderInfo.setWebsiteId(websiteID);
+
+            spiderDAO.updateSpiderInfo(spiderInfo);
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -99,7 +99,7 @@
                                 <h5 style="color: #1c6e37;"> |&nbsp;&nbsp;&nbsp;website name :</h5> <h5>${spiderInfo[1].websiteName}</h5>
                                 <h5 style="color: #1c6e37;"> |&nbsp;&nbsp;&nbsp;website type :</h5> <h5>${spiderInfo[1].websiteType} </h5>
                             </a>
-                            <button class="btn btn-info">修改信息</button>
+                            <button class="btn btn-info" onclick="javascript:updateSpiderConfig('${spiderInfo[0].id}');">修改信息</button>
                         </div>
                         <div class="collapse" id="collapse_${status.index}">
 
@@ -109,7 +109,12 @@
             </div>
         </div>
     </div>
+<script>
 
+    function updateSpiderConfig(id) {
+        window.location.href = "updateSpiderConfig?spiderID=" + id;
+    }
+</script>
 
 </div>
 <div class="row-fluid">
@@ -222,7 +227,7 @@
         }
 
         return html
-    }
+    };
 
 </script>
 

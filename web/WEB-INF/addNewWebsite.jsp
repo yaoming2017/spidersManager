@@ -218,7 +218,6 @@
 
     function checkSiteUrl() {
         var siteUrl = $("#websiteUrl").val();
-        var flag = 1;
 
         if(siteUrl == "") {
             $("#prompt_site_url").html("Url不能为空！！");
@@ -252,20 +251,15 @@
                     $("#prompt_site_url").css("color", "red");
                     $("#prompt_site_url").css("font-size", "14px");
                     validate_url = false;
+                    return false;
                 } else {
                     $("#prompt_site_url").html("");
                     $("#prompt_site_url").css("display", "inline");
                     validate_url = true;
-                    flag = 0;
+                    return true;
                 }
             }
         });
-
-        if(flag == 1) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     function isUrl(str_url) {

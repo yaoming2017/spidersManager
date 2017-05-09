@@ -5,6 +5,7 @@ import com.jcraft.jsch.Session;
 import com.sicdlib.dao.IDataDictDAO;
 import com.sicdlib.dao.ISpiderDAO;
 import com.sicdlib.dto.SpiderInfoEntity;
+import com.sicdlib.service.ISCHSessionService;
 import com.sicdlib.service.ISpiderService;
 import com.sicdlib.util.JSCHUtil.ExecUtils;
 import com.sicdlib.util.JSCHUtil.SFTPChannel;
@@ -37,30 +38,13 @@ public class SpiderService implements ISpiderService {
     @Qualifier("dataDictDAO")
     private IDataDictDAO dataDictDAO;
 
-    @Value("${sftp.port}")
-    private String port;
-
-    @Value("${sftp.username}")
-    private String userName;
-
-    @Value("${sftp.passwd}")
-    private String password;
-
-    @Value("${sftp.host}")
-    private String host;
-
-    @Value("${sftp.timeout}")
-    private int timeout;
+    @Autowired
+    @Qualifier("schSessionService")
+    private ISCHSessionService schSessionService;
 
     @Override
     public String saveSpiderInfo(HttpServletRequest req, SpiderInfoEntity spiderInfo) throws Exception {
         //使用sftp传输文件
-        Map<String, String> sftpDetails = new HashMap<String, String>();
-        // 设置主机ip，端口，用户名，密码
-        sftpDetails.put(JSCHConstants.SFTP_REQ_HOST, host);
-        sftpDetails.put(JSCHConstants.SFTP_REQ_USERNAME, userName);
-        sftpDetails.put(JSCHConstants.SFTP_REQ_PASSWORD, password);
-        sftpDetails.put(JSCHConstants.SFTP_REQ_PORT, port);
 
         String fileName = spiderInfo.getFileName();
         String fileID = spiderInfo.getFileId();
@@ -70,14 +54,14 @@ public class SpiderService implements ISpiderService {
 //        String logs_path = dataDictDAO.getDictValue("SPIDER_LOGS_PATH").get(0);
 //        String files_path = dataDictDAO.getDictValue("SPIDER_FILES_PATH").get(0);
 
-        Session execSession = ExecUtils.getInstance().connect(sftpDetails);
+
 
         src += fileID;
         String realSrc = req.getSession().getServletContext().getRealPath(src);
         String srcPath = dest + "spiderSource/";
 //        String logPath = logs_path + fileName + "/";
 //        String filePath = files_path + fileName + "/";
-        String sftpDest = srcPath + fileName + ".zip";
+        String sftpDest = dest + "spiderZip/" + fileName + ".zip";
 
 //        try {
 //            String mkdirFilesCommand = "mkdir -p " + filePath;
@@ -95,6 +79,9 @@ public class SpiderService implements ISpiderService {
 //            return false;
 //        }
 
+        Map<String, String> sftpDetails = schSessionService.getSftpDetail();
+        int timeout = schSessionService.getTimeout();
+        Session execSession = schSessionService.getSession();
 
         SFTPChannel sftpChannel = new SFTPChannel();
         ChannelSftp chSftp = (ChannelSftp) sftpChannel.getChannel(sftpDetails, timeout);
@@ -114,15 +101,25 @@ public class SpiderService implements ISpiderService {
         String result = "";
         try {
             result = ExecUtils.getInstance().execCmd(execSession, unzipCommand);// 多条命令之间以;分隔
-            ExecUtils.getInstance().clear(execSession);
         } catch (Exception e) {
             System.out.println(e + result);
             return "";
         }
 
+        //创建configID文件
+        String touchConfigCommand = "touch " + srcPath + fileName + "/" + "config";
+        String touchResult = "";
+        try {
+            touchResult = ExecUtils.getInstance().execCmd(execSession, touchConfigCommand);// 多条命令之间以;分隔
+            ExecUtils.getInstance().clear(execSession);
+        } catch (Exception e) {
+            System.out.println(e + touchResult);
+            return "";
+        }
+
         String uuid = UUIDUtil.getUUID();
         spiderInfo.setId(uuid);
-        spiderInfo.setSpiderSourcePath(srcPath);
+        spiderInfo.setSpiderSourcePath(srcPath + fileName + "/");
 
         return spiderDAO.saveSpiderInfo(spiderInfo);
     }

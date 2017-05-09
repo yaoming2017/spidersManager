@@ -42,7 +42,7 @@ public class spiderConfigService implements ISpiderConfigService {
         String logPathBase = dataDictDAO.getDictValue(Constant.SPIDER_LOG_BASE).get(0);
         String filePathBase = dataDictDAO.getDictValue(Constant.SPIDER_FILE_BASE).get(0);
         spiderConfig.setLogPath(logPathBase + configID + "/");
-        spiderConfig.setFilePath(filePathBase + filePathBase + "/");
+        spiderConfig.setFilePath(filePathBase + "/");
 
         boolean configResult = spiderConfigDAO.saveSpiderConfig(spiderConfig);
         if(!configResult) {

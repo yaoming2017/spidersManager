@@ -3,12 +3,13 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "spider_config_item", schema = "socialMind")
+@Table(name = "spider_config_item", schema = "socialMind", catalog = "")
 public class SpiderConfigItemEntity {
     private String id;
+    private String configId;
     private String configItemName;
     private String configItemValue;
     private String remark;
@@ -21,6 +22,16 @@ public class SpiderConfigItemEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "config_id")
+    public String getConfigId() {
+        return configId;
+    }
+
+    public void setConfigId(String configId) {
+        this.configId = configId;
     }
 
     @Basic
@@ -61,6 +72,7 @@ public class SpiderConfigItemEntity {
         SpiderConfigItemEntity that = (SpiderConfigItemEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (configId != null ? !configId.equals(that.configId) : that.configId != null) return false;
         if (configItemName != null ? !configItemName.equals(that.configItemName) : that.configItemName != null)
             return false;
         if (configItemValue != null ? !configItemValue.equals(that.configItemValue) : that.configItemValue != null)
@@ -73,6 +85,7 @@ public class SpiderConfigItemEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (configId != null ? configId.hashCode() : 0);
         result = 31 * result + (configItemName != null ? configItemName.hashCode() : 0);
         result = 31 * result + (configItemValue != null ? configItemValue.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);

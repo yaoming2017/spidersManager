@@ -3,14 +3,15 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/18.
+ * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "process_output", schema = "socialMind")
+@Table(name = "process_output", schema = "socialMind", catalog = "")
 public class ProcessOutputEntity {
     private String id;
     private String fieldName;
     private String outputType;
+    private String processId;
 
     @Id
     @Column(name = "id")
@@ -42,6 +43,16 @@ public class ProcessOutputEntity {
         this.outputType = outputType;
     }
 
+    @Basic
+    @Column(name = "process_id")
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,6 +63,7 @@ public class ProcessOutputEntity {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (fieldName != null ? !fieldName.equals(that.fieldName) : that.fieldName != null) return false;
         if (outputType != null ? !outputType.equals(that.outputType) : that.outputType != null) return false;
+        if (processId != null ? !processId.equals(that.processId) : that.processId != null) return false;
 
         return true;
     }
@@ -61,6 +73,7 @@ public class ProcessOutputEntity {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (fieldName != null ? fieldName.hashCode() : 0);
         result = 31 * result + (outputType != null ? outputType.hashCode() : 0);
+        result = 31 * result + (processId != null ? processId.hashCode() : 0);
         return result;
     }
 }

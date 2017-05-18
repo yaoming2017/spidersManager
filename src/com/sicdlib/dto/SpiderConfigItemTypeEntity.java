@@ -3,15 +3,16 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by haoyang on 2017/4/24.
+ * Created by YH on 2017/5/2.
  */
 @Entity
-@Table(name = "data_dict", schema = "socialMind", catalog = "")
-public class DataDictEntity {
+@Table(name = "spider_config_item_type", schema = "socialMind")
+public class SpiderConfigItemTypeEntity {
     private String id;
     private String name;
-    private String value;
+    private String type;
     private String remark;
+    private String displayName;
 
     @Id
     @Column(name = "id")
@@ -34,13 +35,13 @@ public class DataDictEntity {
     }
 
     @Basic
-    @Column(name = "value")
-    public String getValue() {
-        return value;
+    @Column(name = "type")
+    public String getType() {
+        return type;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Basic
@@ -53,17 +54,28 @@ public class DataDictEntity {
         this.remark = remark;
     }
 
+    @Basic
+    @Column(name = "display_name")
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DataDictEntity that = (DataDictEntity) o;
+        SpiderConfigItemTypeEntity that = (SpiderConfigItemTypeEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
+        if (displayName != null ? !displayName.equals(that.displayName) : that.displayName != null) return false;
 
         return true;
     }
@@ -72,8 +84,9 @@ public class DataDictEntity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        result = 31 * result + (displayName != null ? displayName.hashCode() : 0);
         return result;
     }
 }

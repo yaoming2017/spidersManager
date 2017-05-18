@@ -114,18 +114,21 @@
 								<span class="icon">
 									<i class="icon-align-justify"></i>
 								</span>
-                            <h5>新增爬虫</h5>
+                            <h5>第一步：新增爬虫</h5>
                         </div>
                         <div class="widget-content nopadding">
                             <div class="form-horizontal">
                                 <div class="control-group">
                                     <label class="control-label">爬虫名 :</label>
-                                    <div class="controls"><input type="text" placeholder="First name" /></div>
+                                    <div class="controls">
+                                        <input type="text" id="spiderName" onblur="checkSiteName()"/>
+                                        <label id="prompt_spider_name" style="font-size: 9px;display: none"></label>
+                                    </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">网站 :</label>
                                     <div class="controls">
-                                        <select>
+                                        <select id="websiteID">
                                             <c:forEach var="ws" items="${wsList}" varStatus="status">
                                                 <option value="${ws.id}">${ws.websiteName}</option>
                                             </c:forEach>
@@ -135,16 +138,19 @@
                                 <div class="control-group">
                                     <label class="control-label">爬虫源码 :</label>
                                     <div class="controls">
-                                        <div class="uploader" id="uniform-undefined">
-                                            <input id="picker" type="file" size="19" style="opacity: 0;">
-                                            <span class="filename">No file selected
-                                            </span>
-                                            <span class="action">Choose File</span>
-                                        </div>
+                                        <input id="fileName" type="text" readonly="true" value="没有文件">
+                                        <button style="background-color: #FCFCFC; width:120px; height:40px;" class="btn btn-success" id="picker">选择文件</button>
+                                        <label id="theList"></label>
+                                        <%--<div class="uploader" id="uniform-undefined">--%>
+                                            <%--<input type="file" size="19" >--%>
+                                            <%--<span id="thelist" class="filename">No file selected</span>--%>
+                                            <%--<span id="picker" class="action">Choose File</span>--%>
+                                            <%--<span>等待上传</span>--%>
+                                        <%--</div>--%>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button id="saveBtn" class="btn btn-success"> 保存 </button>
+                                    <button id="saveBtn" class="btn btn-success" disabled="disabled"> 下一步 </button>
                                 </div>
                             </div>
                         </div>
@@ -161,45 +167,6 @@
                                                                                                                                         title="Social Mind" target="_blank">Social Mind</a> </div>
 </div>
 
-<script>
-    var uploader = WebUploader.create({
-
-        // swf文件路径
-        swf : '<%=path%>/others/webuploader/Uploader.swf',
-
-        // 文件接收服务端。
-        server : 'saveSpider',
-
-        auto : true,
-
-        chunked : true,
-
-        threads : 4,
-
-        chunkRetry:4,  //分片上传失败之后的重试次数
-
-        threads:3,  //上传并发数。允许同时最大3个上传进程
-        //去重
-        duplicate:true,
-
-        // 选择文件的按钮。可选。
-        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick : '#picker',
-
-        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-        resize : false
-    });
-
-    $("#saveBtn").on('click', function() {
-        if ($(this).hasClass('disabled')) {
-            return false;
-        }
-//        uploader.options.formData.guid = Math.random();
-        uploader.upload();
-
-    });
-</script>
-
 <script src="<%=path%>/js/jquery.min.js"></script>
 <script src="<%=path%>/js/jquery.ui.custom.js"></script>
 <script src="<%=path%>/js/bootstrap.min.js"></script>
@@ -211,6 +178,126 @@
 <script src="<%=path%>/js/select2.min.js"></script>
 <script src="<%=path%>/js/bootstrap-datepicker.js"></script>
 <script src="<%=path%>/others/webuploader/webuploader.js"></script>
+
+<script>
+    var uid = WebUploader.guid();
+    var fileName = undefined;
+    var checkSpiderName = false;
+
+    var uploader = WebUploader.create({
+
+        // swf文件路径
+        swf : '<%=path%>/others/webuploader/Uploader.swf',
+
+        // 文件接收服务端。
+        server : 'saveSpiderFile',
+
+        auto : true,
+
+        fileNumLimit : 1,
+
+        chunked : true,
+
+        chunkRetry : 4,  //分片上传失败之后的重试次数
+
+        threads : 3,  //上传并发数。允许同时最大3个上传进程
+        //去重
+        duplicate : true,
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick : '#picker',
+
+        formData : {
+            'uid' : uid
+        }
+    });
+
+    // 当有文件被添加进队列的时候
+    uploader.on('fileQueued', function(file) {
+        //alert(123);
+        $("#fileName")[0].value = file.name;
+        $("#theList").text('等待上传...');
+    });
+
+    uploader.on('uploadSuccess', function(file) {
+        fileName = file.name;
+        //$("#theList").append('<p class="state">上传完成</p>');
+        $("#theList").text('上传完成');
+        //document.getElementById("theList").text('上传完成')
+        $('#saveBtn').removeAttr('disabled');
+    });
+
+    uploader.on('uploadError', function(file) {
+        uploader.removeFile( file );
+        fileName = undefined;
+
+        $("#theList").text('上传出错');
+        $('#saveBtn').attr("disabled", "disabled");
+    });
+
+    uploader.on('uploadComplete', function(file) {
+        $('#theList').find('.progress').fadeOut();
+    });
+
+
+    $("#saveBtn").on('click', function() {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+
+        if(!checkSpiderName) {
+            alert("爬虫名不能为空！！")
+            return false;
+        }
+
+        if(fileName != undefined && fileName != "") {
+            var spiderName = $("#spiderName").val();
+            var websiteID = $("#websiteID").val();
+
+            //对其他信息进行上传
+            $.ajax({
+                type : 'post',
+                url : "saveSpiderInfo?spiderName=" + spiderName + "&websiteID=" + websiteID
+                                + "&fileID=" + uid + "&fileName=" + fileName,
+                success : function (msg){
+                    var msgJson = JSON.parse(msg);
+
+                    var result = msgJson.result;
+                    if(result == 'success'){
+                        alert("添加成功");
+                        window.location.href="spiderConfig?spiderID=" + msgJson.spiderID;
+                    }else{
+                        alert("添加失败");
+                    }
+                },
+                error : function(msg) {
+                    alert(msg)
+                }
+            })
+        } else {
+            alert("文件不存在，请重新上传！！")
+        }
+    });
+
+    function checkSiteName() {
+        var siteName = $("#spiderName").val();
+
+        if(siteName == "" || siteName.trim() == "") {
+            $("#prompt_spider_name").html("爬虫名不能为空！！");
+            $("#prompt_spider_name").css("display", "inline");
+            $("#prompt_spider_name").css("color", "red");
+            $("#prompt_spider_name").css("font-size", "14px");
+
+            checkSpiderName = false;
+
+            return false;
+        }
+
+        checkSpiderName = true;
+        return true;
+    }
+</script>
 </body>
 
 </html>

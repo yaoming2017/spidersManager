@@ -12,4 +12,8 @@ public interface ISpiderConfigDAO {
     boolean saveSpiderConfigItem(SpiderConfigItemEntity spiderConfigItem);
     boolean saveSpiderConfig(SpiderConfigEntity spiderConfig);
     List<Object[]> getSpiderConfigItem(String spiderID);
+    List<Object[]> getSpiderConfigAndItem(String configID);
+    SpiderConfigEntity getSpiderConfig(String configID);
+    void updateSpiderConfig(SpiderConfigEntity spiderConfig);
+    List<SpiderConfigEntity> getAllConfig();
 }

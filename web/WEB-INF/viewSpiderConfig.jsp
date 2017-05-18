@@ -153,7 +153,8 @@
 
                         if(result == "success") {
                             var dataMap = msgJson.data;
-                            var html_code = jointConfig(dataMap);
+                            var configMap = msgJson.config;
+                            var html_code = jointConfig(spider_id, dataMap, configMap);
                             $("#collapse_" + i).append(html_code);
                         } else {
 
@@ -169,12 +170,15 @@
         }
     }());
 
-    var jointConfig = function(dataMap) {
+    var jointConfig = function(spider_id, dataMap, configMap) {
         if(dataMap == undefined || dataMap == '') {
+//            return '<div class="widget-content">' +
+//                        '<h5>没有配置项</h5>' +
+//                        '<button class="btn btn-info">添加配置项</button>' +
+//                        '<button class="btn btn-success">以默认配置运行</button>' +
+//                    '</div>';
             return '<div class="widget-content">' +
-                        '<h5>没有配置项</h5>' +
-                        '<button class="btn btn-info">添加配置项</button>' +
-                        '<button class="btn btn-success">以默认配置运行</button>' +
+                        '<h5>查询数据出错，请重新刷新！！</h5>' +
                     '</div>';
         }
 
@@ -213,21 +217,55 @@
             html = html + '</tbody>' +
                             '</table>' +
                             '</div>' +
-                            '</div>' +
-                            '<button class="btn btn-success" disabled="disabled">运行</button>' +
-                            '</div>';
+                            '</div>'
+            //爬虫是否正在运行
+            if(configMap[key].status == "running") {
+                html = html + '<button id="btn_' + key +'" class="btn btn-danger" onclick="runSpider(\'' + spider_id + '\', \'' + key + '\')" disabled="disabled">正在运行</button>'
+            } else {
+                html = html + '<button id="btn_' + key +'" class="btn btn-success" onclick="runSpider(\'' + spider_id + '\', \'' + key + '\')">运行</button>'
+            }
+            html += '</div>';
         }
 
         if(html == '') {
             return '<div class="widget-content">' +
                         '<h5>没有配置项</h5>' +
-                        '<button class="btn btn-info">添加配置项</button>' +
-                        '<button class="btn btn-success">以默认配置运行</button>' +
+                        '<button class="btn btn-info"  onclick="addConfig(\'' + spider_id + ')">添加配置项</button>' +
+//                        '<button class="btn btn-success">以默认配置运行</button>' +
                     '</div>';
         }
 
         return html
     };
+
+    function runSpider(spiderID, configID) {
+        $.ajax({
+            type : "post",
+            url : "runSpider",
+            data : {
+                'spiderID' : spiderID,
+                'configID' : configID
+            },
+            success : function (msg) {
+                if(msg == 'ERROR') {
+                    alert('运行失败！！');
+                } else {
+                    alert('运行成功！！');
+                    $("#btn_" + configID).text('正在运行');
+//                    $("#btn_" + configID).removeClass().addClass("btn btn-danger");
+                    $("#btn_" + configID).attr("class","btn btn-danger");
+                    $("#btn_" + configID).attr('disabled',"true");
+                }
+            },
+            error : function (msg) {
+                alert(msg)
+            }
+        })
+    }
+
+    function addConfig(id) {
+        window.location.href = "spiderConfig?spiderID=" + id;
+    }
 
 </script>
 

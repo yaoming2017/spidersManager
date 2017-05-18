@@ -109,11 +109,11 @@
                                         <c:forEach items="${websiteList}" var="website" varStatus="status">
                                             <c:choose>
                                                 <c:when test="${website.id == spiderInfo[1].id}">
-                                                    <option value="${website.id}" selected="selected" type-data="${spiderInfo[1].websiteType}">${website.websiteName}
+                                                    <option value="${website.id}" selected="selected" type-data="${website.websiteType}">${website.websiteName}
                                                     </option>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <option value="${website.id}" type-data="${spiderInfo[1].websiteType}">${website.websiteName}
+                                                    <option value="${website.id}" type-data="${website.websiteType}">${website.websiteName}
                                                     </option>
                                                 </c:otherwise>
                                             </c:choose>

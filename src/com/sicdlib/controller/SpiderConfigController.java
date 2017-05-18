@@ -1,6 +1,7 @@
 package com.sicdlib.controller;
 
 import com.google.gson.Gson;
+import com.sicdlib.dto.SpiderConfigEntity;
 import com.sicdlib.dto.SpiderConfigItemTypeEntity;
 import com.sicdlib.service.ISpiderConfigService;
 import com.sicdlib.service.ISpiderInfoService;
@@ -68,14 +69,17 @@ public class SpiderConfigController {
     public void getConfigItem(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String spiderID = req.getParameter("spider_id");
         Map<String, List<Object[]>> configMap = spiderConfigService.getSpiderConfigItem(spiderID);
+        Map<String, SpiderConfigEntity> spiderConfigMap = spiderConfigService.getAllConfigMap();
 
         Map result = new HashMap();
         if(configMap!=null) {
             result.put("result", "success");
             result.put("data", configMap);
+            result.put("config", spiderConfigMap);
         } else {
             result.put("result", "failure");
             result.put("data", "");
+            result.put("config", "");
         }
         Gson gson = new Gson();
         String resultGson = gson.toJson(result);

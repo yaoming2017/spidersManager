@@ -57,6 +57,7 @@ public class ExecUtils {
             throw new RuntimeException("Session is null!");
         }
         ChannelExec exec = (ChannelExec) session.openChannel("exec");
+//        exec.setPty(true);
         InputStream in = exec.getInputStream();
         byte[] b = new byte[1024];
 

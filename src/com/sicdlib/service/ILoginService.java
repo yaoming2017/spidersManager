@@ -13,9 +13,6 @@ import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
 
-/**
- * Created by Yh on 2016/9/8.
- */
 public interface ILoginService {
     //用户登陆
     UserEntity validateLogin(String name, String password);

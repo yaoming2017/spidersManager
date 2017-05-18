@@ -275,5 +275,4 @@ public class LoginController {
         loginService.addUser(user);
         return "redirect:success.jsp";
     }
-
 }

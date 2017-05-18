@@ -51,10 +51,13 @@
         </li>
         <li class="submenu" style="width:8%"><i class="icon icon-file"></i> <span>数据清洗</span> <span class="label">4</span>
             <ul>
+                <li><a href="source_datas">源数据库展示source_datas</a></li>
+                <li><a href="source_data">数据清理展示source_data</a></li>
                 <li><a href="source_datas_display">源数据展示</a></li>
                 <li><a href="calendar.jsp">新增清洗过程</a></li>
                 <li><a href="chat.jsp">清洗过程配置</a></li>
                 <li><a href="cleaned_datas">清洗后数据展示</a></li>
+                <li><a href="test">test</a></li>
             </ul>
         </li>
 
@@ -63,15 +66,6 @@
 
 <script src="js/excanvas.min.js"></script>
 <script src="js/jquery.min.js"></script>
-<script src="js/jquery.ui.custom.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.flot.min.js"></script>
-<script src="js/jquery.flot.resize.min.js"></script>
-<script src="js/jquery.peity.min.js"></script>
-<script src="js/fullcalendar.min.js"></script>
-<script src="js/maruti.js"></script>
-<script src="js/maruti.dashboard.js"></script>
-<script src="js/maruti.chat.js"></script>
 <script type="text/javascript">
     // This function is called from the pop-up menus to transfer to
     // a different page. Ignore if the value returned is a null string:

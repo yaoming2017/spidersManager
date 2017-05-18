@@ -1,6 +1,8 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by haoyang on 2017/4/18.
@@ -15,6 +17,17 @@ public class UserEntity {
     private String telephone;
     private String gender;
     private String description;
+    //一对多：一个用户user对应多个process
+    private Set<CleanDataProcessUserEntity> cleanDataProcessUserEntitySet = new HashSet<CleanDataProcessUserEntity>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<CleanDataProcessUserEntity> getCleanDataProcessUserEntitySet() {
+        return cleanDataProcessUserEntitySet;
+    }
+
+    public void setCleanDataProcessUserEntitySet(Set<CleanDataProcessUserEntity> cleanDataProcessUserEntitySet) {
+        this.cleanDataProcessUserEntitySet = cleanDataProcessUserEntitySet;
+    }
 
     @Id
     @Column(name = "id")

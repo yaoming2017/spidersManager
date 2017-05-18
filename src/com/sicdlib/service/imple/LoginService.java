@@ -29,7 +29,6 @@ public class LoginService implements ILoginService{
     @Override
     public UserEntity validateLogin(String name, String password) {
         UserEntity user = loginDAO.getUserByName(name);
-        System.out.println(MD5Util.generatePassword(password));
         if(user != null && MD5Util.validatePassword(user.getPasswd(), password)) {
             return user;
         }
@@ -44,8 +43,7 @@ public class LoginService implements ILoginService{
             String id = UUIDUtil.getUUID();
             user.setId(id);
         }
-        loginDAO.addUser(user);
-        return true;
+        return loginDAO.addUser(user);
     }
 
     @Override

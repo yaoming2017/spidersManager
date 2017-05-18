@@ -42,7 +42,7 @@ public class SMSUtil {
 
         NameValuePair[] data = {//提交短信
                 new NameValuePair("account", "C80161426"),
-                new NameValuePair("password", "7f1cc4b0a9752ea46b26e226a01d64b4"), //查看密码请登录用户中心->验证码、通知短信->帐户及签名设置->APIKEY
+                new NameValuePair("password", "b82feffc32f9d4b367c2f940862b6607"), //查看密码请登录用户中心->验证码、通知短信->帐户及签名设置->APIKEY
                 //new NameValuePair("password", util.StringUtil.MD5Encode("密码")),
                 new NameValuePair("mobile", telephone),
                 new NameValuePair("content", content),

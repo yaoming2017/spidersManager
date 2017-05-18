@@ -13,8 +13,22 @@ public class Constant {
     public static final String SPIDER_LOG_BASE = "SPIDER_LOGS_PATH"; //爬虫日志的根目录
     public static final String SPIDER_SOURCE_BASE = "SPIDER_SOURCE_DEST"; //爬虫源文件的根目录
     public static final String SPIDER_FILE_BASE = "SPIDER_FILES_PATH"; //爬虫图片文件的根目录
+    public static final String SPIDER_STATUS_RUN = "SPIDER_STATUS_RUN"; //爬虫状态为正在运行
+    public static final String SPIDER_STATUS_STOP = "SPIDER_STATUS_STOP"; //爬虫状态为停止
     /**
      * 数据字典中的网站类别字段
      */
     public static final String SITE_TYPE = "SITE_TYPE";
+
+    public enum VM{
+        VM00,
+        VM01,
+        VM02,
+        VM03,
+        VM04,
+        VM05,
+        VM06,
+        VM07,
+        VM08
+    }
 }

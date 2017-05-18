@@ -1,5 +1,7 @@
 package com.sicdlib.service;
 
+import com.sicdlib.dto.SpiderConfigEntity;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,4 +17,10 @@ public interface ISpiderConfigService {
      * @return
      */
     Map<String, List<Object[]>> getSpiderConfigItem(String spiderID);
+
+    /**
+     * 获取所有的爬虫配置，将其放在map中，键为configID
+     * @return
+     */
+    Map<String, SpiderConfigEntity> getAllConfigMap();
 }

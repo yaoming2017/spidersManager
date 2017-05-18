@@ -56,4 +56,33 @@ public class SpiderConfigDAO implements ISpiderConfigDAO{
 
         return result;
     }
+
+    @Override
+    public List<Object[]> getSpiderConfigAndItem(String configID) {
+        String sql = "SELECT {configItem.*}, {itemType.*} " +
+                "FROM spider_config_item configItem, spider_config_item_type itemType " +
+                "WHERE configItem.config_item_name = itemType.id and configItem.config_id='" + configID + "'";
+
+        Session session = baseDAO.getCurrentSession();
+        List result = session.createSQLQuery(sql)
+                .addEntity("configItem", SpiderConfigItemEntity.class)
+                .addEntity("itemType", SpiderConfigItemTypeEntity.class).list();
+        return result;
+    }
+
+    @Override
+    public SpiderConfigEntity getSpiderConfig(String configID) {
+        return (SpiderConfigEntity) baseDAO.get(SpiderConfigEntity.class, configID);
+    }
+
+    @Override
+    public void updateSpiderConfig(SpiderConfigEntity spiderConfig) {
+        baseDAO.update(spiderConfig);
+    }
+
+    @Override
+    public List<SpiderConfigEntity> getAllConfig() {
+        String hql = "from SpiderConfigEntity s";
+        return baseDAO.find(hql);
+    }
 }

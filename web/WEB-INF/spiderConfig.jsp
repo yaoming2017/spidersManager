@@ -235,7 +235,7 @@
             success : function (msg) {
                 if(msg == "success") {
                     alert("保存成功！！");
-                    window.location.reload();
+                    window.location.href = "viewSpiderConfig";
                 } else {
                     alert("保存失败！！");
                 }

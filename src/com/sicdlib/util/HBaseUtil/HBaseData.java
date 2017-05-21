@@ -43,24 +43,25 @@ public class HBaseData {
     }
 
     //得到HTable表中所有数据
-    public void getAllData() throws Exception {
+    public ResultScanner getAllData() throws Exception {
         Scan scan = new Scan();
-        //每页展示条数--20条
-        Filter filter = new PageFilter(20);
-        scan.setFilter(filter);
+//        //每页展示条数--20条
+//        Filter filter = new PageFilter(20);
+//        scan.setFilter(filter);
         ResultScanner results = htable.getScanner(scan);
 
-        int i = 0;
-        //输出结果
-        for (Result result : results) {
-            for (KeyValue rowKV : result.raw()) {
-                i++;
-                String qualifer = new String(rowKV.getQualifier());
-                String value = new String(rowKV.getValue());
-                System.out.print(i+":"+qualifer+":"+value+"\t");
-            }
-            System.out.println();
-        }
+//        int i = 0;
+//        //输出结果
+//        for (Result result : results) {
+//            for (KeyValue rowKV : result.raw()) {
+//                i++;
+//                String qualifer = new String(rowKV.getQualifier());
+//                String value = new String(rowKV.getValue());
+//                System.out.print(i+":"+qualifer+":"+value+"\t");
+//            }
+//            System.out.println();
+//        }
+        return results;
     }
 
     /**

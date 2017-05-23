@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Yh on 2016/9/8.
  */
@@ -27,5 +29,10 @@ public class DoubanGroupPostService implements IDoubanGroupPostService{
             doubanGroupPost.setId(uuid);
         }
         return doubanGroupPostDAO.saveDoubanGroupPost(doubanGroupPost);
+    }
+
+    @Override
+    public List<DoubanGroupPostEntity> getAllDoubanGroupPost() {
+        return doubanGroupPostDAO.getAllDoubanGroupPosts();
     }
 }

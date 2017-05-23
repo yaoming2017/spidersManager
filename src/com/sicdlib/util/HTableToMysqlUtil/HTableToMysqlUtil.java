@@ -190,7 +190,8 @@ public class HTableToMysqlUtil {
                 String qualifer = new String(rowKV.getQualifier());
                 //值：字段对应的值
                 String value = new String(rowKV.getValue());
-                System.out.println(value == "");
+                //将4字节表情或特殊字符去掉
+                value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
                 switch (qualifer){
                     case "author_href":
                         doubanGrouppost.setAuthorHref(value);

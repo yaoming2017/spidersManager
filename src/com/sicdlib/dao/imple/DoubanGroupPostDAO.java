@@ -8,9 +8,8 @@ import com.sicdlib.dto.DoubanGroupPostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by Yh on 2016/9/8.
- */
+import java.util.List;
+
 @Repository("doubanGroupPostDAO")
 public class DoubanGroupPostDAO implements IDoubanGroupPostDAO {
     @Autowired
@@ -25,5 +24,11 @@ public class DoubanGroupPostDAO implements IDoubanGroupPostDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<DoubanGroupPostEntity> getAllDoubanGroupPosts() {
+        String hql = "from DoubanGroupPostEntity db";
+        return baseDAO.find(hql);
     }
 }

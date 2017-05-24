@@ -1,12 +1,13 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by DeMH on 2017/5/19.
  */
 @Entity
-@Table(name = "douban_group_author", schema = "socialmind01", catalog = "")
+@Table(name = "douban_group_author", schema = "socialmind", catalog = "")
 public class DoubanGroupAuthorEntity {
     private String id;
     private String authorId;
@@ -17,6 +18,7 @@ public class DoubanGroupAuthorEntity {
     private String logoffTime;
     private String signature;
     private String url;
+    private Timestamp timeStamp;
 
     @Id
     @Column(name = "id")
@@ -140,5 +142,15 @@ public class DoubanGroupAuthorEntity {
         result = 31 * result + (signature != null ? signature.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "time_stamp")
+    public Timestamp getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Timestamp timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

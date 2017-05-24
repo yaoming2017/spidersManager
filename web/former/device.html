@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>舆情分析大平台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link rel="stylesheet" href="css/css1/common.css" />
+<link rel="stylesheet" href="css/css1/eventAnalysis.css" />
+<link rel="stylesheet" href="css/css1/other.css" />
+<link rel="stylesheet" href="css/css1/report.css" />
+<link rel="stylesheet" href="css/css1/style.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1 style="font-family: 华文行楷;font-size: 27px;padding-top:10px;color: red;">舆情分析大平台</h1>
+</div>
+<!--close-Header-part--> 
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">欢迎用户</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i>个人资料</a></li>
+        <li class="divider"></li>
+        <li><a href="#"><i class="icon-check"></i>我的任务</a></li>
+        <li class="divider"></li>
+        <li><a href="login.html"><i class="icon-key"></i>注销</a></li>
+      </ul>
+    </li>
+    <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">信息</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>新信息</a></li>
+        <li class="divider"></li>
+        <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>收信信箱</a></li>
+        <li class="divider"></li>
+        <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i>待发箱</a></li>
+        <li class="divider"></li>
+        <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i>回收站</a></li>
+      </ul>
+    </li>
+    <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
+  </ul>
+</div>
+
+<!--start-top-serch-->
+<div id="search">
+  <input type="text" placeholder="在此搜索...."/>
+  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div>
+<!--close-top-serch--> 
+
+<!--sidebar-menu-->
+
+<div id="sidebar"> <a href="#" style="font-family: 新宋体;font-size: 18px;"class="visible-phone"><i class="icon icon-th"></i>分析</a>
+  <ul style="display: block;background: #2E363F;">
+    <li><a href="index.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
+    <li><a href="comment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+    <li><a href="opinion.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a> </li>
+    <li class="active"><a href="transmission.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>传播途径</span></a></li>
+    <li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
+    <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
+        <li><a href="sex.html"style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
+        <li><a href="count.html"style="font-family: 新宋体;font-size: 18px;">统计</a></li>
+      </ul>
+    </li>
+    <li><a href="communicate.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
+    <li><a href="hot.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
+    <li><a href="data.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
+    <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>分布</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="weibo.html"style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
+        <li><a href="area.html"style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>
+        <li class="active"><a href="device.html"style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>主页</a> <a
+            href="#" class="current">设备分布</a></div>
+    <h1>设备分布</h1>
+  </div>
+<!--为Echarts准备一个具备大小（宽高）的Dom-->
+  <div id="main" style="width: 1200px;height: 600px;"></div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.ui.custom.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/js1/echarts.min.js"></script><!--引入echarts.js-->
+<script  type="text/javascript">
+  //基于准备好的dom,初始化echarts实例
+  var myChart = echarts.init(document.getElementById('main'));
+  //指定图表的配置项和数据
+  var option = {
+    backgroundColor: '#2c343c',
+    title : {
+      text: '发布设备分布图',
+      x:'center'
+    },
+    tooltip : {
+      trigger: 'item'
+    },
+    legend: {
+      x : '32%',
+      y : '90%',
+      data:['iPhone 7','iPhone 6s Plus','iPhone 6s','Google浏览器','微博手机版','HUAWEI Mate8','小米手机4c','荣耀V8','微博网页版','魅蓝Note5']
+    },
+    toolbox: {
+      show : true,
+      feature : {
+        mark : {show: true},
+        dataView : {show: true, readOnly: false},
+        magicType : {
+          show: true,
+          type: ['pie', 'funnel']
+        },
+        restore : {show: true},
+        saveAsImage : {show: true}
+      }
+    },
+    calculable : true,
+    series : [
+      {
+        name:'分布比例',
+        type:'pie',
+        radius : [20, 120],
+        center : ['45%', '40%'],
+        roseType : 'angle',
+        data:[
+          {value:152, name:'iPhone 7'},
+          {value:118, name:'iPhone 6s Plus'},
+          {value:120, name:'iPhone 6s'},
+          {value:300, name:'Google浏览器'},
+          {value:180, name:'微博手机版'},
+          {value:100, name:'HUAWEI Mate8'},
+          {value:130, name:'小米手机4c'},
+          {value:220, name:'荣耀V8'},
+          {value:480, name:'微博网页版'},
+          {value:100, name:'魅蓝Note5'}
+        ],
+        label :{
+            normal:{
+              textSyle:{
+                color:'rgba(255,255,255,0.3)'
+              }
+            }
+        },
+        labelLine:{
+          normal:{
+            lineStyle:{
+                color:'rgba(255,255,255,0.3)'
+            }
+          }
+        },
+        itemStyle:{
+           normal:{
+             color:"#c23531",
+             shadowBlur:200,
+             shadowColor:'rgba(0,0,0,0.5)'
+           }
+        }
+      }
+    ]
+  };
+  //使用刚指定的配置项和数据显示图表
+  myChart.setOption(option);
+</script>
+</body>
+</html>

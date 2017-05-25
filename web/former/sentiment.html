@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>舆情分析大平台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link rel="stylesheet" href="css/css1/common.css" />
+<link rel="stylesheet" href="css/css1/eventAnalysis.css" />
+<link rel="stylesheet" href="css/css1/other.css" />
+<link rel="stylesheet" href="css/css1/report.css" />
+<link rel="stylesheet" href="css/css1/style.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1 style="font-family: 华文行楷;font-size: 27px;padding-top:10px;color: red;">舆情分析大平台</h1>
+</div>
+<!--close-Header-part--> 
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">欢迎用户</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i>个人资料</a></li>
+        <li class="divider"></li>
+        <li><a href="#"><i class="icon-check"></i>我的任务</a></li>
+        <li class="divider"></li>
+        <li><a href="login.html"><i class="icon-key"></i>注销</a></li>
+      </ul>
+    </li>
+    <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">信息</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>新信息</a></li>
+        <li class="divider"></li>
+        <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>收信信箱</a></li>
+        <li class="divider"></li>
+        <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i>待发箱</a></li>
+        <li class="divider"></li>
+        <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i>回收站</a></li>
+      </ul>
+    </li>
+    <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
+  </ul>
+</div>
+
+<!--start-top-serch-->
+<div id="search">
+  <input type="text" placeholder="在此搜索"/>
+  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div>
+<!--close-top-serch--> 
+
+<!--sidebar-menu-->
+
+<div id="sidebar"> <a href="#" style="font-family: 新宋体;font-size: 18px;"class="visible-phone"><i class="icon icon-th"></i>分析</a>
+  <ul  style="display: block;background: #2E363F;height:660px;">
+    <li><a href="index.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
+    <li><a href="comment.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+    <li><a href="opinion.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a> </li>
+    <li><a href="transmission.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>传播途径</span></a></li>
+    <li class="active"><a href="sentiment.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
+    <li class="submenu"> <a href="#"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="publish.html"style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
+        <li><a href="sex.html"style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
+        <li><a href="count.html"style="font-family: 新宋体;font-size: 18px;">统计</a></li>
+      </ul>
+    </li>
+    <li><a href="communicate.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
+    <li><a href="hot.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
+    <li><a href="data.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
+    <li class="submenu"> <a href="#"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>分布</span> <span class="label label-important">3</span></a>
+      <ul>
+        <li><a href="weibo.html"style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
+        <li><a href="area.html"style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>
+        <li><a href="device.html"style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>主页</a> <a href="#" class="current">表情分析</a> </div>
+    <h1>表情分析</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+    </div>
+<!---情绪分析 start-->
+    <div class="row-fluid" id="ui-accordion-7" name="r7">
+                    <div class="textShow">
+                        <ul class="column ui-sortable">
+                            <li>
+                                <div class="row-fluid">
+                                    <div class="wyqBorder">
+                                        <h2>
+                                            <span><i class="c_1"></i>转发表情分析</span>
+                                            <span><i class="c_2"></i>评论表情分析</span>
+                                        </h2>
+
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/pcmoren_tanshou_org.png"></p>
+                          <div style="display:inline-block;width:90%;vertical-align:middle;">
+                            <p style="width:100%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">640</span>	</p>
+                            <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin:1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                          </div>
+                        </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/moren_hashiqi_org.png"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                             <p style="width:68.125%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">436</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                              <img src="images/sen/z2_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:37.8125%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">242</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/xiaoku_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:36.875%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">236</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053);background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/cool_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:31.093749999999996%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">199</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/doge_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                            <p style="width:12.812499999999998%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">82</span></p>
+                            <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/laugh.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:10.46875%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">67</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">[攤手]</p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:10.46875%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">67</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/angrya_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;"><p style="width:7.968749999999999%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">51</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;">	<p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/huanglianwx_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:7.8125%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">50</span></p>
+                              <p style="width:0%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;"></span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/hearta_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:4.6875%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">30</span></p>
+                              <p style="width:2.34375%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">15</span></p>
+                            </div>
+                          </li>
+                          <li style="margin-bottom:5px;padding-top:5px;list-style-type:none;"><p style="float:left;height:22px;margin-right:6px;vertical-align:middle;">
+                            <img src="images/sen/wabi_org.gif"></p>
+                            <div style="display:inline-block;width:90%;vertical-align:middle;">
+                              <p style="width:4.0625%;background-color:#607cbe;background-image:linear-gradient(to right, #fff, #607cbe);background-repeat:repeat-x;border-radius:0 2px 2px 0;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1);height:10px;position:relative;margin:1px;">	<span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">26</span></p>
+                              <p style="width:87.96875%;background-color: #e6b053; background-image: linear-gradient(to right, #fff, #e6b053); background-repeat: repeat-x; margin-top: 2px;border-radius: 0 2px 2px 0; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); height: 10px; position: relative; margin: 1px;"><span style="color: #a1a1a1; font-family: arial; font-size: 12px; font-weight: 700; line-height: 10px; position: absolute; right: -68px; width: 60px;">563</span></p>
+                            </div>
+                          </li>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+
+   <!--情绪分析 end-->
+  </div>
+</div>
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/matrix.js"></script>
+<script src="js/js1/weiboAnalysisPreview.js"></script>
+</body>
+</html>

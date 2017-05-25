@@ -1,6 +1,7 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by DeMH on 2017/5/19.
@@ -24,6 +25,7 @@ public class DoubanGroupPostEntity {
     private String title;
     private String url;
     private String pictureHrefsNum;
+    private Timestamp timeStamp;
 
     @Id
     @Column(name = "id")
@@ -232,5 +234,15 @@ public class DoubanGroupPostEntity {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "time_stamp")
+    public Timestamp getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Timestamp timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }

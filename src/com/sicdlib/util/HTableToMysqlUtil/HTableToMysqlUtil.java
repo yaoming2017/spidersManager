@@ -178,7 +178,7 @@ public class HTableToMysqlUtil {
         /**
          * 豆瓣小组
          */
-        //豆瓣小组 - 发布
+        //豆瓣小组 -文章
         String htable_name = "douban_group_post";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();

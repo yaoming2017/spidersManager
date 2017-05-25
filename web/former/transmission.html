@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>舆情分析系统</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="css/uniform.css"/>
+    <link rel="stylesheet" href="css/select2.css"/>
+    <link rel="stylesheet" href="css/matrix-style.css"/>
+    <link rel="stylesheet" href="css/matrix-media.css"/>
+    <link rel="stylesheet" href="css/css1/common.css"/>
+    <link rel="stylesheet" href="css/css1/eventAnalysis.css"/>
+    <link rel="stylesheet" href="css/css1/other.css"/>
+    <link rel="stylesheet" href="css/css1/report.css"/>
+    <link rel="stylesheet" href="css/css1/style.css"/>
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+</head>
+<body>
+<!--Header-part-->
+<div id="header">
+    <h1 style="font-family: 华文行楷;font-size: 27px;padding-top:10px;color: red;">舆情分析大平台</h1>
+</div>
+<!--close-Header-part-->
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+    <ul class="nav">
+        <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown"
+                                                      data-target="#profile-messages" class="dropdown-toggle"><i
+                class="icon icon-user"></i> <span class="text">欢迎用户</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-user"></i>个人资料</a></li>
+                <li class="divider"></li>
+                <li><a href="#"><i class="icon-check"></i>我的工作</a></li>
+                <li class="divider"></li>
+                <li><a href="login.html"><i class="icon-key"></i>注销</a></li>
+            </ul>
+        </li>
+        <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
+                                                   class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
+                class="text">信息</span><b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i>新信息</a></li>
+                <li class="divider"></li>
+                <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i>收信信箱</a></li>
+                <li class="divider"></li>
+                <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i>待发箱</a></li>
+                <li class="divider"></li>
+                <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i>回收站</a></li>
+            </ul>
+        </li>
+        <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
+        <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a>
+        </li>
+    </ul>
+</div>
+
+<!--start-top-serch-->
+<div id="search">
+    <input type="text" placeholder="在此搜索...."/>
+    <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div>
+<!--close-top-serch-->
+
+<!--sidebar-menu-->
+
+<div id="sidebar"><a href="#" style="font-family: 新宋体;font-size: 18px;" class="visible-phone"><i class="icon icon-th"></i>分析</a>
+    <ul style="display: block;background: #2E363F;height: 1530px;">
+        <li><a href="index.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a></li>
+        <li><a href="comment.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a></li>
+        <li><a href="opinion.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a></li>
+        <li class="active"><a href="transmission.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i>
+            <span>传播途径</span></a></li>
+        <li><a href="sentiment.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
+        <li class="submenu"><a href="#"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span
+                class="label label-important">3</span></a>
+            <ul>
+                <li><a href="publish.html"style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
+                <li><a href="sex.html"style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
+                <li><a href="count.html"style="font-family: 新宋体;font-size: 18px;">统计</a></li>
+            </ul>
+        </li>
+        <li><a href="communicate.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
+        <li><a href="hot.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
+        <li><a href="data.html"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
+        <li class="submenu"><a href="#"style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>分布</span> <span
+                class="label label-important">3</span></a>
+            <ul>
+                <li><a href="weibo.html"style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
+                <li><a href="area.html"style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>
+                <li><a href="device.html"style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>主页</a> <a
+                href="#" class="current">传播途径</a></div>
+    </div>
+
+        <div class="widget-box">
+            <div class="widget-title bg_lb"><span class="icon"><i class="icon-comment"></i></span>
+                <h1>传播途径</h1>
+            </div>
+            <div class="widget-content" style="height:1480px;">
+                <!---传播途径 事件溯源start-->
+                <div class="row-fluid" id="ui-accordion-4" name="r4">
+                    <div class="textShow">
+                        <ul class="column ui-sortable">
+                            <li>
+                                <div id="eventProfile" class="yb2 rel">
+                                    <h2>
+                                        <div><span class="contenteditable" contenteditable="false">11月22日 </span></div>
+                                    </h2>
+                                    <div class="more">
+                                        <span class="packUp2"><a href="javascript:void(0)">
+                                        <label>展开事件进展&nbsp;<i></i></label></a>
+                                        </span>
+                                    </div>
+                                    <ul style="padding-bottom: 0;" id="trend" class="ui-sortable">
+                                        <li>
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://weibo.com/1855024094/EiJWUqAmn">
+                                                        [11月22日17点]【成都晚报】【林丹“小三”#赵雅淇道歉#！】继#林丹出轨#道歉，谢杏芳原谅老公后，事件女主赵雅淇召开媒体沟通会，洒泪道歉。投票：http://t.cn/RfSSD2U
+                                                        大致内容： 1、我真心道歉并诚心接受批评，为因此事伤害到的人而真心道歉。2、以前我从来没想过自己的草率会伤害到那么多的人，过去的一周是我从小到大最措手
+                                                        <p class="f_c1">(可能是事件源头，仅供参考)</p>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/1978780971/EiLJuoIwX">
+                                                        [11月23日0点] 【会拍照的眼睛爱搞笑】第一次看到雪的汪星人们，太欢乐了！[哈哈][哈哈]http://t.cn/RfIu064#吴京出轨##赵雅淇道歉##郑爽#
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/2571171390/EiMhv1IHM">
+                                                        [11月23日6点] 【郑州美食美客】#郑爽##赵雅淇道歉#【林丹出轨尚未平息 吴京又被赵五儿曝料[哆啦A梦吃惊]】泰国的广告告诉我们：不到最后一秒绝不要相信我们眼睛看到的内容！！！！看完只有一个大写的“服”！！！ #吴京赵五儿#?http://t.cn/RfoPFqa
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/1704832685/EiLgSgwGI">
+                                                        [11月23日12点] 【happy热哥】#赵雅淇道歉# 与林丹出轨一炮而红后，事件好不容易刚刚平息，又见赵雅淇道歉，戏也是太重，全程戴着帽子拿着稿子坐在沙发上念，时不时还抹泪抽泣，大扮委屈状。这次赵雅淇大概是“鼓励”被黑的最惨的一次了。这女人戏好足[二哈][二哈][二哈]#微博曝料# http://t.cn/RfS0Z6J
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/5081643438/EiKgFbIBt">
+                                                        [11月23日12点] 【ZH向日葵省代菲er团队创始人】#赵雅淇道歉##女大学生毕业后嫌家贫##王菲李亚鹏##唐嫣变身李怼怼#
+                                                        谢娜代言葵儿水光CC，三大卫视一同活动播出??，向日葵答应的就会做到??真正的明星产品??大牌产品，你用的放心我们卖的安心????#谢娜代言妆后葵儿水光CC#?feifeifei04#张艺兴粉丝倒打一耙# http://t.cn/RfSNack .
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/5758385229/EiPRI2aTt">
+                                                        [11月23日12点]【全球猎奇视频】#赵雅淇道歉#林丹出轨对象赵雅淇今天直播道歉了，全程坐在沙发上念稿子，时不时地抽泣两声，她本人看上去情绪十分憔悴，并表示：接受批评，也承认错误。话语间不断用手擦拭眼泪，赵雅淇希望家人的生活恢复平静。[攤手]http://t.cn/RfSjTtO
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/6065831829/EiKTp0frO">
+                                                        [11月23日14点]【一锅水煮娱】【赵雅淇哭诉：林丹没跟我买车买钻戒】林丹出轨门女主角赵雅淇召开媒体沟通会，公开道歉。她称“赵雅淇工作室”账号和自己毫无关系，跟林丹没任何经济瓜葛，林丹买车买奢侈品都不是真的。#赵雅淇首度直播回应##赵雅淇道歉# http://t.cn/RfSYhnD
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/2992380101/EiL5sgbud">
+                                                        [11月23日15点] 【美丽沈阳】#林丹出轨# 【林丹出轨女主赵雅淇道歉 抽泣承认错误】林丹”出轨门“女主@赵雅淇围脖公开道歉。否认炒作，接受批评，真心道歉。
+                                                        从没想过自己会伤害到别人，自己内心也很煎熬。另外，她还表示“赵雅琪工作室”是与自己毫无关系的账号。针对外界传言，她也作出回应。#赵雅淇道歉#发布会现场↓↓ http://t.cn/RfSHJjJ .
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/1855024094/EiJWUqAmn">
+                                                        [11月23日16点]【成都晚报】【林丹“小三”#赵雅淇道歉#！】继#林丹出轨#道歉，谢杏芳原谅老公后，事件女主赵雅淇召开媒体沟通会，洒泪道歉。投票：http://t.cn/RfSSD2U
+                                                        大致内容：
+                                                        1、我真心道歉并诚心接受批评，为因此事伤害到的人而真心道歉。
+                                                        2、以前我从来没想过自己的草率会伤害到那么多的人，过去的一周是我从小到大最措手不及、内心最煎熬的几天，内心的恐惧、愧疚让作为一个女性的我第一时间选择了逃避。直到流言四起，我才知道我的沉默带来了更多的伤害。
+                                                        3、“赵雅琪工作室”是和我毫无关系的账号。
+                                                        4、跟林丹没有任何经济瓜葛，林丹给我买奢侈品、买车买房都不是真的。
+                                                        6、没有人会为成名而这样炒作，我只有一个经纪人，没有所谓的团队，没有能力做这么大的一件事。
+                                                        6、事发后，家人和朋友发来信息问候和鼓励，自己没有一一回复，统一在朋友圈发一个感谢他们。（新浪娱乐）
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="display: none;">
+                                            <div class="float_l">
+                                                <span class="line"></span>
+                                                <span class="round"></span>
+                                                <span class="line"></span>
+                                            </div>
+                                            <div class="sz"></div>
+                                            <div class="text text2">
+                                                <i class="icon-arrows yb-move" style="display: none;"></i>
+                                                <i class="icon-trash-o yb-delete" style="display: none;" onclick="del(this);"></i>
+                                                <i class="icon-control_point yb-add" style="display: none;" onclick="add();"></i>
+                                                <div class="contenteditable" contenteditable="false">
+                                                    <a target="_blank" style="color: #000;text-decoration:none;" href="http://www.weibo.com/3675736060/EiMPNFiEi">
+                                                        [11月23日16点] 【西子丹67】【建议：封杀出轨艺人网上道歉】今晚#赵雅淇道歉#视频在网上疯传.....微评：“大染缸”早已成为演艺圈的代名词，谁谁出轨不足为怪！像“赵三”这样的龌蹉事，根本就没有资格沾上“公开”二字进行所谓的道歉！私下爱跟谁谁道歉去，还嫌“雾霾”不够严重吗？《请点击http://t.cn/RcXxvaX参与微博众筹》http://t.cn/RfS0Z6J
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul style="padding-top: 10px;">
+                                        <li>
+                                            <div class="float_l"><span class="roundEnd">续</span></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!---传播途径 事件溯源start-->
+                <div class="row-fluid">
+                    <div class="span12">
+
+                        <div class="widget-box">
+                            <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
+                                <h5>Data table</h5>
+                            </div>
+                            <div class="widget-content nopadding">
+                                <table class="table table-bordered data-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Rendering engine</th>
+                                        <th>Browser</th>
+                                        <th>Platform(s)</th>
+                                        <th>Engine version</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX">
+                                        <td>Trident</td>
+                                        <td>Internet
+                                            Explorer 4.0
+                                        </td>
+                                        <td>Win 95+</td>
+                                        <td class="center">4</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>Trident</td>
+                                        <td>Internet
+                                            Explorer 5.0
+                                        </td>
+                                        <td>Win 95+</td>
+                                        <td class="center">5</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Trident</td>
+                                        <td>Internet
+                                            Explorer 5.5
+                                        </td>
+                                        <td>Win 95+</td>
+                                        <td class="center">5.5</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Trident</td>
+                                        <td>Internet
+                                            Explorer 6
+                                        </td>
+                                        <td>Win 98+</td>
+                                        <td class="center">6</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Trident</td>
+                                        <td>Internet Explorer 7</td>
+                                        <td>Win XP SP2+</td>
+                                        <td class="center">7</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Trident</td>
+                                        <td>AOL browser (AOL desktop)</td>
+                                        <td>Win XP</td>
+                                        <td class="center">6</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Firefox 1.0</td>
+                                        <td>Win 98+ / OSX.2+</td>
+                                        <td class="center">1.7</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Firefox 1.5</td>
+                                        <td>Win 98+ / OSX.2+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Firefox 2.0</td>
+                                        <td>Win 98+ / OSX.2+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Firefox 3.0</td>
+                                        <td>Win 2k+ / OSX.3+</td>
+                                        <td class="center">1.9</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Camino 1.0</td>
+                                        <td>OSX.2+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Camino 1.5</td>
+                                        <td>OSX.3+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Netscape 7.2</td>
+                                        <td>Win 95+ / Mac OS 8.6-9.2</td>
+                                        <td class="center">1.7</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Netscape Browser 8</td>
+                                        <td>Win 98SE+</td>
+                                        <td class="center">1.7</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Netscape Navigator 9</td>
+                                        <td>Win 98+ / OSX.2+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.0</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.1</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.2</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.2</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.3</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.3</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.4</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.4</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.5</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.5</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.6</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">1.6</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.7</td>
+                                        <td>Win 98+ / OSX.1+</td>
+                                        <td class="center">1.7</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Mozilla 1.8</td>
+                                        <td>Win 98+ / OSX.1+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Seamonkey 1.1</td>
+                                        <td>Win 98+ / OSX.2+</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Gecko</td>
+                                        <td>Epiphany 2.20</td>
+                                        <td>Gnome</td>
+                                        <td class="center">1.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>Safari 1.2</td>
+                                        <td>OSX.3</td>
+                                        <td class="center">125.5</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>Safari 1.3</td>
+                                        <td>OSX.3</td>
+                                        <td class="center">312.8</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>Safari 2.0</td>
+                                        <td>OSX.4+</td>
+                                        <td class="center">419.3</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>Safari 3.0</td>
+                                        <td>OSX.4+</td>
+                                        <td class="center">522.1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>OmniWeb 5.5</td>
+                                        <td>OSX.4+</td>
+                                        <td class="center">420</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>iPod Touch / iPhone</td>
+                                        <td>iPod</td>
+                                        <td class="center">420.1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Webkit</td>
+                                        <td>S60</td>
+                                        <td>S60</td>
+                                        <td class="center">413</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 7.0</td>
+                                        <td>Win 95+ / OSX.1+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 7.5</td>
+                                        <td>Win 95+ / OSX.2+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 8.0</td>
+                                        <td>Win 95+ / OSX.2+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 8.5</td>
+                                        <td>Win 95+ / OSX.2+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 9.0</td>
+                                        <td>Win 95+ / OSX.3+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 9.2</td>
+                                        <td>Win 88+ / OSX.3+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera 9.5</td>
+                                        <td>Win 88+ / OSX.3+</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Opera for Wii</td>
+                                        <td>Wii</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Nokia N800</td>
+                                        <td>N800</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Presto</td>
+                                        <td>Nintendo DS browser</td>
+                                        <td>Nintendo DS</td>
+                                        <td class="center">8.5</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>KHTML</td>
+                                        <td>Konqureror 3.1</td>
+                                        <td>KDE 3.1</td>
+                                        <td class="center">3.1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>KHTML</td>
+                                        <td>Konqureror 3.3</td>
+                                        <td>KDE 3.3</td>
+                                        <td class="center">3.3</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>KHTML</td>
+                                        <td>Konqureror 3.5</td>
+                                        <td>KDE 3.5</td>
+                                        <td class="center">3.5</td>
+                                    </tr>
+                                    <tr class="gradeX">
+                                        <td>Tasman</td>
+                                        <td>Internet Explorer 4.5</td>
+                                        <td>Mac OS 8-9</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>Tasman</td>
+                                        <td>Internet Explorer 5.1</td>
+                                        <td>Mac OS 7.6-9</td>
+                                        <td class="center">1</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>Tasman</td>
+                                        <td>Internet Explorer 5.2</td>
+                                        <td>Mac OS 8-X</td>
+                                        <td class="center">1</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Misc</td>
+                                        <td>NetFront 3.1</td>
+                                        <td>Embedded devices</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeA">
+                                        <td>Misc</td>
+                                        <td>NetFront 3.4</td>
+                                        <td>Embedded devices</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeX">
+                                        <td>Misc</td>
+                                        <td>Dillo 0.8</td>
+                                        <td>Embedded devices</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeX">
+                                        <td>Misc</td>
+                                        <td>Links</td>
+                                        <td>Text only</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeX">
+                                        <td>Misc</td>
+                                        <td>Lynx</td>
+                                        <td>Text only</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>Misc</td>
+                                        <td>IE Mobile</td>
+                                        <td>Windows Mobile 6</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeC">
+                                        <td>Misc</td>
+                                        <td>PSP browser</td>
+                                        <td>PSP</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    <tr class="gradeU">
+                                        <td>Other browsers</td>
+                                        <td>All others</td>
+                                        <td>-</td>
+                                        <td class="center">-</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                             </div>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.ui.custom.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.uniform.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/matrix.js"></script>
+<script src="js/matrix.tables.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#trend >li:gt(3)").hide();
+        var num=1;
+        $(".more").on("click",function () {
+            if(num){
+                num--;
+                $("#trend > li:gt(3)").show();
+                $(this).html("<span class='packUp'><a href='javascript:void(0)'><label>收拢事件进展&nbsp;<i></i></label></a></span>");
+            }else {
+                num++;
+                $("#trend >li:gt(3)").hide();
+                $(this).html("<span class='packUp2'><a href='javascript:void(0)'><label>展开事件进展&nbsp;<i></i></label></a></span>");
+            }
+        });
+    });
+function saveReport(){
+    var eleIds = "{\"elementList\":[";
+    var sum = 0;
+    var list = $(".ui-sortable>div.row-fluid");
+    $.each(list,function (n) {
+        var thisId = $(this).attr("id");
+        var pos = thisId.lastIndexOf("-");
+        sum++;
+        var eId = parseInt(thisId.substring(pos+1,thisId.length));
+        eleIds +="{\"elementId\":"+eId+",\"name\":\""+Trim($(".modification").eq(sum -1).text().replace(/"|'/g,""))+"\"";
+        if(thisId =="ui-accordion-4"){//传播途径
+          var elementId = thisId.substr(thisId.length-1);
+            var treeTxts =$(this).find(".textShow.ui-sortable.text div.texteditor");
+            if(treeTxts.length>0){
+                eleIds +=",\"content\":\"";
+                for(var i=0;i<treeTxts.length;i++){
+                   var treeTxt = treeTxts[i];
+                    eleIds +=$(treeTxt).html();
+                    if(i !=(treeTxts.length-1)){
+                        eleIds +="</br>";
+                    }
+                }
+              eleIds +="\"";
+            }
+            var treeTime=$("#eventProfile").find("h2 div span.contenteditable");
+            if($.trim(treeTime.text())!=""){
+                eleIds += ",\"treeTime\":\"" + $(treeTime).text().replace(/"|'/g,"") + "\"";
+            }
+            var treeTexts = $("#trend>li>.text2").find("div");
+             if(treeTexts.length >0){
+               eleIds += ",\"treeText\":\"";
+               for (var j = 0; j < treeTexts.length; j++) {
+                   var treeText = treeTexts[j];
+                   var url=$(treeText).find("a")[0];
+                   if($(url).length>0){
+                       eleIds+=url.href+"<n/>";
+                   }
+
+                   eleIds += $(treeText).text().replace(/"|'/g,"").replace(/\r\n/g,"");
+                   if(j!=(treeTexts.length-1)){
+                       eleIds+= "</br>"
+                   }
+               }
+               eleIds += "\"";
+           }
+        }
+    })
+}
+</script>
+</body>
+</html>

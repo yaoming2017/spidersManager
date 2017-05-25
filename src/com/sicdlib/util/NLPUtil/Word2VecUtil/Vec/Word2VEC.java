@@ -24,7 +24,7 @@ public class Word2VEC {
 		Word2VEC vec = new Word2VEC();
 		vec.loadJavaModel("data/wikichinese.model");
 //
-		 System.out.println("一带" + "\t" +
+		 System.out.println("中国" + "\t" +
 		 Arrays.toString(vec.getWordVector("中国")));
 //		// ;
 //		// System.out.println("毛泽东" + "\t" +

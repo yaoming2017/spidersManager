@@ -1,15 +1,10 @@
 package com.sicdlib.controller;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.gson.Gson;
-import com.sicdlib.dto.Constant;
 import com.sicdlib.dto.SpiderInfoEntity;
-import com.sicdlib.dto.WebsiteEntity;
 import com.sicdlib.service.IDataDictService;
 import com.sicdlib.service.ISpiderService;
 import com.sicdlib.service.IWebsiteService;
-import com.sicdlib.service.imple.DataDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

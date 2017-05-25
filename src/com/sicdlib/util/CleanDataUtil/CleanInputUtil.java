@@ -1,6 +1,6 @@
 package com.sicdlib.util.CleanDataUtil;
 
-import com.sicdlib.dto.CleanInputEntity;
+import com.sicdlib.dto.entity.CleanInputEntity;
 import com.sicdlib.service.ICleanInputService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

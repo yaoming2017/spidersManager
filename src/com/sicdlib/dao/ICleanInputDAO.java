@@ -1,7 +1,6 @@
 package com.sicdlib.dao;
 
-import com.sicdlib.dto.CleanInputEntity;
-import com.sicdlib.dto.UserEntity;
+import com.sicdlib.dto.entity.CleanInputEntity;
 
 public interface ICleanInputDAO {
     Boolean addCleanInput(CleanInputEntity CleanInput);

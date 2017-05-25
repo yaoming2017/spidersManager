@@ -1,7 +1,9 @@
 package com.sicdlib.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.sicdlib.dto.*;
+import com.sicdlib.dto.entity.CleanDataEntity;
+import com.sicdlib.dto.entity.CleanDataProcessEntity;
+import com.sicdlib.dto.entity.CleanDataProcessUserEntity;
 import com.sicdlib.service.ICleanDataProcessService;
 import com.sicdlib.service.ICleanDataProcessUserService;
 import com.sicdlib.service.ICleanDataService;
@@ -9,9 +11,7 @@ import com.sicdlib.service.IKeyMeaningService;
 import com.sicdlib.util.CleanDataUtil.CleanInputUtil;
 import com.sicdlib.util.HBaseUtil.HBPage;
 import com.sicdlib.util.HBaseUtil.HBaseData;
-import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
-import net.sf.json.util.PropertyFilter;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

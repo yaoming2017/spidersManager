@@ -2,13 +2,10 @@ package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.IWebsiteDAO;
-import com.sicdlib.dto.WebsiteEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

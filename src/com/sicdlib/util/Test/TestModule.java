@@ -1,7 +1,5 @@
 package com.sicdlib.util.Test;
 
-import com.sicdlib.dto.CleanInputEntity;
-import com.sicdlib.service.ICleanInputService;
 import com.sicdlib.util.CleanDataUtil.CleanInputUtil;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;

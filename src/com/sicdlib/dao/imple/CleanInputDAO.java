@@ -2,9 +2,7 @@ package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ICleanInputDAO;
-import com.sicdlib.dao.ILoginDAO;
-import com.sicdlib.dto.CleanInputEntity;
-import com.sicdlib.dto.UserEntity;
+import com.sicdlib.dto.entity.CleanInputEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

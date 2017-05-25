@@ -1,10 +1,8 @@
 package com.sicdlib.controller;
 
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IDoubanGroupPostService;
-import com.sicdlib.service.IWebsiteService;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;
-import com.sicdlib.util.NLPUtil.Word2VecUtil.Test.Word2Vec;
 import org.ansj.library.UserDefineLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

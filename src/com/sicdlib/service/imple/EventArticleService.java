@@ -26,6 +26,7 @@ public class EventArticleService implements IEventArticleService {
             String uuid = UUIDUtil.getUUID();
             eventArticle.setId(uuid);
         }
+
         return eventArticleDAO.saveOrUpdateEventArticle(eventArticle);
     }
 }

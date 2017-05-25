@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by YH on 2017/5/19.
  */
 @Entity
-@Table(name = "tb_stop_words", schema = "socialMind")
+@Table(name = "tb_stop_words", schema = "socialMind01")
 public class TbStopWordsEntity {
     private int id;
     private String word;

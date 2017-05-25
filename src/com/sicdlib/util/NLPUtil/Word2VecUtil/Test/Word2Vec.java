@@ -21,6 +21,7 @@ public class Word2Vec {
 		vec = new Word2VEC();
 		loadModel = false;
 	}
+
 	/**
 	 * 加载Google版Word2Vec模型(C语言训练)
 	 * @param modelPath 模型文件路径

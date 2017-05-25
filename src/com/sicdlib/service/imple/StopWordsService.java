@@ -23,7 +23,7 @@ public class StopWordsService implements IStopWordsService{
     private IStopWordsDAO stopWordsDAO;
 
     @Override
-    public List<TbStopWordsEntity> getAllStopWords() {
+    public List<String> getAllStopWords() {
         return stopWordsDAO.getAllStopWords();
     }
 }

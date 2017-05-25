@@ -16,8 +16,8 @@ public class StopWordsDAO implements IStopWordsDAO {
     private IBaseDAO baseDAO;
 
     @Override
-    public List<TbStopWordsEntity> getAllStopWords() {
-        String hql = "from TbStopWordsEntity sw";
+    public List<String> getAllStopWords() {
+        String hql = "select sw.word from TbStopWordsEntity sw";
         return baseDAO.find(hql);
     }
 }

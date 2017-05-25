@@ -17,6 +17,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -190,8 +192,8 @@ public class HTableToMysqlUtil {
                 String qualifer = new String(rowKV.getQualifier());
                 //值：字段对应的值
                 String value = new String(rowKV.getValue());
-                //将4字节表情或特殊字符去掉
-                value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
+                //数据公共清理
+                value = CleanPublicUtil.publicCleanMethods(value);
                 switch (qualifer){
                     case "author_href":
                         doubanGrouppost.setAuthorHref(value);

@@ -6,5 +6,5 @@ import com.sicdlib.dto.TbStopWordsEntity;
 import java.util.List;
 
 public interface IStopWordsDAO {
-    List<TbStopWordsEntity> getAllStopWords();
+    List<String> getAllStopWords();
 }

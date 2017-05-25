@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by DeMH on 2017/5/19.
  */
 @Entity
-@Table(name = "douban_group_post", schema = "socialmind01", catalog = "")
+@Table(name = "douban_group_post", schema = "socialmind", catalog = "")
 public class DoubanGroupPostEntity {
     private String id;
     private String authorHref;

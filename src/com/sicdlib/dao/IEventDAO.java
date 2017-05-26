@@ -94,4 +94,6 @@ public interface IEventDAO {
      * @return
      */
     TbEventArticleEntity getSourceEventArticle(String eventID);
+
+    Boolean saveOrUpdateEvent(TbEventEntity event);
 }

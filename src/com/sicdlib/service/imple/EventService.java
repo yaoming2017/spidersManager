@@ -3,6 +3,12 @@ package com.sicdlib.service.imple;
 import com.sicdlib.dao.IDataDictDAO;
 import com.sicdlib.dto.Constant;
 import com.sicdlib.service.IEventService;
+import com.sicdlib.dao.IEventDAO;
+import com.sicdlib.dao.IStopWordsDAO;
+import com.sicdlib.dto.TbEventEntity;
+import com.sicdlib.service.IEventService;
+import com.sicdlib.service.IStopWordsService;
+import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,6 +22,10 @@ public class EventService implements IEventService {
     @Qualifier("dataDictDAO")
     private IDataDictDAO dataDictDAO;
 
+    @Autowired
+    @Qualifier("eventDAO")
+    private IEventDAO eventDAO;
+
     @Override
     public String eventIntroduction() {
         String eventIntroTemplate = dataDictDAO.getDictValue(Constant.EVENT_INTRODUCTION).get(0);
@@ -26,4 +36,15 @@ public class EventService implements IEventService {
     public String eventTrendJson() {
         return null;
     }
+
+    @Override
+    public Boolean saveOrUpdateEvent(TbEventEntity event) {
+        if (event.getId() == null){
+            String uuid = UUIDUtil.getUUID();
+            event.setId(uuid);
+        }
+
+        return eventDAO.saveOrUpdateEvent(event);
+    }
+
 }

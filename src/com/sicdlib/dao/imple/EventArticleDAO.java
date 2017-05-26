@@ -2,6 +2,7 @@ package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.IEventArticleDAO;
+import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbTableEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,4 +24,16 @@ public class EventArticleDAO implements IEventArticleDAO {
         String sql = "SELECT title FROM " + tableName + " WHERE id = '" + articleID + "'";
         return (String) baseDAO.getSqlList(sql).get(0);
     }
+
+    @Override
+    public Boolean saveOrUpdateEventArticle(TbEventArticleEntity eventArticle) {
+        try {
+            baseDAO.saveOrUpdate(eventArticle);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+

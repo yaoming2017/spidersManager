@@ -19,6 +19,6 @@ public class StopWordsService implements IStopWordsService{
 
     @Override
     public List<String> getAllStopWords() {
-        return stopWordsDAO.getStopWords();
+        return stopWordsDAO.getAllStopWords();
     }
 }

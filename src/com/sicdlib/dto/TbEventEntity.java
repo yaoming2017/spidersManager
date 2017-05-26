@@ -1,6 +1,8 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by YH on 2017/5/19.

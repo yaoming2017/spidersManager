@@ -1,6 +1,5 @@
 package com.sicdlib.service;
 
-import com.sicdlib.dto.CleanDataEntity;
 import com.sicdlib.dto.CleanDataProcessEntity;
 
 import java.util.List;

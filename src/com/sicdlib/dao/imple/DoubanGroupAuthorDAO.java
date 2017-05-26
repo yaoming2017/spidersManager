@@ -2,9 +2,7 @@ package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.IDoubanGroupAuthorDAO;
-import com.sicdlib.dao.ILoginDAO;
-import com.sicdlib.dto.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.UserEntity;
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

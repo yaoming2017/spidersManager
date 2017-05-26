@@ -1,13 +1,11 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dao.IDoubanGroupCommentDAO;
-import com.sicdlib.dto.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.DoubanGroupCommentEntity;
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
+import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IDoubanGroupAuthorService;
 import com.sicdlib.service.IDoubanGroupCommentService;
 import com.sicdlib.service.IDoubanGroupPostService;
-import com.sicdlib.util.CleanDataUtil.CleanInputUtil;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -190,8 +188,8 @@ public class HTableToMysqlUtil {
                 String qualifer = new String(rowKV.getQualifier());
                 //值：字段对应的值
                 String value = new String(rowKV.getValue());
-                //将4字节表情或特殊字符去掉
-                value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
+                //数据公共清理
+                value = CleanPublicUtil.publicCleanMethods(value);
                 switch (qualifer){
                     case "author_href":
                         doubanGrouppost.setAuthorHref(value);

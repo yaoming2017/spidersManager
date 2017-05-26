@@ -8,6 +8,10 @@ import com.sicdlib.dto.TbHotWordEntity;
 import com.sicdlib.dto.WebsiteEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import com.sicdlib.dao.IStopWordsDAO;
+import com.sicdlib.dto.TbEventEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -65,14 +69,14 @@ public class EventDAO implements IEventDAO {
     @Override
     public String sourceArticleTitle(String eventID) {
         TbEventArticleEntity eventArticle = this.getSourceEventArticle(eventID);
-        String tableID = eventArticle.getSourceTableId();
+        String tableID = eventArticle.getTableId();
 //        String articleID = eventArticle
         return null;
     }
 
     @Override
     public WebsiteEntity sourceWebsite(String eventID) {
-        String tableID = this.getSourceEventArticle(eventID).getSourceTableId();
+        String tableID = this.getSourceEventArticle(eventID).getTableId();
         String hql = "FROM WebsiteEntity w and TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
 
         return (WebsiteEntity) baseDAO.get(hql);
@@ -95,4 +99,16 @@ public class EventDAO implements IEventDAO {
 
         return (TbEventArticleEntity) baseDAO.find(hql, 0, 1).get(0);
     }
+
+    @Override
+    public Boolean saveOrUpdateEvent(TbEventEntity event) {
+        try {
+            baseDAO.saveOrUpdate(event);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+

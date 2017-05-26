@@ -1,7 +1,6 @@
 package com.sicdlib.dao;
 
-import com.sicdlib.dto.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.UserEntity;
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
 
 public interface IDoubanGroupAuthorDAO {
     Boolean saveDoubanGroupAuthor(DoubanGroupAuthorEntity doubanGroupAuthor);

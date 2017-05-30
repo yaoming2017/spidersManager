@@ -1,8 +1,6 @@
 package com.sicdlib.dao;
 
-import com.sicdlib.dto.TbEventArticleEntity;
-import com.sicdlib.dto.TbEventEntity;
-import com.sicdlib.dto.WebsiteEntity;
+import com.sicdlib.dto.*;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public interface IEventDAO {
      * @param limit
      * @return
      */
-    List getKeyWords(String eventID, int limit);
+    List<TbHotWordEntity> getKeyWords(String eventID, int limit);
 
     /**
      * 事件的开始时间
@@ -75,6 +73,14 @@ public interface IEventDAO {
     WebsiteEntity sourceWebsite(String eventID);
 
     /**
+     * 整个事件来源网站
+     * @param eventID
+     * @return
+     */
+    List<WebsiteEntity> sourceWebsiteList(String eventID);
+
+
+    /**
      * 整个事件的发展趋势
      * @param eventID
      * @return
@@ -96,4 +102,31 @@ public interface IEventDAO {
     TbEventArticleEntity getSourceEventArticle(String eventID);
 
     Boolean saveOrUpdateEvent(TbEventEntity event);
+
+    /**
+     * 计算事件开始时间
+     * @param eventID
+     * @return
+     */
+    TbEventArticleEntity getSourceEventEntity(String eventID);
+
+    /**
+     * 计算事件结束时间
+     * @param eventID
+     * @return
+     */
+    String getEventEndTime(String eventID);
+
+    /**
+     * 从sourceArticleNum表中获取事件的高峰时间
+     * @param eventID
+     * @return
+     */
+    String[] getRushTimeAndNum(String eventID);
+
+    /**
+     * 保存事件
+     * @param eventEntity
+     */
+    void updateEvent(TbEventEntity eventEntity);
 }

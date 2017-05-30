@@ -1,17 +1,12 @@
 package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
+import com.sicdlib.dao.IEventArticleDAO;
 import com.sicdlib.dao.IEventDAO;
-import com.sicdlib.dto.TbEventArticleEntity;
-import com.sicdlib.dto.TbEventEntity;
-import com.sicdlib.dto.TbHotWordEntity;
-import com.sicdlib.dto.WebsiteEntity;
+import com.sicdlib.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.sicdlib.dao.IStopWordsDAO;
-import com.sicdlib.dto.TbEventEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,6 +19,10 @@ public class EventDAO implements IEventDAO {
     @Autowired
     @Qualifier("baseDAO")
     private IBaseDAO baseDAO;
+
+    @Autowired
+    @Qualifier("eventArticleDAO")
+    private IEventArticleDAO eventArticleDAO;
 
     @Override
     public List<TbHotWordEntity> getKeyWords(String eventID, int limit) {
@@ -70,8 +69,9 @@ public class EventDAO implements IEventDAO {
     public String sourceArticleTitle(String eventID) {
         TbEventArticleEntity eventArticle = this.getSourceEventArticle(eventID);
         String tableID = eventArticle.getTableId();
-//        String articleID = eventArticle
-        return null;
+        String articleID = eventArticle.getSourceArticleId();
+
+        return eventArticleDAO.getArticleTitle(tableID, articleID);
     }
 
     @Override
@@ -80,6 +80,16 @@ public class EventDAO implements IEventDAO {
         String hql = "FROM WebsiteEntity w and TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
 
         return (WebsiteEntity) baseDAO.get(hql);
+    }
+
+    @Override
+    public List<WebsiteEntity> sourceWebsiteList(String eventID) {
+        String hql = "SELECT articleNum FROM TbSourceArticleNumEntity articleNum, TbTableEntity table, WebsiteEntity website " +
+                "WHERE articleNum.tableId = table.id AND table.websiteId = website.id AND articleNum.eventId = '" + eventID + "'";
+
+        List<WebsiteEntity> websiteList = baseDAO.find(hql);
+
+        return websiteList;
     }
 
     @Override
@@ -109,6 +119,40 @@ public class EventDAO implements IEventDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public TbEventArticleEntity getSourceEventEntity(String eventID) {
+        String hql = "FROM TbEventArticleEntity article WHERE article.time = " +
+                "(select MIN(article1.time) from TbEventArticleEntity article1 WHERE article1.eventId = '" + eventID + "' )";
+
+        return ((TbEventArticleEntity) baseDAO.get(hql));
+    }
+
+    @Override
+    public String getEventEndTime(String eventID) {
+        String hql = "FROM TbEventArticleEntity article WHERE article.time = " +
+                "(select MAX(article1.time) from TbEventArticleEntity article1 WHERE article1.eventId = '" + eventID + "' )";
+
+        return ((TbEventArticleEntity) baseDAO.get(hql)).getTime();
+    }
+
+    @Override
+    public String[] getRushTimeAndNum(String eventID) {
+        String sql = "SELECT convert(nvarchar(10),articleNum.start_time, 120), SUM(articleNum.num) " +
+                "FROM tb_source_article_num articleNum " +
+                "WHERE articleNum.event_id = '" + eventID + "' AND HAVING SUM(articleNum.num) = " +
+                "(SELECT SUM(articleNum.num) FROM tb_source_article_num articleNum1 " +
+                "WHERE articleNum1.event_id = '" + eventID + "' " +
+                "GROUP BY convert(nvarchar(10),articleNum.start_time, 120)" +
+                "ORDER BY s desc limit 1)";
+
+        return (String[]) baseDAO.getSqlList(sql).get(0);
+    }
+
+    @Override
+    public void updateEvent(TbEventEntity eventEntity) {
+        baseDAO.update(eventEntity);
     }
 }
 

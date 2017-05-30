@@ -39,7 +39,7 @@
         <li class="divider"></li>
         <li><a href="#"><i class="icon-check"></i>我的任务</a></li>
         <li class="divider"></li>
-        <li><a href="login.html"><i class="icon-key"></i>注销</a></li>
+        <li><a href="#"><i class="icon-key"></i>注销</a></li>
       </ul>
     </li>
     <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">信息</span> <b class="caret"></b></a>
@@ -54,7 +54,7 @@
       </ul>
     </li>
     <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">设置</span></a></li>
-    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
+    <li class=""><a title="" href="#"><i class="icon icon-share-alt"></i> <span class="text">注销</span></a></li>
   </ul>
 </div>
 <div id="search">
@@ -65,25 +65,25 @@
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>分析</a>
   <ul style="display: block;background: #2E363F;height: 1150px;">
     <li class="active" style="font-family: 新宋体;font-size: 18px;"><a href="event.jsp"><i class="icon icon-home"></i> <span>事件</span></a> </li>
-    <li><a href="comment.html" style="font-family: 新宋体;font-size:18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
-    <li><a href="opinion.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a> </li>
-    <li><a href="transmission.html" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>传播途径</span></a></li>
-    <li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
+    <li><a href="#" style="font-family: 新宋体;font-size:18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+    <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a> </li>
+    <li><a href="#" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>传播途径</span></a></li>
+    <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
     <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>
       <ul>
-        <li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
-        <li><a href="sex.html" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
-        <li><a href="count.html" style="font-family: 新宋体;font-size: 18px;">统计</a></li>
+        <li><a href="#" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
+        <li><a href="#" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
+        <li><a href="#" style="font-family: 新宋体;font-size: 18px;">统计</a></li>
       </ul>
     </li>
-    <li><a href="communicate.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
-    <li><a href="hot.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
-    <li><a href="data.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
+    <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
+    <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
+    <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
     <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>分布</span> <span class="label label-important">3</span></a>
       <ul>
-        <li><a href="weibo.html" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
-        <li><a href="area.html" style="font-family:新宋体;font-size: 18px;">地域分布</a></li>
-        <li><a href="device.html"style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
+        <li><a href="#" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
+        <li><a href="#" style="font-family:新宋体;font-size: 18px;">地域分布</a></li>
+        <li><a href="#"style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
       </ul>
     </li>
   </ul>
@@ -122,9 +122,8 @@
           <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
               <h1 style="font-family: 华文行楷;font-size:20px;">事件简介</h1>
           </div>
-        <div class="widget-content" style="font-size: 16px;width: 1100px;">
-          本报告围绕关键词“#赵雅淇道歉#”，对2016/11/22 00:00~2016/11/23日 17:01期间，从微博上采集到的4919条信息进行了深入地分析。微博声量最高峰出现在2016/11/22 18，共有1230篇相关微博言论；疑似源头的微博讯息于2016/11/22 17:27发布在新浪微博标题为：
-          『【林丹“小三”#赵雅淇道歉#！】继#林丹...』。总体来说，整个微博事件的发展趋势较为突出，详细报告如下。
+        <div class="widget-content" style="font-size: 16px;width: 1500px;">
+          ${introduction}
         </div>
         </div>
         <!--事件简介 end-->

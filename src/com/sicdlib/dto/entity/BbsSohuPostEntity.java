@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "bbs_sohu_post", schema = "socialmind", catalog = "")
-public class BbsSohuPostEntity {
+public class  BbsSohuPostEntity {
     private String postId;
     private String commentIds;
     private String url;

@@ -11,19 +11,28 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by YH on 2017/5/26.
  */
-@Repository
+@Repository("eventArticleDAO")
 public class EventArticleDAO implements IEventArticleDAO {
     @Autowired
     @Qualifier("baseDAO")
     private IBaseDAO baseDAO;
 
     @Override
-    public String getSourceArticleTitle(String tableID, String articleID) {
+    public String getArticleTitle(String tableID, String articleID) {
         String tableName = ((TbTableEntity) baseDAO.get(TbTableEntity.class, tableID)).getTableName();
 
         String sql = "SELECT title FROM " + tableName + " WHERE id = '" + articleID + "'";
         return (String) baseDAO.getSqlList(sql).get(0);
     }
+
+    @Override
+    public String getArticleDateTime(String tableID, String articleID) {
+        String tableName = ((TbTableEntity) baseDAO.get(TbTableEntity.class, tableID)).getTableName();
+
+        String sql = "SELECT datetime FROM " + tableName + " WHERE id = '" + articleID + "'";
+        return (String) baseDAO.getSqlList(sql).get(0);
+    }
+
 
     @Override
     public Boolean saveOrUpdateEventArticle(TbEventArticleEntity eventArticle) {

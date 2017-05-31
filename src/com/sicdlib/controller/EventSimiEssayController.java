@@ -1,6 +1,7 @@
 package com.sicdlib.controller;
 
 import com.sicdlib.dto.*;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.*;
 import com.sicdlib.service.imple.SourceArticleNumService;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;

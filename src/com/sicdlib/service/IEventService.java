@@ -10,4 +10,5 @@ public interface IEventService {
     String eventTrendJson();
     Boolean saveOrUpdateEvent(TbEventEntity event);
     String setEventAttributes(String eventID);
+    TbEventEntity getEventByName(String eventName);
 }

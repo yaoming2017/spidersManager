@@ -129,4 +129,6 @@ public interface IEventDAO {
      * @param eventEntity
      */
     void updateEvent(TbEventEntity eventEntity);
+
+    TbEventEntity getEventByName(String eventName);
 }

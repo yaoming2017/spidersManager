@@ -26,7 +26,7 @@ public class TableDAO implements ITableDAO {
 
     @Override
     public TbTableEntity getTable(String name) {
-        String hql = "from TbTableEntity tb where tb.tableName = "+name;
+        String hql = "from TbTableEntity tb where tb.tableName = '"+name+"'";
         return (TbTableEntity) baseDAO.get(hql);
     }
 }

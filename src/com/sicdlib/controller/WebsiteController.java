@@ -99,7 +99,7 @@ public class WebsiteController {
 
     @RequestMapping("keywords")
     public void test(HttpServletRequest req, HttpServletResponse resp) {
-        List<String> stops = stopWordsDAO.getStopWords();
+        List<String> stops = stopWordsDAO.getAllStopWords();
         List<String> strList = new ArrayList<>();
         String str = "动力方面：2017款宝马X6 V8的功率和动力特性很大程度上得益于双涡轮增压技术，"
                 + "在8缸发动机上首次采用了两个涡轮以最大效率同时提升发动机功率和扭矩。一个涡轮增压器一次为4个气缸供给压缩空气，确保格外流畅的运转与对油门踏板的直接响应。"

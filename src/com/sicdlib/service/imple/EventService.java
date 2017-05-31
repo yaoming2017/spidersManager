@@ -29,4 +29,10 @@ public class EventService implements IEventService{
         }
         return eventDAO.saveOrUpdateEvent(event);
     }
+
+    @Override
+    public TbEventEntity getEventByName(String eventName) {
+        return eventDAO.getEventByName(eventName);
+    }
+
 }

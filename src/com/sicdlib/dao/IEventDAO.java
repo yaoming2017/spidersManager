@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IEventDAO {
     Boolean saveOrUpdateEvent(TbEventEntity event);
+    TbEventEntity getEventByName(String eventName);
 }

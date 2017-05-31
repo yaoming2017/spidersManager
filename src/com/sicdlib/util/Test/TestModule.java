@@ -19,6 +19,11 @@ public class TestModule {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     @Test
+    public void test(){
+
+    }
+
+    @Test
     public void test1(){
         String chose_fields = "bbs_china_author:author_id:5,bbs_china_author:fans_num:8,bbs_china_author:focuse_num:9,";
         String [] table_fields = chose_fields.split(",");

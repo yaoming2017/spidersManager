@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IEventService {
     Boolean saveOrUpdateEvent(TbEventEntity event);
+    TbEventEntity getEventByName(String eventName);
 }

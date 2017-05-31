@@ -1,7 +1,6 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by DeMH on 2017/5/16.

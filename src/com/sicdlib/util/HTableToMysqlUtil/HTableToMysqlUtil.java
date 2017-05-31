@@ -1,13 +1,11 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dao.IDoubanGroupCommentDAO;
-import com.sicdlib.dto.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.DoubanGroupCommentEntity;
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
+import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IDoubanGroupAuthorService;
 import com.sicdlib.service.IDoubanGroupCommentService;
 import com.sicdlib.service.IDoubanGroupPostService;
-import com.sicdlib.util.CleanDataUtil.CleanInputUtil;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -17,8 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**

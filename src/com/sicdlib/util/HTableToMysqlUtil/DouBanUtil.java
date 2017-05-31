@@ -1,10 +1,12 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dto.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.DoubanGroupCommentEntity;
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
+import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
+import com.sicdlib.dto.entity.DoubanGroupGroupEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IDoubanGroupAuthorService;
 import com.sicdlib.service.IDoubanGroupCommentService;
+import com.sicdlib.service.IDoubanGroupGroupService;
 import com.sicdlib.service.IDoubanGroupPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
@@ -250,5 +252,29 @@ public class DouBanUtil {
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
+
+            /**
+             * 豆瓣组的组信息转换到Mysql中
+             */
+             @Test
+             public void test_doubanGroupGroup_HTableToMysql() throws Exception {
+                 IDoubanGroupGroupService doubanGroupGroupService = (IDoubanGroupGroupService) apx.getBean("doubanGroupGroupService");
+                 Long beginTime = new Date().getTime();
+                 /**
+                  * 豆瓣小组
+                  */
+                 //群组
+                 String htable_name ="douban_group_group";
+                 HBaseData hBaseData = new HBaseData(htable_name);
+                 ResultScanner results = hBaseData.getAllData();
+                 int i = 0;
+                 //输出结果
+               for(Result result : results){
+                    DoubanGroupGroupEntity doubanGroupGroupEntity = new DoubanGroupGroupEntity();
+                }
+
+
+
+}
 
 }

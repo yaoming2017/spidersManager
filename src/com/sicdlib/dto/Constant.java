@@ -15,6 +15,7 @@ public class Constant {
     public static final String SPIDER_FILE_BASE = "SPIDER_FILES_PATH"; //爬虫图片文件的根目录
     public static final String SPIDER_STATUS_RUN = "SPIDER_STATUS_RUN"; //爬虫状态为正在运行
     public static final String SPIDER_STATUS_STOP = "SPIDER_STATUS_STOP"; //爬虫状态为停止
+    public static final String EVENT_INTRODUCTION = "EVENT_INTRODUCTION"; //事件简介模板
     /**
      * 数据字典中的网站类别字段
      */

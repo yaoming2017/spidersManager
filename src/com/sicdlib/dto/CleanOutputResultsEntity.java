@@ -1,7 +1,5 @@
 package com.sicdlib.dto;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 
 /**

@@ -81,7 +81,7 @@
 
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> 爬虫管理</a>
     <ul>
-        <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>爬虫管理</span></a></li>
+        <li class="active"><a href="event.jsp"><i class="icon icon-home"></i> <span>爬虫管理</span></a></li>
         <li> <a href="charts.html"><i class="icon icon-signal"></i> <span>数据可视化</span></a> </li>
         <li> <a href="widgets.html"><i class="icon icon-inbox"></i> <span>指标展示</span></a> </li>
     </ul>
@@ -89,7 +89,7 @@
 
 <div id="content" style="height: 80%;">
     <div id="content-header">
-        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+        <div id="breadcrumb"> <a href="event.jsp" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
     </div>
     <!--<div class="quick-actions_homepage">-->
     <!--<ul class="quick-actions">-->

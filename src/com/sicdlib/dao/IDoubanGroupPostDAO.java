@@ -1,7 +1,6 @@
 package com.sicdlib.dao;
 
-import com.sicdlib.dto.DoubanGroupCommentEntity;
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 
 import java.util.List;
 

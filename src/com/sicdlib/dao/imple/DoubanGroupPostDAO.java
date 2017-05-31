@@ -1,10 +1,8 @@
 package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
-import com.sicdlib.dao.IDoubanGroupCommentDAO;
 import com.sicdlib.dao.IDoubanGroupPostDAO;
-import com.sicdlib.dto.DoubanGroupCommentEntity;
-import com.sicdlib.dto.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

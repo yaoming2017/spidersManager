@@ -2,7 +2,7 @@ package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ICleanDataProcessDAO;
-import com.sicdlib.dto.entity.CleanDataProcessEntity;
+import com.sicdlib.dto.CleanDataProcessEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

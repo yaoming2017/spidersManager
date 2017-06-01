@@ -1,4 +1,4 @@
-package com.sicdlib.dto.entity;
+package com.sicdlib.dto;
 
 import javax.persistence.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by haoyang on 2017/4/24.
  */
 @Entity
-@Table(name = "website", schema = "socialMind", catalog = "")
+@Table(name = "website", schema = "socialMind")
 public class WebsiteEntity {
     private String id;
     private String websiteType;

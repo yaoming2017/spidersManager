@@ -1,4 +1,4 @@
-package com.sicdlib.dto.entity;
+package com.sicdlib.dto;
 
 import javax.persistence.*;
 

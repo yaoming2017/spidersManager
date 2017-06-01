@@ -1,7 +1,5 @@
 package com.sicdlib.dto;
 
-import com.sicdlib.dto.entity.CleanDataProcessUserEntity;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

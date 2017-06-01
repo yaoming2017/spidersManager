@@ -1,7 +1,7 @@
 package com.sicdlib.dao;
 
 
-import com.sicdlib.dto.entity.CleanDataProcessUserEntity;
+import com.sicdlib.dto.CleanDataProcessUserEntity;
 
 public interface ICleanDataProcessUserDAO {
     //增加

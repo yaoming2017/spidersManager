@@ -182,7 +182,7 @@ public class BBSMopUtil {
                         bbsMopComment.setUserName(value);
                         break;
                     case "date_time":
-                        
+
 
                         bbsMopComment.setDateTime(value);
                         break;

@@ -1,7 +1,7 @@
 package com.sicdlib.dao;
 
 
-import com.sicdlib.dto.entity.CleanDataEntity;
+import com.sicdlib.dto.CleanDataEntity;
 
 import java.util.List;
 

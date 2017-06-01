@@ -1,7 +1,7 @@
 package com.sicdlib.service.imple;
 
 import com.sicdlib.dao.ICleanDataProcessUserDAO;
-import com.sicdlib.dto.entity.CleanDataProcessUserEntity;
+import com.sicdlib.dto.CleanDataProcessUserEntity;
 import com.sicdlib.service.ICleanDataProcessUserService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;

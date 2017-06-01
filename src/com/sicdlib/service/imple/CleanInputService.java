@@ -1,7 +1,7 @@
 package com.sicdlib.service.imple;
 
 import com.sicdlib.dao.ICleanInputDAO;
-import com.sicdlib.dto.entity.CleanInputEntity;
+import com.sicdlib.dto.CleanInputEntity;
 import com.sicdlib.service.ICleanInputService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;

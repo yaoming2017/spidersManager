@@ -1,9 +1,9 @@
 package com.sicdlib.controller;
 
 import com.sicdlib.dto.*;
-import com.sicdlib.dto.entity.CleanDataEntity;
-import com.sicdlib.dto.entity.CleanDataProcessEntity;
-import com.sicdlib.dto.entity.CleanDataProcessUserEntity;
+import com.sicdlib.dto.CleanDataEntity;
+import com.sicdlib.dto.CleanDataProcessEntity;
+import com.sicdlib.dto.CleanDataProcessUserEntity;
 import com.sicdlib.service.ICleanDataProcessService;
 import com.sicdlib.service.ICleanDataProcessUserService;
 import com.sicdlib.service.ICleanDataService;

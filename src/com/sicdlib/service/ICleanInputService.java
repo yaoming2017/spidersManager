@@ -1,6 +1,6 @@
 package com.sicdlib.service;
 
-import com.sicdlib.dto.entity.CleanInputEntity;
+import com.sicdlib.dto.CleanInputEntity;
 
 public interface ICleanInputService {
     //新增输入

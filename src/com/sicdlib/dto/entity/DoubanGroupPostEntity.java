@@ -2,6 +2,8 @@ package com.sicdlib.dto.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by init on 2017/5/31.

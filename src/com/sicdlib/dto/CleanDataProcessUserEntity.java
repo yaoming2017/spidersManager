@@ -1,6 +1,4 @@
-package com.sicdlib.dto.entity;
-
-import com.sicdlib.dto.UserEntity;
+package com.sicdlib.dto;
 
 import javax.persistence.*;
 import java.util.HashSet;

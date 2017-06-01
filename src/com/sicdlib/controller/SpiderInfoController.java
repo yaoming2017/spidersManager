@@ -2,11 +2,7 @@ package com.sicdlib.controller;
 
 import com.google.gson.Gson;
 import com.sicdlib.dto.SpiderInfoEntity;
-<<<<<<< HEAD
-import com.sicdlib.dto.entity.WebsiteEntity;
-=======
 import com.sicdlib.dto.WebsiteEntity;
->>>>>>> cf1ab372ee131539d3bb702620fcd9db195c71a0
 import com.sicdlib.service.IDataDictService;
 import com.sicdlib.service.ISpiderService;
 import com.sicdlib.service.IWebsiteService;

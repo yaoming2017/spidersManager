@@ -8,8 +8,9 @@ import java.util.Set;
  * Created by YH on 2017/5/19.
  */
 @Entity
-@Table(name = "tb_event", schema = "socialMind")
+@Table(name = "tb_event", schema = "socialmind", catalog = "")
 public class TbEventEntity {
+
     private String id;
     private String eventName;
     private String eventIntroduction;
@@ -20,6 +21,28 @@ public class TbEventEntity {
     private Integer eventRushNum;
     private String eventSourceArticleId;
     private String eventTrend;
+    //一对多
+    private Set<TbEventArticleEntity> eventArticleSet = new HashSet<TbEventArticleEntity>();
+    //一对多：一个事件对应多个源文章
+    private Set<TbSourceArticleNumEntity> sourceArticleNumEntitySet = new HashSet<TbSourceArticleNumEntity>();
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<TbSourceArticleNumEntity> getSourceArticleNumEntitySet() {
+        return sourceArticleNumEntitySet;
+    }
+
+    public void setSourceArticleNumEntitySet(Set<TbSourceArticleNumEntity> sourceArticleNumEntitySet) {
+        this.sourceArticleNumEntitySet = sourceArticleNumEntitySet;
+    }
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<TbEventArticleEntity> getEventArticleSet() {
+        return eventArticleSet;
+    }
+
+    public void setEventArticleSet(Set<TbEventArticleEntity> eventArticleSet) {
+        this.eventArticleSet = eventArticleSet;
+    }
 
     @Id
     @Column(name = "id")

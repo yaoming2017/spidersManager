@@ -130,6 +130,8 @@ public interface IEventDAO {
      */
     void updateEvent(TbEventEntity eventEntity);
 
+    TbEventEntity getEventByName(String eventName);
+
     /**
      * 获取事件来源的网站
      * @param eventID

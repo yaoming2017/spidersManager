@@ -243,4 +243,8 @@ public class EventService implements IEventService {
         return "";
     }
 
+    @Override
+    public TbEventEntity getEventByName(String eventName) {
+        return eventDAO.getEventByName(eventName);
+    }
 }

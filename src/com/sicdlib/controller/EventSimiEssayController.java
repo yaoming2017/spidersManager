@@ -1,12 +1,13 @@
 package com.sicdlib.controller;
 
-import com.sicdlib.dto.entity.DoubanGroupPostEntity;
-import com.sicdlib.service.IDoubanGroupPostService;
-import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;
 import com.sicdlib.dto.*;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.*;
+import com.sicdlib.service.imple.SourceArticleNumService;
+import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Test.Word2Vec;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.Learn;
+import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.Word2VEC;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.domain.WordEntry;
 import org.ansj.library.UserDefineLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class EventSimiEssayController {
     @Autowired
     @Qualifier("tableService")
     private ITableService tableService;
+
+    @Autowired
+    @Qualifier("sourceArticleNumService")
+    private ISourceArticleNumService sourceArticleNumService;
 
     /**
      * 初始化word2vec模型：将数据库中词映射到向量空间
@@ -88,7 +93,8 @@ public class EventSimiEssayController {
     }
 
     /**
-     * 找与事件相似性文章
+     * 找与事件相似性文章，存到event_article数据库中
+     * 输入：事件名eventName
      * @param req
      * @param model
      * @return
@@ -103,10 +109,10 @@ public class EventSimiEssayController {
         Float userSetupSimiDegree = 0.0f;
         userSetupSimiDegree = 0.2f;
 //        userSetupSimiDegree = Float.valueOf(req.getParameter("userSetupSimiDegree"));
-        eventName = "学生兼职";
+        eventName = "一带一路";
+        UserDefineLibrary.insertWord("一带一路", "n", 1000);
         List<String> eventWords = Segment.getWords(eventName);
         System.out.println("事件大小：" + eventWords.size());
-        System.out.println("事件大小：" + eventWords.toString());
         //4.输入关键词，得到该词的向量表示
         Word2Vec vec = new Word2Vec();
         //4.1 用来存放 所有关键词 取得的前10位相似性词的数组
@@ -167,15 +173,26 @@ public class EventSimiEssayController {
         });
         //6 建立数据库关联
         //6.1 插入事件表event中事件信息
-        TbEventEntity eventEntity = new TbEventEntity();
-        eventEntity.setEventName(eventName);
-        eventService.saveOrUpdateEvent(eventEntity);
-        //6.2 插入事件文章event_article中的source_table_id
-        TbTableEntity table = new TbTableEntity();
-        table.setTableName("douban_group_post");
-        tableService.saveOrUpdateTable(table);
+        TbEventEntity eve = eventService.getEventByName(eventName);
+        if (eve == null){
+            TbEventEntity eventEntity = new TbEventEntity();
+            eventEntity.setEventName(eventName);
+            eventService.saveOrUpdateEvent(eventEntity);
+        }
+        //6.2 设置事件文章event_article中的source_table_id
         TbTableEntity tbTable = tableService.getTable("douban_group_post");
-        String tbid = tbTable.getId();
+        String tbid = "";
+        if (tbTable != null){
+            tbid = tbTable.getId();
+        }
+//        //6.3 新增源事件文章数量（在不存在的情况下）
+//        TbSourceArticleNumEntity sourceArticleNumEntity = sourceArticleNumService.getSourceArticleNum(eve, tbTable);
+//        if (sourceArticleNumEntity == null){
+//            TbSourceArticleNumEntity sourceArticleNum = new TbSourceArticleNumEntity();
+//            sourceArticleNum.setEvent(eve);
+//            sourceArticleNum.setTable(tbTable);
+//            sourceArticleNumService.saveOrUpdateSourceArticleNum(sourceArticleNum);
+//        }
 
         int i = 0;
         for (EventEssaySimi essaySimi : eventEssaySimis){
@@ -185,16 +202,45 @@ public class EventSimiEssayController {
             String sourceArticleId = essaySimi.getDoubanGroupPostEntity().getId();
             //设置来源文章ID
             eventArticle.setSourceArticleId(sourceArticleId);
+            //设置事件与文章的相似度
+            eventArticle.setSimiDegree(essaySimi.getSimi());
+            //设置事件event
+            eventArticle.setEvent(eve);
             //设置表ID
-            eventArticle.setTableId(tbid);
+            eventArticle.setTable(tbTable);
             eventArticleService.saveOrUpdateEventArticle(eventArticle);
             i++;
+            if (i > 3){
+                break;
+            }
         }
-
         System.out.println("耗时：\t" + internalTime + "秒");
-
         model.addAttribute("eventEssaySimis", eventEssaySimis);
         return "";
     }
+
+    /**
+     * 前台事件相似文章展示
+     * 输入：事件名称
+     * 输出：event_article
+     * @param req
+     * @param model
+     * @return
+     */
+    @RequestMapping("getEventSimiEssayList")
+    public String getEventSimiEssayList(HttpServletRequest req, Model model) {
+        String eventName = "学生兼职";
+        eventName = req.getParameter("eventName");
+        TbEventEntity event = eventService.getEventByName(eventName);
+        System.out.println("与事件相关的文章数量为：" + event.getEventArticleSet().size());
+        return "";
+    }
+
+    /****************************************************************************************************/
+    /**
+     * 命名实体识别NER
+     */
+
+
 
 }

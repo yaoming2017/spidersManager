@@ -6,14 +6,36 @@ import javax.persistence.*;
  * Created by YH on 2017/5/19.
  */
 @Entity
-@Table(name = "tb_source_article_num", schema = "socialMind")
+@Table(name = "tb_source_article_num", schema = "socialmind", catalog = "")
 public class TbSourceArticleNumEntity {
     private String id;
-    private String tableId;
-    private String eventId;
     private int num;
     private String startTime;
     private String endTime;
+    //多对一：多个对应一张表
+    private TbTableEntity table;
+    //多对一：多个对应一个事件
+    private TbEventEntity event;
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    public TbEventEntity getEvent() {
+        return event;
+    }
+
+    public void setEvent(TbEventEntity event) {
+        this.event = event;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "table_id", referencedColumnName = "id")
+    public TbTableEntity getTable() {
+        return table;
+    }
+
+    public void setTable(TbTableEntity table) {
+        this.table = table;
+    }
 
     @Id
     @Column(name = "ID")
@@ -23,26 +45,6 @@ public class TbSourceArticleNumEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "table_id")
-    public String getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(String tableId) {
-        this.tableId = tableId;
-    }
-
-    @Basic
-    @Column(name = "event_id")
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
     }
 
     @Basic
@@ -84,8 +86,6 @@ public class TbSourceArticleNumEntity {
 
         if (num != that.num) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (tableId != null ? !tableId.equals(that.tableId) : that.tableId != null) return false;
-        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
         if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
 
@@ -95,8 +95,6 @@ public class TbSourceArticleNumEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (tableId != null ? tableId.hashCode() : 0);
-        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + num;
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);

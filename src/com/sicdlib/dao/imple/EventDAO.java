@@ -68,7 +68,7 @@ public class EventDAO implements IEventDAO {
     @Override
     public String sourceArticleTitle(String eventID) {
         TbEventArticleEntity eventArticle = this.getSourceEventArticle(eventID);
-        String tableID = eventArticle.getTableId();
+        String tableID = eventArticle.getTable().getId();
         String articleID = eventArticle.getSourceArticleId();
 
         return eventArticleDAO.getArticleTitle(tableID, articleID);
@@ -76,9 +76,8 @@ public class EventDAO implements IEventDAO {
 
     @Override
     public WebsiteEntity sourceWebsite(String eventID) {
-        String tableID = this.getSourceEventArticle(eventID).getTableId();
+        String tableID = this.getSourceEventArticle(eventID).getTable().getId();
         String hql = "FROM WebsiteEntity w and TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
-
         return (WebsiteEntity) baseDAO.get(hql);
     }
 
@@ -153,6 +152,12 @@ public class EventDAO implements IEventDAO {
     @Override
     public void updateEvent(TbEventEntity eventEntity) {
         baseDAO.update(eventEntity);
+    }
+
+    @Override
+    public TbEventEntity getEventByName(String eventName) {
+        String hql = "from TbEventEntity e where e.eventName = '"+eventName+"'";
+        return (TbEventEntity) baseDAO.get(hql);
     }
 
     @Override

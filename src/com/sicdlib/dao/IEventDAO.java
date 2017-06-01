@@ -129,4 +129,19 @@ public interface IEventDAO {
      * @param eventEntity
      */
     void updateEvent(TbEventEntity eventEntity);
+
+    /**
+     * 获取事件来源的网站
+     * @param eventID
+     * @return
+     */
+    List<WebsiteEntity> getEventWebsite(String eventID);
+
+    /**
+     * 获取事件下某一网站的文章数量
+     * @param eventID
+     * @param websiteName
+     * @return
+     */
+    List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName);
 }

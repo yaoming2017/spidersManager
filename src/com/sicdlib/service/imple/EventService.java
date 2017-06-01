@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,8 +88,78 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public String eventTrendJson() {
-        return null;
+    public List<String> eventTrendDate(String eventID) {
+        TbEventEntity event = eventDAO.getEvent(eventID);
+        String startTime = event.getEventStartTime();
+        String endTime = event.getEventEndTime();
+
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = sdf.parse(startTime);
+            endDate = sdf.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long hourSecond = 60 * 60 * 1000;
+        assert endDate != null;
+        assert startDate != null;
+        List<String> dateList = new ArrayList<>();
+        for(long i = startDate.getTime(); i < endDate.getTime(); i += hourSecond) {
+            String dateTime = (new SimpleDateFormat("yyyy-MM-dd HH")).format(new Date(i));
+            dateList.add(dateTime);
+        }
+
+        return dateList;
+    }
+
+    @Override
+    public List<String> eventTrendDataType(String eventID) {
+        List<WebsiteEntity> websiteList = eventDAO.getEventWebsite(eventID);
+
+        List<String> dataTypeList = new ArrayList<>();
+
+        for(WebsiteEntity website: websiteList) {
+            dataTypeList.add(website.getWebsiteName());
+        }
+
+        return dataTypeList;
+    }
+
+    @Override
+    public int[][] eventTrendData(String eventID, List<String> dateList, List<String> dataTypeList) {
+        int data[][] = new int[dataTypeList.size()][dateList.size()];
+        for (int i = 0; i < dataTypeList.size(); i++) {
+            for (int j = 0; j < dateList.size(); j++) {
+                data[i][j] = 0;
+            }
+        }
+
+        for(int i = 0; i < dataTypeList.size(); i++) {
+            String websiteName = dataTypeList.get(i);
+
+            List<Object[]> typeDataList = eventDAO.getEventArticleNumByWebsite(eventID, websiteName);
+            for(Object[] typeData: typeDataList) {
+                String dateStr = ((String) typeData[0]).substring(0, 13);
+
+                int j = dataTypeList.indexOf(dateStr);
+                if(j != -1) {
+                    data[i][j] = (int) typeData[1];
+                }
+            }
+        }
+
+        return data;
+    }
+
+    @Override
+    public int[][] eventTrendData(String eventID) {
+        List<String> dateList = this.eventTrendDate(eventID);
+        List<String> dataTypeList = this.eventTrendDataType(eventID);
+
+        return this.eventTrendData(eventID, dateList, dataTypeList);
     }
 
     @Override

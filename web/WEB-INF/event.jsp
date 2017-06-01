@@ -122,7 +122,7 @@
           <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
               <h1 style="font-family: 华文行楷;font-size:20px;">事件简介</h1>
           </div>
-        <div class="widget-content" style="font-size: 16px;width: 1500px;">
+        <div class="widget-content" style="font-size: 16px;width: 1300px;">
           ${introduction}
         </div>
         </div>
@@ -146,30 +146,18 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/js1/echarts.min.js"></script>
 <script type="text/javascript">
-  // This function is called from the pop-up menus to transfer to
-  // a different page. Ignore if the value returned is a null string:
-  function goPage (newURL) {
 
-    // if url is empty, skip the menu dividers and reset the menu selection to default
-    if (newURL != "") {
+    var dataType = JSON.parse('${dataType}');
+    var dateList = JSON.parse('${dateList}');
+    var data = JSON.parse('${data}');
+    var series_val = [];
 
-      // if url is "-", it is this page -- reset the menu:
-      if (newURL == "-" ) {
-        resetMenu();
-      }
-      // else, send page to designated URL
-      else {
-        document.location.href = newURL;
-      }
+    for(var i = 0; i < ${dataType.size()}; i++) {
+        series_val.push({name:dataType[i],
+            type:'line',
+            stack: '总量',
+            data: data[i]})
     }
-  }
-
-  // resets the menu selection upon entry to this page:
-  function resetMenu() {
-    document.gomenu.selector.selectedIndex = 2;
-  }
-</script>
-<script type="text/javascript">
   //基于准备好的dom，初始化echarts实例
   var myChart = echarts.init(document.getElementById('main'));
   //指定图表的配置项和数据
@@ -184,7 +172,7 @@
     legend: {
       right: 50,
       orient: 'vertical',
-      data: ['原创', '转发', '媒体']
+      data: dataType
     },
     grid: {
       left: '3%',
@@ -200,33 +188,12 @@
     xAxis: {
       type: 'category',
       boundaryGap: false,
-      data: ['2016-11-22 00', '2016-11-22 01','2016-11-22 02','2016-11-22 03','2016-11-22 04','2016-11-22 05','2016-11-22 06','2016-11-22 07','2016-11-22 08','2016-11-22 09','2016-11-22 10','2016-11-22 11', '2016-11-22 12','2016-11-22 13', '2016-11-22 14','2016-11-22 15','2016-11-22 16','2016-11-22 17','2016-11-22 18',
-        '2016-11-22 19','2016-11-23 20', '2016-11-22 21','2016-11-22 22','2016-11-22 23','2016-11-23 00','2016-11-23 01','2016-11-23 02','2016-11-23 03','2016-11-23 04','2016-11-23 05','2016-11-23 06','2016-11-23 07','2016-11-23 08','2016-11-23 09','2016-11-23 10','2016-11-23 11', '2016-11-23 12','2016-11-23 13',
-        '2016-11-23 14','2016-11-23 15','2016-11-23 16','2016-11-23 17']
+      data: dateList
     },
     yAxis: {
       type: 'value'
     },
-    series: [
-      {   name:'原创',
-        type:'line',
-        stack: '总量',
-        data: ['0', '0', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','3', '42', '99', '77', '64', '95', '60', '35', '20','1','3','0','1','2','7','21','27','38','27','9','6','13','12','14','0']
-      },
-      {
-        name:'转发',
-        type:'line',
-        stack: '总量',
-        data: ['0', '0', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','23', '1188', '713', '66', '62', '686', '539', '145', '43','11','3','6','7','14','27','20','112','122','143','137','77','24','27','18','0']
-      },
-      {
-        name:'媒体',
-        type:'line',
-        stack: '总量',
-        data:  ['0', '0', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1', '2', '0', '2', '3', '0', '0', '0', '0','1','3','0','1','2','1','2','1','0','0','0','0','0','1','2','0']
-      }
-
-    ]
+    series: series_val
   };
 //使用刚指定的配置项和数据显示图表
   myChart.setOption(option);

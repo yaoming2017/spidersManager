@@ -154,5 +154,26 @@ public class EventDAO implements IEventDAO {
     public void updateEvent(TbEventEntity eventEntity) {
         baseDAO.update(eventEntity);
     }
+
+    @Override
+    public List<WebsiteEntity> getEventWebsite(String eventID) {
+        String hql = "SELECT website" +
+                "FROM WebsiteEntity website, TbTableEntity table, TbSourceArticleNumEntity articleNum" +
+                "WHERE website.id = table.websiteId AND table.id = articleNum.tableId AND articleNum.eventId = '"
+                + eventID + "'";
+
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName) {
+        String hql = "SELECT articleNum.startTime, SUM(articleNum.num) FROM TbSourceArticleNumEntity articleNum " +
+                "WHERE articleNum.eventId = '" + eventID + "' AND articleNum.tableId IN (" +
+                "SELECT table.id " +
+                "FROM TbTableEntity table, WebsiteEntity website " +
+                "WHERE website.websiteName = '" + websiteName + "' AND website.id = table.websiteId" +
+                ")";
+        return baseDAO.find(hql);
+    }
 }
 

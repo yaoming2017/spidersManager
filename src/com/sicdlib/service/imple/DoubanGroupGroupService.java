@@ -3,6 +3,7 @@ package com.sicdlib.service.imple;
 import com.sicdlib.dao.IDoubanGroupGroupDAO;
 import com.sicdlib.dto.entity.DoubanGroupGroupEntity;
 import com.sicdlib.service.IDoubanGroupGroupService;
+import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class DoubanGroupGroupService   implements IDoubanGroupGroupService {
 
     @Override
     public boolean saveDoubanGroupGroup(DoubanGroupGroupEntity doubanGroupGroup) {
+        if (doubanGroupGroup.getId() == null){
+            String uuid = UUIDUtil.getUUID();
+            doubanGroupGroup.setId(uuid);
+        }
         return doubanGroupGroupDAO.saveDoubanGroupGroup(doubanGroupGroup);
     }
 }

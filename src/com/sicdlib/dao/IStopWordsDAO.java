@@ -1,6 +1,5 @@
 package com.sicdlib.dao;
 
-import com.sicdlib.dto.DoubanGroupPostEntity;
 import com.sicdlib.dto.TbStopWordsEntity;
 
 import java.util.List;

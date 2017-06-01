@@ -1,6 +1,7 @@
 package com.sicdlib.dto.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "bbs_xinhua_author", schema = "socialmind", catalog = "")
-public class BbsXinhuaAuthorEntity {
+public class BbsXinhuaAuthorEntity{
+
     private String authorId;
     private String authorHref;
     private String authorName;
@@ -19,8 +21,9 @@ public class BbsXinhuaAuthorEntity {
     private String registerTime;
     private Timestamp parseTime;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -120,6 +123,16 @@ public class BbsXinhuaAuthorEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,6 +150,7 @@ public class BbsXinhuaAuthorEntity {
         if (registerTime != null ? !registerTime.equals(that.registerTime) : that.registerTime != null) return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
@@ -153,6 +167,7 @@ public class BbsXinhuaAuthorEntity {
         result = 31 * result + (registerTime != null ? registerTime.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 }

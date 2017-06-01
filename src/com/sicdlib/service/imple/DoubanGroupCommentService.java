@@ -3,6 +3,7 @@ package com.sicdlib.service.imple;
 import com.sicdlib.dao.IDoubanGroupCommentDAO;
 import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
 import com.sicdlib.service.IDoubanGroupCommentService;
+import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class DoubanGroupCommentService implements IDoubanGroupCommentService{
 
     @Override
     public boolean saveDoubanGroupComment(DoubanGroupCommentEntity doubanGroupComment) {
+        if (doubanGroupComment.getId() == null){
+            String uuid = UUIDUtil.getUUID();
+            doubanGroupComment.setId(uuid);
+        }
         return doubanGroupCommentDAO.saveDoubanGroupAuthor(doubanGroupComment);
     }
 }

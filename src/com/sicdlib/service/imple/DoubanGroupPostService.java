@@ -3,6 +3,7 @@ package com.sicdlib.service.imple;
 import com.sicdlib.dao.IDoubanGroupPostDAO;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IDoubanGroupPostService;
+import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class DoubanGroupPostService implements IDoubanGroupPostService{
 
     @Override
     public boolean saveDoubanGroupPost(DoubanGroupPostEntity doubanGroupPost) {
+        if (doubanGroupPost.getId() == null){
+            String uuid = UUIDUtil.getUUID();
+           doubanGroupPost.setId(uuid);
+        }
         return doubanGroupPostDAO.saveDoubanGroupPost(doubanGroupPost);
     }
 

@@ -19,8 +19,9 @@ public class XinhuaEntity {
     private String origin;
     private String content;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "article_id")
     public String getArticleId() {
         return articleId;
@@ -154,5 +155,15 @@ public class XinhuaEntity {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

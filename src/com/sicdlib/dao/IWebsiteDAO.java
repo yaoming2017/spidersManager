@@ -1,5 +1,7 @@
 package com.sicdlib.dao;
 
+import com.sicdlib.dto.entity.WebsiteEntity;
+
 import java.util.List;
 
 /**

@@ -23,8 +23,9 @@ public class BlogchinaAuthorEntity {
     private Integer focuseId;
     private Integer fansId;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -208,5 +209,15 @@ public class BlogchinaAuthorEntity {
         result = 31 * result + (fansId != null ? fansId.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

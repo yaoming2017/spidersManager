@@ -25,8 +25,9 @@ public class BbsTianyaPostEntity {
     private Integer commentNum;
     private String commentIds;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "post_id")
     public String getPostId() {
         return postId;
@@ -233,5 +234,15 @@ public class BbsTianyaPostEntity {
         result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

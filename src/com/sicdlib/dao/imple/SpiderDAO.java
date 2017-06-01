@@ -3,6 +3,7 @@ package com.sicdlib.dao.imple;
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ISpiderDAO;
 import com.sicdlib.dto.SpiderInfoEntity;
+import com.sicdlib.dto.entity.WebsiteEntity;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

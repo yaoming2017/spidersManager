@@ -2,8 +2,6 @@ package com.sicdlib.dto;
 
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 
-import java.util.List;
-
 /**
  * Created by DeMH on 2017/5/9.
  */

@@ -20,8 +20,9 @@ public class Blog163CommentEntity {
     private String childCommentIds;
     private Timestamp parseTime;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "comment_id")
     public String getCommentId() {
         return commentId;
@@ -169,5 +170,15 @@ public class Blog163CommentEntity {
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

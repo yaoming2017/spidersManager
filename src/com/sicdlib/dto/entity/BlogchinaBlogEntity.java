@@ -24,8 +24,9 @@ public class BlogchinaBlogEntity {
     private Integer bPicturesNum;
     private String commentIds;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "blog_id")
     public String getBlogId() {
         return blogId;
@@ -219,5 +220,15 @@ public class BlogchinaBlogEntity {
         result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

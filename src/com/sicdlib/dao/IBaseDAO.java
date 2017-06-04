@@ -180,4 +180,10 @@ public interface IBaseDAO<T> {
      * @return
      */
     BigInteger countSql(String sql, Map<String, Object> params);
+
+    /**
+     * 执行批量插入
+     * @param oList
+     */
+    void batchSave(List<Object> oList);
 }

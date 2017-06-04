@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -144,9 +145,9 @@ public class EventService implements IEventService {
             for(Object[] typeData: typeDataList) {
                 String dateStr = ((String) typeData[0]).substring(0, 13);
 
-                int j = dataTypeList.indexOf(dateStr);
+                int j = dateList.indexOf(dateStr);
                 if(j != -1) {
-                    data[i][j] = (int) typeData[1];
+                    data[i][j] = ((Long) typeData[1]).intValue();
                 }
             }
         }
@@ -183,13 +184,14 @@ public class EventService implements IEventService {
 
         //从事件文章中获取事件的高峰时间
         //从事件文章中获取事件的高峰时间当天的文章量
-        String[] rushTimeAndNum = eventDAO.getRushTimeAndNum(eventID);
+        Object[] rushTimeAndNum = eventDAO.getRushTimeAndNum(eventID);
 
         String rushTime = "";
         int rushNum = 0;
         if(rushTimeAndNum != null && rushTimeAndNum.length == 2) {
-            rushTime = rushTimeAndNum[0];
-            rushNum = Integer.parseInt(rushTimeAndNum[1]);
+            rushTime = (String) rushTimeAndNum[0];
+            BigDecimal bigTime = (BigDecimal) rushTimeAndNum[1];
+            rushNum = bigTime.intValue();
         }
 
         //获取源头文章的ID
@@ -210,7 +212,7 @@ public class EventService implements IEventService {
 
         String keyWordsStr = StringUtils.join(keyWords.toArray(),"+");
 
-        int articleNum = eventDAO.eventArticleNum(eventID);
+        long articleNum = eventDAO.eventArticleNum(eventID);
 
         String sourceWebsite = eventDAO.sourceWebsite(eventID).getWebsiteName();
 

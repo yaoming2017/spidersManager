@@ -24,4 +24,9 @@ public class HotWordsDAO implements IHotWordsDAO {
 
         return baseDAO.find(hql);
     }
+
+    @Override
+    public void batchSaveHotWords(List<TbHotWordEntity> hotWordsList) {
+        baseDAO.batchSave(hotWordsList);
+    }
 }

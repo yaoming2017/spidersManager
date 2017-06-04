@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: YH
+  Date: 2017/6/1
+  Time: 22:30
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,6 +111,8 @@
 <script  type="text/javascript">
     //基于准备好的dom,初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
+
+    var keyWords = JSON.parse('${websiteNum}');
     //指定图表的配置项和数据
     var option = {
         tooltip : {
@@ -129,26 +139,17 @@
                 radius : [50, 220],
                 center : ['50%', '50%'],
                 roseType : 'area',
-                data:[
-                    {value:10, name:'rose1'},
-                    {value:5, name:'rose2'},
-                    {value:15, name:'rose3'},
-                    {value:25, name:'rose4'},
-                    {value:20, name:'rose5'},
-                    {value:35, name:'rose6'},
-                    {value:30, name:'rose7'},
-                    {value:40, name:'rose8'}
-                ]
+                data: keyWords
             }
         ]
     };
-//使用刚指定的配置项和数据显示图表
+    //使用刚指定的配置项和数据显示图表
     myChart.setOption(option);
     myChart.on('click', function (params) {
         alert((params.name));
         window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name));
 
     });
-    </script>
+</script>
 </body>
 </html>

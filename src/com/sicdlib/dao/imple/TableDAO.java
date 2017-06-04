@@ -8,6 +8,8 @@ import com.sicdlib.dto.TbTableEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("tableDAO")
 public class TableDAO implements ITableDAO {
     @Autowired
@@ -28,5 +30,30 @@ public class TableDAO implements ITableDAO {
     public TbTableEntity getTable(String name) {
         String hql = "from TbTableEntity tb where tb.tableName = '"+name+"'";
         return (TbTableEntity) baseDAO.get(hql);
+    }
+
+    @Override
+    public List<TbTableEntity> getTableByEventID(String eventID) {
+        String hql = "FROM TbTableEntity table " +
+                "WHERE table.id in " +
+                "(" +
+                "SELECT distinct articleNum.table.id " +
+                "FROM TbSourceArticleNumEntity articleNum " +
+                "WHERE articleNum.event.id = '" + eventID + "'" +
+                ")";
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<String> getArticleContent(String eventID, String tableID, String tableName) {
+        String sql = "select articleTable.content " +
+                "FROM " + tableName + " articleTable " +
+                "WHERE articleTable.id in " +
+                "(" +
+                "SELECT ea.source_article_id " +
+                "FROM tb_event_article ea " +
+                "WHERE ea.event_id = '" + eventID + "' AND ea.table_id = '" + tableID + "' " +
+                ")";
+        return baseDAO.getSqlList(sql);
     }
 }

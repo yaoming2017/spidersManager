@@ -21,7 +21,6 @@ public class KeyWordsExtract {
     static final float min_diff = 0.001f;
 
     public List<Map.Entry<String, Float>> getKeyword(List<String> sList, List<String> stops) {
-        sList.add("要进行参数化测试，需要在类上面指定如下的运行器");
         // 分词
         ISegmentation seg = new Segmentation(sList);
         List<String> segList = seg.getWordsList();

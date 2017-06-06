@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.Table;
 
 import com.sicdlib.dao.IBaseDAO;
@@ -15,6 +17,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -285,4 +288,22 @@ public class BaseDAO<T> implements IBaseDAO<T> {
         return (BigInteger) query.uniqueResult();
     }
 
+    @Override
+    public void batchSave(List<Object> oList) {
+        Transaction tx = sessionFactory.openSession().getTransaction();
+        tx.begin();
+
+        for(int i = 0; i < oList.size(); i++) {
+            Object o = oList.get(i);
+            getCurrentSession().save(o);
+            if(i % 100 == 0) {
+                getCurrentSession().flush();
+                getCurrentSession().clear();
+            }
+        }
+
+        getCurrentSession().flush();
+        getCurrentSession().clear();
+        tx.commit();
+    }
 }

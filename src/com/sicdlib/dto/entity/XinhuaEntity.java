@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/5.
  */
 @Entity
 @Table(name = "xinhua", schema = "socialmind", catalog = "")
@@ -15,12 +15,13 @@ public class XinhuaEntity {
     private String subCategory;
     private String title;
     private String summary;
-    private String publishTime;
     private String origin;
     private String content;
     private Timestamp timeStamp;
+    private String id;
+    private String dateTime;
 
-    @Id
+    @Basic
     @Column(name = "article_id")
     public String getArticleId() {
         return articleId;
@@ -81,16 +82,6 @@ public class XinhuaEntity {
     }
 
     @Basic
-    @Column(name = "publish_time")
-    public String getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
-    }
-
-    @Basic
     @Column(name = "origin")
     public String getOrigin() {
         return origin;
@@ -120,6 +111,26 @@ public class XinhuaEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -133,10 +144,11 @@ public class XinhuaEntity {
         if (subCategory != null ? !subCategory.equals(that.subCategory) : that.subCategory != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (summary != null ? !summary.equals(that.summary) : that.summary != null) return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
         if (origin != null ? !origin.equals(that.origin) : that.origin != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -149,10 +161,11 @@ public class XinhuaEntity {
         result = 31 * result + (subCategory != null ? subCategory.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (summary != null ? summary.hashCode() : 0);
-        result = 31 * result + (publishTime != null ? publishTime.hashCode() : 0);
         result = 31 * result + (origin != null ? origin.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

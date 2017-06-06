@@ -9,7 +9,6 @@ public class UUIDUtil {
     public static String getUUID() {
         UUID uuid = UUID.randomUUID();
         String str = uuid.toString();
-
         return str;
     }
 }

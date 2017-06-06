@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/3.
  */
 @Entity
 @Table(name = "blogchina_author", schema = "socialmind", catalog = "")
@@ -12,7 +12,6 @@ public class BlogchinaAuthorEntity {
     private String authorId;
     private String authorName;
     private String authorBlogName;
-    private String introduction;
     private String image;
     private String bImage;
     private Integer articleNum;
@@ -23,8 +22,10 @@ public class BlogchinaAuthorEntity {
     private Integer focuseId;
     private Integer fansId;
     private Timestamp timeStamp;
+    private String id;
+    private String introduce;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -52,16 +53,6 @@ public class BlogchinaAuthorEntity {
 
     public void setAuthorBlogName(String authorBlogName) {
         this.authorBlogName = authorBlogName;
-    }
-
-    @Basic
-    @Column(name = "introduction")
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
     }
 
     @Basic
@@ -164,6 +155,26 @@ public class BlogchinaAuthorEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "introduce")
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,7 +186,6 @@ public class BlogchinaAuthorEntity {
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (authorBlogName != null ? !authorBlogName.equals(that.authorBlogName) : that.authorBlogName != null)
             return false;
-        if (introduction != null ? !introduction.equals(that.introduction) : that.introduction != null) return false;
         if (image != null ? !image.equals(that.image) : that.image != null) return false;
         if (bImage != null ? !bImage.equals(that.bImage) : that.bImage != null) return false;
         if (articleNum != null ? !articleNum.equals(that.articleNum) : that.articleNum != null) return false;
@@ -187,6 +197,8 @@ public class BlogchinaAuthorEntity {
         if (focuseId != null ? !focuseId.equals(that.focuseId) : that.focuseId != null) return false;
         if (fansId != null ? !fansId.equals(that.fansId) : that.fansId != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (introduce != null ? !introduce.equals(that.introduce) : that.introduce != null) return false;
 
         return true;
     }
@@ -196,7 +208,6 @@ public class BlogchinaAuthorEntity {
         int result = authorId != null ? authorId.hashCode() : 0;
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (authorBlogName != null ? authorBlogName.hashCode() : 0);
-        result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
         result = 31 * result + (image != null ? image.hashCode() : 0);
         result = 31 * result + (bImage != null ? bImage.hashCode() : 0);
         result = 31 * result + (articleNum != null ? articleNum.hashCode() : 0);
@@ -207,6 +218,8 @@ public class BlogchinaAuthorEntity {
         result = 31 * result + (focuseId != null ? focuseId.hashCode() : 0);
         result = 31 * result + (fansId != null ? fansId.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (introduce != null ? introduce.hashCode() : 0);
         return result;
     }
 }

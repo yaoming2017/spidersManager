@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/5/26.
  */
 @Entity
 @Table(name = "bbs_china_post", schema = "socialmind", catalog = "")
 public class BbsChinaPostEntity {
     private String postId;
-    private String commentIds;
     private String authorId;
     private String pathText;
     private String pathHref;
@@ -25,12 +24,14 @@ public class BbsChinaPostEntity {
     private Integer readNum;
     private Integer participantNum;
     private Integer replyNum;
-    private Integer pictureHrefsNum;
     private Timestamp parseTime;
     private String url;
     private Timestamp timeStamp;
+    private String id;
+    private Integer commentNum;
+    private String pictureHrefs;
 
-    @Id
+    @Basic
     @Column(name = "post_id")
     public String getPostId() {
         return postId;
@@ -38,16 +39,6 @@ public class BbsChinaPostEntity {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    @Basic
-    @Column(name = "comment_ids")
-    public String getCommentIds() {
-        return commentIds;
-    }
-
-    public void setCommentIds(String commentIds) {
-        this.commentIds = commentIds;
     }
 
     @Basic
@@ -191,16 +182,6 @@ public class BbsChinaPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "parse_time")
     public Timestamp getParseTime() {
         return parseTime;
@@ -230,6 +211,36 @@ public class BbsChinaPostEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "comment_num")
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    @Basic
+    @Column(name = "picture_hrefs")
+    public String getPictureHrefs() {
+        return pictureHrefs;
+    }
+
+    public void setPictureHrefs(String pictureHrefs) {
+        this.pictureHrefs = pictureHrefs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -238,7 +249,6 @@ public class BbsChinaPostEntity {
         BbsChinaPostEntity that = (BbsChinaPostEntity) o;
 
         if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
-        if (commentIds != null ? !commentIds.equals(that.commentIds) : that.commentIds != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (pathText != null ? !pathText.equals(that.pathText) : that.pathText != null) return false;
         if (pathHref != null ? !pathHref.equals(that.pathHref) : that.pathHref != null) return false;
@@ -254,11 +264,12 @@ public class BbsChinaPostEntity {
         if (participantNum != null ? !participantNum.equals(that.participantNum) : that.participantNum != null)
             return false;
         if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
+        if (pictureHrefs != null ? !pictureHrefs.equals(that.pictureHrefs) : that.pictureHrefs != null) return false;
 
         return true;
     }
@@ -266,7 +277,6 @@ public class BbsChinaPostEntity {
     @Override
     public int hashCode() {
         int result = postId != null ? postId.hashCode() : 0;
-        result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (pathText != null ? pathText.hashCode() : 0);
         result = 31 * result + (pathHref != null ? pathHref.hashCode() : 0);
@@ -281,10 +291,12 @@ public class BbsChinaPostEntity {
         result = 31 * result + (readNum != null ? readNum.hashCode() : 0);
         result = 31 * result + (participantNum != null ? participantNum.hashCode() : 0);
         result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
+        result = 31 * result + (pictureHrefs != null ? pictureHrefs.hashCode() : 0);
         return result;
     }
 }

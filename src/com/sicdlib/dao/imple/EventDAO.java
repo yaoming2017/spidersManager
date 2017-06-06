@@ -43,10 +43,10 @@ public class EventDAO implements IEventDAO {
     }
 
     @Override
-    public int eventArticleNum(String eventID) {
-        String hql = "SELECT SUM(articleNum.num) FROM TbSourceArticleNumEntity articleNum WHERE articleNum.eventId = '"
+    public Long eventArticleNum(String eventID) {
+        String hql = "SELECT SUM(articleNum.num) FROM TbSourceArticleNumEntity articleNum WHERE articleNum.event.id = '"
                                 + eventID + "'";
-        int result = (int) baseDAO.get(hql);
+        Long result = (Long) baseDAO.get(hql);
         return result;
     }
 
@@ -103,7 +103,7 @@ public class EventDAO implements IEventDAO {
 
     @Override
     public TbEventArticleEntity getSourceEventArticle(String eventID) {
-        String hql = "FROM TbEventArticleEntity eventArticle WHERE eventArticle.eventId = '"
+        String hql = "FROM TbEventArticleEntity eventArticle WHERE eventArticle.event.id = '"
                 + eventID + "' ORDER BY eventArticle.time asc";
 
         return (TbEventArticleEntity) baseDAO.find(hql, 0, 1).get(0);
@@ -123,7 +123,7 @@ public class EventDAO implements IEventDAO {
     @Override
     public TbEventArticleEntity getSourceEventEntity(String eventID) {
         String hql = "FROM TbEventArticleEntity article WHERE article.time = " +
-                "(select MIN(article1.time) from TbEventArticleEntity article1 WHERE article1.eventId = '" + eventID + "' )";
+                "(select MIN(article1.time) from TbEventArticleEntity article1 WHERE article1.event.id = '" + eventID + "' )";
 
         return ((TbEventArticleEntity) baseDAO.get(hql));
     }
@@ -131,20 +131,45 @@ public class EventDAO implements IEventDAO {
     @Override
     public String getEventEndTime(String eventID) {
         String hql = "FROM TbEventArticleEntity article WHERE article.time = " +
-                "(select MAX(article1.time) from TbEventArticleEntity article1 WHERE article1.eventId = '" + eventID + "' )";
+                "(select MAX(article1.time) from TbEventArticleEntity article1 WHERE article1.event.id = '" + eventID + "' )";
 
         return ((TbEventArticleEntity) baseDAO.get(hql)).getTime();
     }
 
     @Override
-    public String[] getRushTimeAndNum(String eventID) {
-        String sql = "SELECT convert(nvarchar(10),articleNum.start_time, 120), SUM(articleNum.num) " +
-                "FROM tb_source_article_num articleNum " +
-                "WHERE articleNum.event_id = '" + eventID + "' AND HAVING SUM(articleNum.num) = " +
-                "(SELECT SUM(articleNum.num) FROM tb_source_article_num articleNum1 " +
-                "WHERE articleNum1.event_id = '" + eventID + "' " +
-                "GROUP BY convert(nvarchar(10),articleNum.start_time, 120)" +
-                "ORDER BY s desc limit 1)";
+    public Object[] getRushTimeAndNum(String eventID) {
+        String sql = "SELECT " +
+                " sm1.s, " +
+                "max(sm1.sum) " +
+                "FROM " +
+                "(" +
+                "SELECT " +
+                "substring(articleNum.start_time, 1, 10) s, " +
+                "SUM(articleNum.num) sum " +
+                "FROM " +
+                "tb_source_article_num articleNum " +
+                "WHERE " +
+                "articleNum.event_id = '" + eventID + "' " +
+                "GROUP BY " +
+                "substring(articleNum.start_time, 1, 10) " +
+                ") sm1 " +
+                "WHERE " +
+                "sm1.sum = ( " +
+                "SELECT " +
+                "MAX(sm2.sum) " +
+                "FROM " +
+                "( " +
+                "SELECT " +
+                "substring(articleNum.start_time, 1, 10) s, " +
+                "SUM(articleNum.num) sum " +
+                "FROM " +
+                "tb_source_article_num articleNum " +
+                "WHERE " +
+                "articleNum.event_id = '" + eventID + "' " +
+                "GROUP BY " +
+                "substring(articleNum.start_time, 1, 10) " +
+                ") sm2 " +
+                ")";
 
         return (String[]) baseDAO.getSqlList(sql).get(0);
     }
@@ -161,8 +186,28 @@ public class EventDAO implements IEventDAO {
     }
 
     @Override
-    public List<TbEventEntity> getAllEvent() {
-        String hql = "from TbEventEntity e";
+    public List<WebsiteEntity> getEventWebsite(String eventID) {
+        String hql = "FROM WebsiteEntity website " +
+                "WHERE website.id in " +
+                "(" +
+                "SELECT table.websiteId " +
+                "FROM TbTableEntity table, TbSourceArticleNumEntity articleNum " +
+                "WHERE table.id = articleNum.table.id AND articleNum.event.id = '" + eventID + "'" +
+                ")";
+
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName) {
+        String hql = "SELECT articleNum.startTime, SUM(articleNum.num) " +
+                "FROM TbSourceArticleNumEntity articleNum " +
+                "WHERE articleNum.event.id = '" + eventID + "' AND articleNum.table.id IN (" +
+                "SELECT table.id " +
+                "FROM TbTableEntity table, WebsiteEntity website " +
+                "WHERE website.websiteName = '" + websiteName + "' AND website.id = table.websiteId" +
+                ")" +
+                "GROUP BY articleNum.startTime";
         return baseDAO.find(hql);
     }
 }

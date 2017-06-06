@@ -48,44 +48,46 @@ public class DouBanUtil {
                 String qualifer = new String(rowKV.getQualifier());
                 //值：字段对应的值
                 String value = new String(rowKV.getValue());
-                //将4字节表情或特殊字符去掉
-                value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
-                switch (qualifer){
-                    case "author_id":
-                        doubanGroupAuthor.setAuthorId(value);
-                        break;
-                    case "author_name":
-                        doubanGroupAuthor.setAuthorName(value);
-                        break;
-                    case "introduction":
-                        doubanGroupAuthor.setIntroduction(value);
-                        break;
-                    case "join_time":
-                        doubanGroupAuthor.setJoinTime(value);
-                        break;
-                    case "location":
-                        doubanGroupAuthor.setLocation(value);
-                        break;
-                    case "logoff_time":
-                        doubanGroupAuthor.setLogoffTime(value);
-                        break;
-                    case "signature":
-                        doubanGroupAuthor.setSignature(value);
-                        break;
-                    case "url":
-                        doubanGroupAuthor.setUrl(value);
-                        break;
+                    //将4字节表情或特殊字符去掉
+                    value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
+                    switch (qualifer) {
+                        case "author_id":
+                            doubanGroupAuthor.setAuthorId(value);
+                            break;
+                        case "author_name":
+                            doubanGroupAuthor.setAuthorName(value);
+                            break;
+                        case "introduction":
+                            doubanGroupAuthor.setIntroduction(value);
+                            break;
+                        case "join_time":
+                            doubanGroupAuthor.setJoinTime(value);
+                            break;
+                        case "location":
+                            doubanGroupAuthor.setLocation(value);
+                            break;
+                        case "logoff_time":
+                            doubanGroupAuthor.setLogoffTime(value);
+                            break;
+                        case "signature":
+                            doubanGroupAuthor.setSignature(value);
+                            break;
+                        case "url":
+                            doubanGroupAuthor.setUrl(value);
+                            break;
+                    }
+                Long time = new Long(rowKV.getTimestamp());
+                doubanGroupAuthor.setTimeStamp(new Timestamp(time));
+                }
+                doubanGroupAuthorService.saveDoubanGroupAuthor(doubanGroupAuthor);
+                //每隔100条打印一下时间
+                if (i % 100 == 0) {
+                    int k = i / 100;
+                    Long end100Time = new Date().getTime();
+                    Long end100toBeginTime = (end100Time - beginTime) / 1000;
+                    System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime + "秒");
                 }
             }
-            doubanGroupAuthorService.saveDoubanGroupAuthor(doubanGroupAuthor);
-            //每隔100条打印一下时间
-            if (i % 100 == 0){
-                int k = i/100;
-                Long end100Time = new Date().getTime();
-                Long end100toBeginTime = (end100Time - beginTime) / 1000;
-                System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime+"秒");
-            }
-        }
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
@@ -149,6 +151,8 @@ public class DouBanUtil {
                         doubanGroupComment.setUrl(value);
                         break;
                 }
+                Long time = new Long(rowKV.getTimestamp());
+                doubanGroupComment.setTimeStamp(new Timestamp(time));
             }
             doubanGroupCommentService.saveDoubanGroupComment(doubanGroupComment);
             //每隔100条打印一下时间
@@ -207,11 +211,16 @@ public class DouBanUtil {
                     case "post_id":
                         doubanGrouppost.setPostId(value);
                         break;
-//                    case "comment_ids":
-//                        doubanGrouppost.setCommentIds(value);
-//                        break;
+                    case "comment_ids":
+                        List<String> listString = this.getCommentId(value);
+                        doubanGrouppost.setCommentNum(listString.size());
+                        break;
                     case "date_time":
-                        doubanGrouppost.setDateTime(value);
+                        String dateTime = " ";
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        dateTime = destFormat.format(sourceFormat.parse(value));
+                        doubanGrouppost.setDateTime(dateTime);
                         break;
                     case "group_href":
                         doubanGrouppost.setGroupHref(value);
@@ -223,21 +232,24 @@ public class DouBanUtil {
                         doubanGrouppost.setGroupName(value);
                         break;
                     case "like_num":
-                        doubanGrouppost.setLikeNum(value);
+                        doubanGrouppost.setLikeNum(Integer.parseInt(value));
                         break;
                     case "recommend_num":
-                        doubanGrouppost.setRecommendNum(value);
+                        doubanGrouppost.setRecommendNum(Integer.parseInt(value));
                         break;
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
-                    case "picture_hrefs_num":
-                        doubanGrouppost.setPictureHrefsNum(value);
+                    case "picture_hrefs":
+                        doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "url":
                         doubanGrouppost.setUrl(value);
                         break;
                 }
+                Long time = new Long(rowKV.getTimestamp());
+                doubanGrouppost.setTimeStamp(new Timestamp(time));
+
             }
             doubanGroupPostService.saveDoubanGroupPost(doubanGrouppost);
             //每隔100条打印一下时间
@@ -252,6 +264,13 @@ public class DouBanUtil {
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
+    private List<String> getCommentId(String comment_ids){
+        String[] commentIdsSplit = comment_ids.split("'");
+        List<String> arrayList = new ArrayList<>();
+        for(int i=1;i<commentIdsSplit.length;i=i+2){
+            arrayList.add(commentIdsSplit[i]);
+        }
+        return  arrayList;
 
             /**
              * 豆瓣组的组信息转换到Mysql中
@@ -270,11 +289,57 @@ public class DouBanUtil {
                  int i = 0;
                  //输出结果
                for(Result result : results){
-                    DoubanGroupGroupEntity doubanGroupGroupEntity = new DoubanGroupGroupEntity();
-                }
+                    DoubanGroupGroupEntity doubanGroupGroup = new DoubanGroupGroupEntity();
+                    i++;
+                    for(KeyValue rowKV : result.raw()){
+                        //字段名
+                        String qualifer = new String(rowKV.getQualifier());
+                        //值,字段对应的值
+                        String value = new String(rowKV.getValue());
+                        //数据公共清理
+                        value = CleanPublicUtil.publicCleanMethods(value);
+                        switch(qualifer){
+                            case "group_id":
+                                   doubanGroupGroup.setGroupId(value);
+                                   break;
+                            case "group_name":
+                                   doubanGroupGroup.setGroupName(value);
+                                   break;
+                            case  "group_tags":
+                                   doubanGroupGroup.setGroupTags(value);
+                                   break;
+                            case  "url":
+                                   doubanGroupGroup.setUrl(value);
+                                   break;
+                            case   "content":
+                                   doubanGroupGroup.setContent(value);
+                                   break;
+                            case  "create_time":
+                                   doubanGroupGroup.setCreateTime(value);
+                                   break;
+                            case   "leader_name":
+                                    doubanGroupGroup.setLeaderName(value);
+                                    break;
+                            case    "leader_href":
+                                    doubanGroupGroup.setLeaderHref(value);
+                                    break;
+                        }
+                        Long time = new Long(rowKV.getTimestamp());
+                       doubanGroupGroup.setTimeStamp(new Timestamp(time));
 
-
-
-}
+                    }
+                    doubanGroupGroupService.saveDoubanGroupGroup(doubanGroupGroup);
+                    //每隔100条打印一下时间
+                   if (i % 100 == 0){
+                       int k = i/100;
+                       Long end100Time = new Date().getTime();
+                       Long end100toBeginTime = (end100Time - beginTime) / 1000;
+                       System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime+"秒");
+                   }
+               }
+                 Long endTime = new Date().getTime();
+                 Long EndtoBeginTime = (endTime - beginTime) % 1000;
+                 System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
+             }
 
 }

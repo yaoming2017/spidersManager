@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/2.
  */
 @Entity
 @Table(name = "bbs_sohu_author", schema = "socialmind", catalog = "")
@@ -14,7 +14,6 @@ public class BbsSohuAuthorEntity {
     private String sex;
     private String level;
     private String title;
-    private String introducation;
     private String duty;
     private Integer postNum;
     private Integer eliteNum;
@@ -36,8 +35,10 @@ public class BbsSohuAuthorEntity {
     private Integer fansNum;
     private Timestamp parseTime;
     private Timestamp timeStamp;
+    private String id;
+    private String introduction;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -85,16 +86,6 @@ public class BbsSohuAuthorEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "introducation")
-    public String getIntroducation() {
-        return introducation;
-    }
-
-    public void setIntroducation(String introducation) {
-        this.introducation = introducation;
     }
 
     @Basic
@@ -307,6 +298,26 @@ public class BbsSohuAuthorEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "introduction")
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -319,8 +330,6 @@ public class BbsSohuAuthorEntity {
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
         if (level != null ? !level.equals(that.level) : that.level != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (introducation != null ? !introducation.equals(that.introducation) : that.introducation != null)
-            return false;
         if (duty != null ? !duty.equals(that.duty) : that.duty != null) return false;
         if (postNum != null ? !postNum.equals(that.postNum) : that.postNum != null) return false;
         if (eliteNum != null ? !eliteNum.equals(that.eliteNum) : that.eliteNum != null) return false;
@@ -342,6 +351,8 @@ public class BbsSohuAuthorEntity {
         if (fansNum != null ? !fansNum.equals(that.fansNum) : that.fansNum != null) return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (introduction != null ? !introduction.equals(that.introduction) : that.introduction != null) return false;
 
         return true;
     }
@@ -353,7 +364,6 @@ public class BbsSohuAuthorEntity {
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (level != null ? level.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (introducation != null ? introducation.hashCode() : 0);
         result = 31 * result + (duty != null ? duty.hashCode() : 0);
         result = 31 * result + (postNum != null ? postNum.hashCode() : 0);
         result = 31 * result + (eliteNum != null ? eliteNum.hashCode() : 0);
@@ -375,6 +385,8 @@ public class BbsSohuAuthorEntity {
         result = 31 * result + (fansNum != null ? fansNum.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
         return result;
     }
 }

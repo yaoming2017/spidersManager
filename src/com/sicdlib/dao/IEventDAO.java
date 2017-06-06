@@ -122,7 +122,7 @@ public interface IEventDAO {
      * @param eventID
      * @return
      */
-    String[] getRushTimeAndNum(String eventID);
+    Object[] getRushTimeAndNum(String eventID);
 
     /**
      * 保存事件
@@ -131,6 +131,21 @@ public interface IEventDAO {
     void updateEvent(TbEventEntity eventEntity);
 
     TbEventEntity getEventByName(String eventName);
+
+    /**
+     * 获取事件来源的网站
+     * @param eventID
+     * @return
+     */
+    List<WebsiteEntity> getEventWebsite(String eventID);
+
+    /**
+     * 获取事件下某一网站的文章数量
+     * @param eventID
+     * @param websiteName
+     * @return
+     */
+    List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName);
 
     List<TbEventEntity> getAllEvent();
 }

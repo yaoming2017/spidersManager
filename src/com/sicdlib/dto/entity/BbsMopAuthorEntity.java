@@ -32,8 +32,9 @@ public class BbsMopAuthorEntity {
     private String education;
     private String career;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -323,5 +324,15 @@ public class BbsMopAuthorEntity {
         result = 31 * result + (career != null ? career.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

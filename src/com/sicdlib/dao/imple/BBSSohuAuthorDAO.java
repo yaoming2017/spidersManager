@@ -1,0 +1,27 @@
+package com.sicdlib.dao.imple;
+
+import com.sicdlib.dao.IBBSSohuAuthorDAO;
+import com.sicdlib.dao.IBaseDAO;
+import com.sicdlib.dto.entity.BbsSohuAuthorEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Created by init on 2017/6/2.
+ */
+@Repository("bbsSohuAuthorDAO")
+public class BBSSohuAuthorDAO implements IBBSSohuAuthorDAO{
+    @Autowired
+    private IBaseDAO baseDAO;
+
+    @Override
+    public Boolean saveBBSSohuAuthor(BbsSohuAuthorEntity bbsSohuAuthor) {
+        try{
+            baseDAO.save(bbsSohuAuthor);
+            return  true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  false;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/6.
  */
 @Entity
 @Table(name = "news_sina", schema = "socialmind", catalog = "")
@@ -20,7 +20,6 @@ public class NewsSinaEntity {
     private String title;
     private String description;
     private String dateTime;
-    private String commmentId;
     private String author;
     private String editor;
     private String fromMedia;
@@ -29,6 +28,7 @@ public class NewsSinaEntity {
     private Integer pictureHrefsNum;
     private Integer participantNum;
     private Timestamp timeStamp;
+    private String commentId;
 
     @Id
     @Column(name = "id")
@@ -141,16 +141,6 @@ public class NewsSinaEntity {
     }
 
     @Basic
-    @Column(name = "commment_id")
-    public String getCommmentId() {
-        return commmentId;
-    }
-
-    public void setCommmentId(String commmentId) {
-        this.commmentId = commmentId;
-    }
-
-    @Basic
     @Column(name = "author")
     public String getAuthor() {
         return author;
@@ -230,6 +220,16 @@ public class NewsSinaEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Basic
+    @Column(name = "comment_id")
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -248,7 +248,6 @@ public class NewsSinaEntity {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
-        if (commmentId != null ? !commmentId.equals(that.commmentId) : that.commmentId != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (editor != null ? !editor.equals(that.editor) : that.editor != null) return false;
         if (fromMedia != null ? !fromMedia.equals(that.fromMedia) : that.fromMedia != null) return false;
@@ -259,6 +258,7 @@ public class NewsSinaEntity {
         if (participantNum != null ? !participantNum.equals(that.participantNum) : that.participantNum != null)
             return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (commentId != null ? !commentId.equals(that.commentId) : that.commentId != null) return false;
 
         return true;
     }
@@ -276,7 +276,6 @@ public class NewsSinaEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
-        result = 31 * result + (commmentId != null ? commmentId.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (editor != null ? editor.hashCode() : 0);
         result = 31 * result + (fromMedia != null ? fromMedia.hashCode() : 0);
@@ -285,6 +284,7 @@ public class NewsSinaEntity {
         result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (participantNum != null ? participantNum.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (commentId != null ? commentId.hashCode() : 0);
         return result;
     }
 }

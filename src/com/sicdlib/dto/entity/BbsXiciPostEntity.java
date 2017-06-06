@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/3.
  */
 @Entity
 @Table(name = "bbs_xici_post", schema = "socialmind", catalog = "")
 public class BbsXiciPostEntity {
     private String postId;
-    private String commentIds;
     private String authorId;
     private String authorName;
     private String authorHref;
@@ -22,8 +21,10 @@ public class BbsXiciPostEntity {
     private Integer pictureHrefsNum;
     private String url;
     private Timestamp timeStamp;
+    private String id;
+    private Integer commentNum;
 
-    @Id
+    @Basic
     @Column(name = "post_id")
     public String getPostId() {
         return postId;
@@ -31,16 +32,6 @@ public class BbsXiciPostEntity {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    @Basic
-    @Column(name = "comment_ids")
-    public String getCommentIds() {
-        return commentIds;
-    }
-
-    public void setCommentIds(String commentIds) {
-        this.commentIds = commentIds;
     }
 
     @Basic
@@ -153,6 +144,26 @@ public class BbsXiciPostEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "comment_num")
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -161,7 +172,6 @@ public class BbsXiciPostEntity {
         BbsXiciPostEntity that = (BbsXiciPostEntity) o;
 
         if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
-        if (commentIds != null ? !commentIds.equals(that.commentIds) : that.commentIds != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (authorHref != null ? !authorHref.equals(that.authorHref) : that.authorHref != null) return false;
@@ -174,6 +184,8 @@ public class BbsXiciPostEntity {
             return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
 
         return true;
     }
@@ -181,7 +193,6 @@ public class BbsXiciPostEntity {
     @Override
     public int hashCode() {
         int result = postId != null ? postId.hashCode() : 0;
-        result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (authorHref != null ? authorHref.hashCode() : 0);
@@ -193,6 +204,8 @@ public class BbsXiciPostEntity {
         result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         return result;
     }
 }

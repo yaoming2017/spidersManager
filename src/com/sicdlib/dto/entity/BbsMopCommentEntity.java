@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/5/30.
  */
 @Entity
 @Table(name = "bbs_mop_comment", schema = "socialmind", catalog = "")
@@ -16,13 +16,14 @@ public class BbsMopCommentEntity {
     private String userName;
     private String dateTime;
     private String content;
-    private String pictureHrefs;
     private Integer praiseNum;
     private Integer replyNum;
     private Integer floorNum;
     private Timestamp timeStamp;
+    private String id;
+    private Integer pictureHrefsNum;
 
-    @Id
+    @Basic
     @Column(name = "comment_id")
     public String getCommentId() {
         return commentId;
@@ -93,16 +94,6 @@ public class BbsMopCommentEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs")
-    public String getPictureHrefs() {
-        return pictureHrefs;
-    }
-
-    public void setPictureHrefs(String pictureHrefs) {
-        this.pictureHrefs = pictureHrefs;
-    }
-
-    @Basic
     @Column(name = "praise_num")
     public Integer getPraiseNum() {
         return praiseNum;
@@ -142,6 +133,26 @@ public class BbsMopCommentEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "picture_hrefs_num")
+    public Integer getPictureHrefsNum() {
+        return pictureHrefsNum;
+    }
+
+    public void setPictureHrefsNum(Integer pictureHrefsNum) {
+        this.pictureHrefsNum = pictureHrefsNum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -156,11 +167,13 @@ public class BbsMopCommentEntity {
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefs != null ? !pictureHrefs.equals(that.pictureHrefs) : that.pictureHrefs != null) return false;
         if (praiseNum != null ? !praiseNum.equals(that.praiseNum) : that.praiseNum != null) return false;
         if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
         if (floorNum != null ? !floorNum.equals(that.floorNum) : that.floorNum != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
+            return false;
 
         return true;
     }
@@ -174,11 +187,12 @@ public class BbsMopCommentEntity {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefs != null ? pictureHrefs.hashCode() : 0);
         result = 31 * result + (praiseNum != null ? praiseNum.hashCode() : 0);
         result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
         result = 31 * result + (floorNum != null ? floorNum.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         return result;
     }
 }

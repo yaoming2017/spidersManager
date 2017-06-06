@@ -13,6 +13,10 @@ public class CleanPublicUtil {
         value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
         //去掉所有空格，以及换行符,制表符等。
         value.replaceAll(" ","");
+        value.replaceAll("<bb>","");
+        value.replaceAll("</bb>","");
+        value.replaceAll("<p>","");
+        value.replaceAll("</p>","");
         value.replaceAll("　","");
         Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
         Matcher matcher = pattern.matcher(value);

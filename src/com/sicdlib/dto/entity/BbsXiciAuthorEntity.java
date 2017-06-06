@@ -15,8 +15,9 @@ public class BbsXiciAuthorEntity {
     private Timestamp parseTime;
     private String registerTime;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -102,5 +103,15 @@ public class BbsXiciAuthorEntity {
         result = 31 * result + (registerTime != null ? registerTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

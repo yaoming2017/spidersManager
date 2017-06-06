@@ -24,8 +24,9 @@ public class Blog163PostEntity {
     private Integer readNum;
     private Integer commentNum;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "post_id")
     public String getPostId() {
         return postId;
@@ -220,5 +221,15 @@ public class Blog163PostEntity {
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bbs_china_author", schema = "socialmind", catalog = "")
 public class BbsChinaAuthorEntity {
+    private String id;
     private String authorId;
     private String authorName;
     private String name;
@@ -21,7 +22,8 @@ public class BbsChinaAuthorEntity {
     private String url;
     private Timestamp timeStamp;
 
-    @Id
+
+    @Basic
     @Column(name = "author_id")
     public String getAuthorId() {
         return authorId;
@@ -167,5 +169,15 @@ public class BbsChinaAuthorEntity {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

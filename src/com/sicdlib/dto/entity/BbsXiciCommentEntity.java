@@ -20,8 +20,9 @@ public class BbsXiciCommentEntity {
     private Integer pictureHrefsNum;
     private String floor;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "comment_id")
     public String getCommentId() {
         return commentId;
@@ -168,5 +169,15 @@ public class BbsXiciCommentEntity {
         result = 31 * result + (floor != null ? floor.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

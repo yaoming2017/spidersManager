@@ -20,7 +20,7 @@ public class Config {
         try {
         //取得一个数据库连接对象
         Connection connection = null;
-            connection = (Connection) ConnectionFactory.createConnection(conf);
+        connection = (Connection) ConnectionFactory.createConnection(conf);
         //取得一个数据库元数据操作对象
         Admin admin = connection.getAdmin();
         } catch (IOException e) {

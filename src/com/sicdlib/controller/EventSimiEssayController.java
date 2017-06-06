@@ -226,7 +226,7 @@ public class EventSimiEssayController {
 //        model.addAttribute("eventEssaySimis", eventEssaySimis);
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/former/addEvent";
+        return "/WEB-INF/addEvent";
     }
 
     /**
@@ -272,17 +272,17 @@ public class EventSimiEssayController {
         model.addAttribute("events", events);
         model.addAttribute("doubanGroupPosts", doubanGroupPosts);
         model.addAttribute("eventArticles", eventArticles);
-        return "/former/eventsList";
+        return "/WEB-INF/eventsList";
     }
 
 
     //列出所有的事件信息
-    @RequestMapping("eventList")
-    public String eventList(HttpServletRequest req, Model model) {
+    @RequestMapping("eventsList")
+    public String eventsList(HttpServletRequest req, Model model) {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/former/eventsList";
+        return "/WEB-INF/eventsList";
     }
 
     //新增事件
@@ -291,7 +291,7 @@ public class EventSimiEssayController {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/former/addEvent";
+        return "/WEB-INF/addEvent";
     }
 
     /****************************************************************************************************/

@@ -159,5 +159,11 @@ public class EventDAO implements IEventDAO {
         String hql = "from TbEventEntity e where e.eventName = '"+eventName+"'";
         return (TbEventEntity) baseDAO.get(hql);
     }
+
+    @Override
+    public List<TbEventEntity> getAllEvent() {
+        String hql = "from TbEventEntity e";
+        return baseDAO.find(hql);
+    }
 }
 

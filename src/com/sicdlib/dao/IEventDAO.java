@@ -131,4 +131,6 @@ public interface IEventDAO {
     void updateEvent(TbEventEntity eventEntity);
 
     TbEventEntity getEventByName(String eventName);
+
+    List<TbEventEntity> getAllEvent();
 }

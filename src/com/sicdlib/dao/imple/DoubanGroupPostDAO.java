@@ -29,4 +29,10 @@ public class DoubanGroupPostDAO implements IDoubanGroupPostDAO {
         String hql = "from DoubanGroupPostEntity db";
         return baseDAO.find(hql);
     }
+
+    @Override
+    public DoubanGroupPostEntity getDoubangroupPost(String id) {
+        String hql = "from DoubanGroupPostEntity db where db.id = '" + id + "'";
+        return (DoubanGroupPostEntity)baseDAO.get(hql);
+    }
 }

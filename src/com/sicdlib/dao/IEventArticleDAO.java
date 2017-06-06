@@ -1,6 +1,10 @@
 package com.sicdlib.dao;
 
 import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbEventEntity;
+
+import java.util.List;
+
 /**
  * Created by YH on 2017/5/26.
  */

@@ -48,6 +48,7 @@ public class EventSimiEssayController {
     @Qualifier("sourceArticleNumService")
     private ISourceArticleNumService sourceArticleNumService;
 
+
     /**
      * 初始化word2vec模型：将数据库中词映射到向量空间
      * @param req
@@ -105,12 +106,12 @@ public class EventSimiEssayController {
         //1.获得豆瓣小组发布的所有信息
         List<DoubanGroupPostEntity> doubanGroupPostList = doubanGroupPostService.getAllDoubanGroupPost();
         String eventName = "";
-//        event = req.getParameter("event");
         Float userSetupSimiDegree = 0.0f;
         userSetupSimiDegree = 0.2f;
 //        userSetupSimiDegree = Float.valueOf(req.getParameter("userSetupSimiDegree"));
-        eventName = "一带一路";
-        UserDefineLibrary.insertWord("一带一路", "n", 1000);
+        eventName = "旅行游玩";
+        eventName = req.getParameter("eventName");
+//        UserDefineLibrary.insertWord("学生兼职", "n", 1000);
         List<String> eventWords = Segment.getWords(eventName);
         System.out.println("事件大小：" + eventWords.size());
         //4.输入关键词，得到该词的向量表示
@@ -179,6 +180,8 @@ public class EventSimiEssayController {
             eventEntity.setEventName(eventName);
             eventService.saveOrUpdateEvent(eventEntity);
         }
+        //重新查询一次事件
+        eve = eventService.getEventByName(eventName);
         //6.2 设置事件文章event_article中的source_table_id
         TbTableEntity tbTable = tableService.getTable("douban_group_post");
         String tbid = "";
@@ -208,15 +211,22 @@ public class EventSimiEssayController {
             eventArticle.setEvent(eve);
             //设置表ID
             eventArticle.setTable(tbTable);
+            //设置事件文章的时间
+            String time = essaySimi.getDoubanGroupPostEntity().getDateTime();
+            time = time.substring(0, 10)+" "+time.substring(10);
+            System.out.println(time);
+            eventArticle.setTime(time);
             eventArticleService.saveOrUpdateEventArticle(eventArticle);
             i++;
-            if (i > 3){
+            if (i > 100){
                 break;
             }
         }
         System.out.println("耗时：\t" + internalTime + "秒");
-        model.addAttribute("eventEssaySimis", eventEssaySimis);
-        return "";
+//        model.addAttribute("eventEssaySimis", eventEssaySimis);
+        List<TbEventEntity> events = eventService.getAllEvent();
+        model.addAttribute("events", events);
+        return "/former/addEvent";
     }
 
     /**
@@ -231,9 +241,57 @@ public class EventSimiEssayController {
     public String getEventSimiEssayList(HttpServletRequest req, Model model) {
         String eventName = "学生兼职";
         eventName = req.getParameter("eventName");
+        System.out.println(eventName);
         TbEventEntity event = eventService.getEventByName(eventName);
+        //与事件相关的文章
+        Set<TbEventArticleEntity> eventArticles = event.getEventArticleSet();
         System.out.println("与事件相关的文章数量为：" + event.getEventArticleSet().size());
-        return "";
+        //新建所有“网站表”的列表
+        List<DoubanGroupPostEntity> doubanGroupPosts = new ArrayList<DoubanGroupPostEntity>();
+        for (TbEventArticleEntity eventArticle : event.getEventArticleSet()){
+            TbTableEntity table = eventArticle.getTable();
+            String tableName = "douban_group_post";
+            if (table != null){
+                tableName = table.getTableName();
+            }
+            //搜索不同表中的源数据
+            switch (tableName){
+                case "douban_group_post":
+                    //通过表名 和 源文章ID 找到各个网站的文章
+                    if (doubanGroupPosts.size() < 20) {
+                        DoubanGroupPostEntity doubanGroupPost = doubanGroupPostService.getDoubanGroupPost(eventArticle.getSourceArticleId());
+                        doubanGroupPosts.add(doubanGroupPost);
+                    }
+                    break;
+                case "bbs_sohu_post":
+                    break;
+            }
+        }
+        //获得所有事件信息
+        List<TbEventEntity> events = eventService.getAllEvent();
+        model.addAttribute("events", events);
+        model.addAttribute("doubanGroupPosts", doubanGroupPosts);
+        model.addAttribute("eventArticles", eventArticles);
+        return "/former/eventsList";
+    }
+
+
+    //列出所有的事件信息
+    @RequestMapping("eventList")
+    public String eventList(HttpServletRequest req, Model model) {
+        //获得所有事件信息
+        List<TbEventEntity> events = eventService.getAllEvent();
+        model.addAttribute("events", events);
+        return "/former/eventsList";
+    }
+
+    //新增事件
+    @RequestMapping("addEvent")
+    public String addEvent(HttpServletRequest req, Model model) {
+        //获得所有事件信息
+        List<TbEventEntity> events = eventService.getAllEvent();
+        model.addAttribute("events", events);
+        return "/former/addEvent";
     }
 
     /****************************************************************************************************/

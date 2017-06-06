@@ -174,4 +174,9 @@ public class EventService implements IEventService {
     public TbEventEntity getEventByName(String eventName) {
         return eventDAO.getEventByName(eventName);
     }
+
+    @Override
+    public List<TbEventEntity> getAllEvent() {
+        return eventDAO.getAllEvent();
+    }
 }

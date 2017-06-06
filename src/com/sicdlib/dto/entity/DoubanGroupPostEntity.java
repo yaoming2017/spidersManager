@@ -2,11 +2,9 @@ package com.sicdlib.dto.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by DeMH on 2017/5/19.
+ * Created by DeMH on 2017/6/1.
  */
 @Entity
 @Table(name = "douban_group_post", schema = "socialmind", catalog = "")
@@ -15,7 +13,7 @@ public class DoubanGroupPostEntity {
     private String authorHref;
     private String authorId;
     private String authorName;
-    private String commentIds;
+    private int commentNum;
     private String content;
     private String dateTime;
     private String groupHref;
@@ -70,13 +68,13 @@ public class DoubanGroupPostEntity {
     }
 
     @Basic
-    @Column(name = "comment_ids")
-    public String getCommentIds() {
-        return commentIds;
+    @Column(name = "comment_num")
+    public int getCommentNum() {
+        return commentNum;
     }
 
-    public void setCommentIds(String commentIds) {
-        this.commentIds = commentIds;
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 
     @Basic
@@ -189,6 +187,16 @@ public class DoubanGroupPostEntity {
         this.pictureHrefsNum = pictureHrefsNum;
     }
 
+    @Basic
+    @Column(name = "time_stamp")
+    public Timestamp getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Timestamp timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -196,11 +204,11 @@ public class DoubanGroupPostEntity {
 
         DoubanGroupPostEntity that = (DoubanGroupPostEntity) o;
 
+        if (commentNum != that.commentNum) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (authorHref != null ? !authorHref.equals(that.authorHref) : that.authorHref != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
-        if (commentIds != null ? !commentIds.equals(that.commentIds) : that.commentIds != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (groupHref != null ? !groupHref.equals(that.groupHref) : that.groupHref != null) return false;
@@ -213,6 +221,7 @@ public class DoubanGroupPostEntity {
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
             return false;
+        if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
 
         return true;
     }
@@ -223,7 +232,7 @@ public class DoubanGroupPostEntity {
         result = 31 * result + (authorHref != null ? authorHref.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
-        result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
+        result = 31 * result + commentNum;
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (groupHref != null ? groupHref.hashCode() : 0);
@@ -235,16 +244,7 @@ public class DoubanGroupPostEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
+        result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "time_stamp")
-    public Timestamp getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(Timestamp timeStamp) {
-        this.timeStamp = timeStamp;
     }
 }

@@ -207,9 +207,9 @@ public class DouBanUtil {
                     case "post_id":
                         doubanGrouppost.setPostId(value);
                         break;
-                    case "comment_ids":
-                        doubanGrouppost.setCommentIds(value);
-                        break;
+//                    case "comment_ids":
+//                        doubanGrouppost.setCommentIds(value);
+//                        break;
                     case "date_time":
                         doubanGrouppost.setDateTime(value);
                         break;

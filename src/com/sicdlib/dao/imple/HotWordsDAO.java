@@ -19,9 +19,12 @@ public class HotWordsDAO implements IHotWordsDAO {
     private IBaseDAO baseDAO;
 
     @Override
-    public List<TbHotWordEntity> getHotWordsEntityList(String eventID) {
+    public List<TbHotWordEntity> getHotWordsEntityList(String eventID, int limit) {
         String hql = "FROM TbHotWordEntity hotWords WHERE hotWords.eventId = '" + eventID + "' order by hotWords.heat desc";
 
+        if (limit != 0) {
+            return baseDAO.find(hql, 0, limit);
+        }
         return baseDAO.find(hql);
     }
 

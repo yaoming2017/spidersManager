@@ -56,4 +56,17 @@ public class TableDAO implements ITableDAO {
                 ")";
         return baseDAO.getSqlList(sql);
     }
+
+    @Override
+    public List<String[]> getArticleIdAndContent(String eventID, String tableID, String tableName) {
+        String sql = "select s.id, articleTable.content " +
+                "FROM " + tableName + " articleTable, " +
+                "(" +
+                "SELECT ea.ID, ea.source_article_id " +
+                "FROM tb_event_article ea " +
+                "WHERE ea.event_id = '" + eventID + "' AND ea.table_id = '" + tableID + "' " +
+                ") s " +
+                "WHERE articleTable.id = s.source_article_id";
+        return baseDAO.getSqlList(sql);
+    }
 }

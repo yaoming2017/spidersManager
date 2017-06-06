@@ -9,4 +9,5 @@ public interface ITableDAO {
     TbTableEntity getTable(String name);
     List<TbTableEntity> getTableByEventID(String eventID);
     List<String> getArticleContent(String eventID, String tableID, String tableName);
+    List<String[]> getArticleIdAndContent(String eventID, String tableID, String tableName);
 }

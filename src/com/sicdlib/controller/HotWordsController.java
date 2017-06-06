@@ -25,7 +25,7 @@ public class HotWordsController {
     @RequestMapping("hotWords")
     public String hotWords(HttpServletRequest req, Model model) {
         String eventID = req.getParameter("eventID");
-        eventID = "ef4edd79-c167-48c9-960e-aadad7eaa327";
+        eventID = "c2c82ae3-a939-4bb3-a31e-ba540920e00f";
         List<Map> hotWords = hotWordsService.getHotWordsMap(eventID);
 
         model.addAttribute("keyWords", JSON.toJSON(hotWords));

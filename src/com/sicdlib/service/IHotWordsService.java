@@ -8,4 +8,10 @@ import java.util.Map;
  */
 public interface IHotWordsService {
     List<Map> getHotWordsMap(String eventID);
+
+    /**
+     * 计算某一事件的热词
+     * @param eventID
+     */
+    void setHotWords(String eventID);
 }

@@ -69,28 +69,28 @@
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>分析</a>
     <ul style="display: block;background: #2E363F;height: 800px;">
-        <li><a href="index.html" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
-        <li class="active"><a href="comment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
-        <li><a href="opinion.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>意见领袖</span></a> </li>
-        <li><a href="transmission.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>传播途径</span></a></li>
-        <li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>
-        <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>
-            <ul>
-                <li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>
-                <li><a href="sex.html" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>
-                <li><a href="count.html" style="font-family: 新宋体;font-size: 18px;">统计</a></li>
-            </ul>
-        </li>
-        <li><a href="communicate.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>
-        <li><a href="hot.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>
-        <li><a href="data.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>
-        <li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>发布</span> <span class="label label-important">3</span></a>
-            <ul>
-                <li><a href="weibo.html" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>
-                <li><a href="area.html" style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>
-                <li><a href="device.html" style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>
-            </ul>
-        </li>
+        <li><a href="event?eventID=" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
+        <li class="active"><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+        <li><a href="sourceWebsiteStatistics?eventID=" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
+        <li><a href="articleSpread?eventID=" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>文章传播</span></a></li>
+        <%--<li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>--%>
+        <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>--%>
+            <%--<ul>--%>
+                <%--<li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>--%>
+                <%--<li><a href="sex.html" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>--%>
+                <%--<li><a href="count.html" style="font-family: 新宋体;font-size: 18px;">统计</a></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
+        <%--<li><a href="communicate.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>--%>
+        <%--<li><a href="hot.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>--%>
+        <%--<li><a href="data.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>--%>
+        <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>发布</span> <span class="label label-important">3</span></a>--%>
+            <%--<ul>--%>
+                <%--<li><a href="weibo.html" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>--%>
+                <%--<li><a href="area.html" style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>--%>
+                <%--<li><a href="device.html" style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
     </ul>
 </div>
 <div id="content">

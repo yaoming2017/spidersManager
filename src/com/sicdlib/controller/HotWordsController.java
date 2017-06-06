@@ -1,13 +1,15 @@
 package com.sicdlib.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.sicdlib.service.IHotWordsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,29 +18,24 @@ import java.util.Map;
  */
 @Controller
 public class HotWordsController {
+    @Autowired
+    @Qualifier("hotWordsService")
+    private IHotWordsService hotWordsService;
 
     @RequestMapping("hotWords")
     public String hotWords(HttpServletRequest req, Model model) {
-//        String eventID = req.getParameter("eventID");
-//        List<Map> hotWords =
-        List<Map> list = new ArrayList<>();
-        Map<String, String> map1 = new HashMap<>();
-        map1.put("name", "毫无关系");
-        map1.put("value", "366.44");
-        list.add(map1);
+        String eventID = req.getParameter("eventID");
+        eventID = "c2c82ae3-a939-4bb3-a31e-ba540920e00f";
+        List<Map> hotWords = hotWordsService.getHotWordsMap(eventID);
 
-        Map<String, String> map2 = new HashMap<>();
-        map2.put("name", "草率");
-        map2.put("value", "220.21");
-        list.add(map2);
-
-        Map<String, String> map3 = new HashMap<>();
-        map3.put("name", "抹泪");
-        map3.put("value", "399.00001");
-        list.add(map3);
-
-        model.addAttribute("keyWords", JSON.toJSON(list));
+        model.addAttribute("keyWords", JSON.toJSON(hotWords));
 
         return "hot_words";
+    }
+
+    @RequestMapping("setHotWords")
+    public void setHotWords(HttpServletRequest req) {
+        String eventID = "ef4edd79-c167-48c9-960e-aadad7eaa327";
+        hotWordsService.setHotWords(eventID);
     }
 }

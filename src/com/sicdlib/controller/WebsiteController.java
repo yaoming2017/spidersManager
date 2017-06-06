@@ -90,20 +90,4 @@ public class WebsiteController {
             }
         }
     }
-
-    @Autowired
-    @Qualifier("stopWordsDAO")
-    private IStopWordsDAO stopWordsDAO;
-
-    @RequestMapping("keywords")
-    public void test(HttpServletRequest req, HttpServletResponse resp) {
-        List<String> stops = stopWordsDAO.getAllStopWords();
-        List<String> strList = new ArrayList<>();
-        String str = "动力方面：2017款宝马X6 V8的功率和动力特性很大程度上得益于双涡轮增压技术，"
-                + "在8缸发动机上首次采用了两个涡轮以最大效率同时提升发动机功率和扭矩。一个涡轮增压器一次为4个气缸供给压缩空气，确保格外流畅的运转与对油门踏板的直接响应。"
-                + "与采用双涡轮增压技术的直六发动机一样，传统涡轮增压发动机典型的“涡轮迟滞”，即涡轮增压器形成功率和增压压力所需的时间滞后，通过这一先进技术几乎被完全消除。";
-        strList.add(str);
-        KeyWordsExtract key =  new KeyWordsExtract();
-        System.out.println(key.getKeyword(strList, stops));
-    }
 }

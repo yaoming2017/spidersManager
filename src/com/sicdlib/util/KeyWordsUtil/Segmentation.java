@@ -5,6 +5,7 @@ import org.wltea.analyzer.core.Lexeme;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,11 @@ public class Segmentation implements ISegmentation{
 
     public Segmentation(List<String> sourceTextList) {
         this.sourceTextList = sourceTextList;
+    }
+
+    public Segmentation(String sourceText) {
+        this.sourceTextList = new ArrayList<>();
+        this.sourceTextList.add(sourceText);
     }
 
     @Override

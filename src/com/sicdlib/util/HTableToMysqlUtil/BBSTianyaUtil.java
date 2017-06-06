@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * Created by DeMH on 2017/5/17.
  */
-public class HTableToMysqlUtil {
+class HTableToMysqlUtil {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     /**
@@ -133,7 +133,7 @@ public class HTableToMysqlUtil {
                         doubanGroupComment.setPostId(value);
                         break;
                     case "prise_num":
-                        doubanGroupComment.setPriseNum(value);
+                        doubanGroupComment.setPriseNum(Integer.valueOf(value));
                         break;
                     case "pub_time":
                         doubanGroupComment.setPubTime(value);
@@ -222,16 +222,16 @@ public class HTableToMysqlUtil {
                         doubanGrouppost.setGroupName(value);
                         break;
                     case "like_num":
-                        doubanGrouppost.setLikeNum(value);
+                        doubanGrouppost.setLikeNum(Integer.valueOf(value));
                         break;
                     case "recommend_num":
-                        doubanGrouppost.setRecommendNum(value);
+                        doubanGrouppost.setRecommendNum(Integer.valueOf(value));
                         break;
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
                     case "picture_hrefs_num":
-                        doubanGrouppost.setPictureHrefsNum(value);
+                        doubanGrouppost.setPictureHrefsNum(Integer.valueOf(value));
                         break;
                     case "url":
                         doubanGrouppost.setUrl(value);

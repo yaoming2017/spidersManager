@@ -40,7 +40,7 @@
 				<prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.connection.url">jdbc:mysql://115.154.137.89:3306/socialMind</prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-			</props>
+            </props>
 		</property>
 
 		<property name="namingStrategy">

@@ -35,7 +35,7 @@ public interface IEventDAO {
      * @param eventID
      * @return
      */
-    int eventArticleNum(String eventID);
+    Long eventArticleNum(String eventID);
 
     /**
      * 事件的高峰时间

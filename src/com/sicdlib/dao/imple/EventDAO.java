@@ -210,5 +210,11 @@ public class EventDAO implements IEventDAO {
                 "GROUP BY articleNum.startTime";
         return baseDAO.find(hql);
     }
+
+    @Override
+    public List<TbEventEntity> getAllEvent() {
+        String hql = "from TbEventEntity e";
+        return baseDAO.find(hql);
+    }
 }
 

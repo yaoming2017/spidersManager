@@ -13,19 +13,19 @@ public class DoubanGroupPostEntity {
     private String authorHref;
     private String authorId;
     private String authorName;
-    private int commentNum;
     private String content;
     private String dateTime;
     private String groupHref;
     private String groupId;
     private String groupName;
-    private String likeNum;
     private String postId;
-    private String recommendNum;
     private String title;
     private String url;
-    private String pictureHrefsNum;
     private Timestamp timeStamp;
+    private Integer commentNum;
+    private Integer likeNum;
+    private Integer recommendNum;
+    private Integer pictureHrefsNum;
 
     @Id
     @Column(name = "id")
@@ -65,16 +65,6 @@ public class DoubanGroupPostEntity {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    @Basic
-    @Column(name = "comment_num")
-    public int getCommentNum() {
-        return commentNum;
-    }
-
-    public void setCommentNum(int commentNum) {
-        this.commentNum = commentNum;
     }
 
     @Basic
@@ -128,16 +118,6 @@ public class DoubanGroupPostEntity {
     }
 
     @Basic
-    @Column(name = "like_num")
-    public String getLikeNum() {
-        return likeNum;
-    }
-
-    public void setLikeNum(String likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    @Basic
     @Column(name = "post_id")
     public String getPostId() {
         return postId;
@@ -145,16 +125,6 @@ public class DoubanGroupPostEntity {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    @Basic
-    @Column(name = "recommend_num")
-    public String getRecommendNum() {
-        return recommendNum;
-    }
-
-    public void setRecommendNum(String recommendNum) {
-        this.recommendNum = recommendNum;
     }
 
     @Basic
@@ -178,16 +148,6 @@ public class DoubanGroupPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public String getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(String pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "time_stamp")
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -195,6 +155,46 @@ public class DoubanGroupPostEntity {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    @Basic
+    @Column(name = "comment_num")
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    @Basic
+    @Column(name = "like_num")
+    public Integer getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(Integer likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    @Basic
+    @Column(name = "recommend_num")
+    public Integer getRecommendNum() {
+        return recommendNum;
+    }
+
+    public void setRecommendNum(Integer recommendNum) {
+        this.recommendNum = recommendNum;
+    }
+
+    @Basic
+    @Column(name = "picture_hrefs_num")
+    public Integer getPictureHrefsNum() {
+        return pictureHrefsNum;
+    }
+
+    public void setPictureHrefsNum(Integer pictureHrefsNum) {
+        this.pictureHrefsNum = pictureHrefsNum;
     }
 
     @Override
@@ -214,14 +214,14 @@ public class DoubanGroupPostEntity {
         if (groupHref != null ? !groupHref.equals(that.groupHref) : that.groupHref != null) return false;
         if (groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) return false;
         if (groupName != null ? !groupName.equals(that.groupName) : that.groupName != null) return false;
-        if (likeNum != null ? !likeNum.equals(that.likeNum) : that.likeNum != null) return false;
         if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
-        if (recommendNum != null ? !recommendNum.equals(that.recommendNum) : that.recommendNum != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (likeNum != null ? !likeNum.equals(that.likeNum) : that.likeNum != null) return false;
+        if (recommendNum != null ? !recommendNum.equals(that.recommendNum) : that.recommendNum != null) return false;
         if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
             return false;
-        if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
 
         return true;
     }

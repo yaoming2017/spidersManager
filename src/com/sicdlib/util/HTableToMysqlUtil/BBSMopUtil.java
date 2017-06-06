@@ -3,10 +3,8 @@ package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.BbsMopAuthorEntity;
 import com.sicdlib.dto.entity.BbsMopCommentEntity;
-import com.sicdlib.dto.entity.BbsMopCommentPostIdEntity;
 import com.sicdlib.dto.entity.BbsMopPostEntity;
 import com.sicdlib.service.IBBSMopAuthorService;
-import com.sicdlib.service.IBBSMopCommentPostIdService;
 import com.sicdlib.service.IBBSMopCommentService;
 import com.sicdlib.service.IBBSMopPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
@@ -18,7 +16,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -29,16 +30,16 @@ public class BBSMopUtil {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     /**
-     * 豆瓣htable_作者转换到Mysql中
+     * 猫扑社区htable_作者转换到Mysql中
      */
     @Test
     public void test_bbsMopAuthor_HTableToMysql() throws Exception{
         IBBSMopAuthorService bbsMopAuthorService =(IBBSMopAuthorService) apx.getBean("bbsMopAuthorService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         *猫扑社区
          */
-        //豆瓣小组 - 作者
+        //猫扑社区 - 作者
         String htable_name = "bbs_mop_author";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
@@ -66,12 +67,13 @@ public class BBSMopUtil {
                         break;
                     case "location":
                         bbsMopAuthor.setLocation(value);
+                        System.out.println(value);
                         break;
                     case "age":
                         bbsMopAuthor.setAge(value);
                         break;
                     case "level":
-                        bbsMopAuthor.setLocation(value);
+                        bbsMopAuthor.setLevel(value);
                         break;
                     case "level_nick":
                         bbsMopAuthor.setLevelNick(value);
@@ -79,20 +81,26 @@ public class BBSMopUtil {
                     case "friends_num":
                        bbsMopAuthor.setFriendsNum(Integer.parseInt(value));
                         break;
-                    case    "fans_num":
+                    case  "fans_num":
                         bbsMopAuthor.setFansNum(Integer.parseInt(value));
                         break;
-                    case    "point":
+                    case "point":
                         bbsMopAuthor.setPoint(value);
+                        System.out.println(value);
                         break;
-                    case    "post_num":
+                    case  "post_num":
                         bbsMopAuthor.setPostNum(Integer.parseInt(value));
                         break;
-                    case   "reply_num":
+                    case  "reply_num":
                         bbsMopAuthor.setReplyNum(Integer.parseInt(value));
                         break;
-                    case    "hits":
-                        bbsMopAuthor.setHits(Integer.parseInt(value));
+                    case  "hits":
+                        if(value.equals("")){
+                            bbsMopAuthor.setHits(0);
+                        }else{
+                            bbsMopAuthor.setHits(Integer.parseInt(value));
+                        }
+
                         break;
                     case    "birthday":
                         bbsMopAuthor.setBirthday(value);
@@ -140,16 +148,16 @@ public class BBSMopUtil {
     }
 
     /**
-     * 豆瓣htable_评论转换到Mysql中
+     * 猫扑htable_评论转换到Mysql中
      */
     @Test
     public void test_bbsMopComment_HTableToMysql() throws Exception{
         IBBSMopCommentService bbsMopCommentService =(IBBSMopCommentService) apx.getBean("bbsMopCommentService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         * 猫扑社区
          */
-        //豆瓣小组 - 评论
+        //猫扑社区 - 评论
         String htable_name = "bbs_mop_comment";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
@@ -165,6 +173,11 @@ public class BBSMopUtil {
                 String value = new String(rowKV.getValue());
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
+
+                // 获取爬取数据时间戳
+                Long time = new Long(rowKV.getTimestamp());
+                bbsMopComment.setTimeStamp(new Timestamp(time));
+
                 switch (qualifer){
                     case "comment_id":
                         bbsMopComment.setCommentId(value);
@@ -182,9 +195,28 @@ public class BBSMopUtil {
                         bbsMopComment.setUserName(value);
                         break;
                     case "date_time":
+                        String dateTime = "";
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-
-                        bbsMopComment.setDateTime(value);
+                        if(value.contains("今天")) {
+                            dateTime = value.substring(value.length() - 8, value.length());
+                            dateTime = destFormat.format(new Date(time)).substring(0, 11) + dateTime;
+                        } else if(value.contains("秒前")){
+                            dateTime = value.substring(0, value.length()-2);
+                            Calendar calendar = Calendar.getInstance();
+                            //calendar.setTime(destFormat.format(new Date(time)));
+                            calendar.add(Calendar.SECOND,-1*Integer.parseInt(dateTime));
+                            dateTime = destFormat.format(calendar.getTime());
+                        }else if(value.contains("分钟前")){
+                            dateTime = value.substring(0, value.length()-3);
+                            Calendar nowTime = Calendar.getInstance();
+                            nowTime.add(Calendar.MINUTE,-1*Integer.parseInt(dateTime));
+                            dateTime =destFormat.format(nowTime.getTime());
+                        }else {
+                            dateTime = destFormat.format(sourceFormat.parse(value));
+                        }
+                        bbsMopComment.setDateTime(dateTime);
                         break;
                     case "content":
                         bbsMopComment.setContent(value);
@@ -202,8 +234,6 @@ public class BBSMopUtil {
                         bbsMopComment.setFloorNum(Integer.parseInt(value));
                         break;
                 }
-                Long time = new Long(rowKV.getTimestamp());
-                bbsMopComment.setTimeStamp(new Timestamp(time));
             }
             bbsMopCommentService.saveBBSMopComment(bbsMopComment);
             //每隔100条打印一下时间
@@ -217,21 +247,19 @@ public class BBSMopUtil {
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
+
     }
-
-
     /**
-     * 豆瓣htable_发布信息转换到Mysql中
+     * 猫扑htable_发布信息转换到Mysql中
      */
     @Test
     public void test_bbsMopPost_HTableToMysql() throws Exception{
         IBBSMopPostService bbsMopPostService =(IBBSMopPostService) apx.getBean("bbsMopPostService");
-        IBBSMopCommentPostIdService bbsMopCommentPostIdService = (IBBSMopCommentPostIdService) apx.getBean("bbsMopCommentPostIdService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         * 猫扑社区
          */
-        //豆瓣小组 -文章
+        //猫扑社区 -文章
         String htable_name = "bbs_mop_post";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
@@ -247,11 +275,8 @@ public class BBSMopUtil {
                 String value = new String(rowKV.getValue());
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
-                String postID = null;
-                List<String> commentIds =new ArrayList<>();
                 switch (qualifer){
                     case "post_id":
-                        postID = value;
                         bbsMopPost.setPostId(value);
                         break;
                     case "author_id":
@@ -259,7 +284,6 @@ public class BBSMopUtil {
                         break;
                     case "comment_ids":
                         List<String> listString = this.getCommentId(value);
-                        commentIds = listString;
                         bbsMopPost.setCommentNum(listString.size());
                         break;
                     case "path_text":
@@ -289,9 +313,9 @@ public class BBSMopUtil {
                     case "content":
                         bbsMopPost.setContent(value);
                         break;
-                    case "picture_hrefs_num":
-                        bbsMopPost.setPictureHrefsNum(Integer.parseInt(value));
+                    case "picture_hrefs":
                         System.out.println(value);
+                        bbsMopPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "tags":
                         bbsMopPost.setTags(value);
@@ -302,16 +326,9 @@ public class BBSMopUtil {
                     case  "recommend_num":
                         bbsMopPost.setRecommendNum(Integer.parseInt(value));
                         break;
-                    case    "collect_num":
+                    case  "collect_num":
                         bbsMopPost.setCollectNum(Integer.parseInt(value));
-                }
-                if(postID != null && commentIds != null && commentIds.size() > 0) {
-                    for(String commentId: commentIds){
-                        BbsMopCommentPostIdEntity commentPostId = new  BbsMopCommentPostIdEntity();
-                        commentPostId.setPostId(postID);
-                        commentPostId.setCommentId(commentId);
-                        bbsMopCommentPostIdService.savebbsMopCommentPostId(commentPostId);
-                    }
+                        break;
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 bbsMopPost.setTimeStamp(new Timestamp(time));
@@ -327,7 +344,7 @@ public class BBSMopUtil {
         }
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
-        System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
+        System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
     private List<String> getCommentId(String comment_ids){
         String[] commentIdsSplit = comment_ids.split("'");

@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/2.
  */
 @Entity
 @Table(name = "bbs_sohu_post", schema = "socialmind", catalog = "")
-public class  BbsSohuPostEntity {
+public class BbsSohuPostEntity {
     private String postId;
-    private String commentIds;
     private String url;
     private String title;
     private String content;
@@ -24,6 +23,7 @@ public class  BbsSohuPostEntity {
     private Timestamp parseTime;
     private Timestamp timeStamp;
     private String id;
+    private Integer commentNum;
 
     @Basic
     @Column(name = "post_id")
@@ -33,16 +33,6 @@ public class  BbsSohuPostEntity {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    @Basic
-    @Column(name = "comment_ids")
-    public String getCommentIds() {
-        return commentIds;
-    }
-
-    public void setCommentIds(String commentIds) {
-        this.commentIds = commentIds;
     }
 
     @Basic
@@ -165,6 +155,26 @@ public class  BbsSohuPostEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "comment_num")
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,7 +183,6 @@ public class  BbsSohuPostEntity {
         BbsSohuPostEntity that = (BbsSohuPostEntity) o;
 
         if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
-        if (commentIds != null ? !commentIds.equals(that.commentIds) : that.commentIds != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
@@ -187,6 +196,8 @@ public class  BbsSohuPostEntity {
         if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
 
         return true;
     }
@@ -194,7 +205,6 @@ public class  BbsSohuPostEntity {
     @Override
     public int hashCode() {
         int result = postId != null ? postId.hashCode() : 0;
-        result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
@@ -207,16 +217,8 @@ public class  BbsSohuPostEntity {
         result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         return result;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

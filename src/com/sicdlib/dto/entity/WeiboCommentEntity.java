@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/5.
  */
 @Entity
 @Table(name = "weibo_comment", schema = "socialmind", catalog = "")
@@ -26,8 +26,9 @@ public class WeiboCommentEntity {
     private String topicTextList;
     private String imgUrlList;
     private Timestamp timeStamp;
+    private String id;
 
-    @Id
+    @Basic
     @Column(name = "comment_id")
     public String getCommentId() {
         return commentId;
@@ -197,6 +198,16 @@ public class WeiboCommentEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -228,6 +239,7 @@ public class WeiboCommentEntity {
             return false;
         if (imgUrlList != null ? !imgUrlList.equals(that.imgUrlList) : that.imgUrlList != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
@@ -251,6 +263,7 @@ public class WeiboCommentEntity {
         result = 31 * result + (topicTextList != null ? topicTextList.hashCode() : 0);
         result = 31 * result + (imgUrlList != null ? imgUrlList.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 }

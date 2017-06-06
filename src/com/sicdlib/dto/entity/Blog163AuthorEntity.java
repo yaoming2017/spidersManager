@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/3.
  */
 @Entity
 @Table(name = "blog_163_author", schema = "socialmind", catalog = "")
@@ -17,7 +17,6 @@ public class Blog163AuthorEntity {
     private String birthday;
     private String hometown;
     private String apartment;
-    private String introducation;
     private String wish;
     private String circle;
     private String level;
@@ -30,6 +29,7 @@ public class Blog163AuthorEntity {
     private String contact;
     private Timestamp timeStamp;
     private String id;
+    private String introduce;
 
     @Basic
     @Column(name = "author_id")
@@ -109,16 +109,6 @@ public class Blog163AuthorEntity {
 
     public void setApartment(String apartment) {
         this.apartment = apartment;
-    }
-
-    @Basic
-    @Column(name = "introducation")
-    public String getIntroducation() {
-        return introducation;
-    }
-
-    public void setIntroducation(String introducation) {
-        this.introducation = introducation;
     }
 
     @Basic
@@ -231,6 +221,26 @@ public class Blog163AuthorEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "introduce")
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -246,8 +256,6 @@ public class Blog163AuthorEntity {
         if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
         if (hometown != null ? !hometown.equals(that.hometown) : that.hometown != null) return false;
         if (apartment != null ? !apartment.equals(that.apartment) : that.apartment != null) return false;
-        if (introducation != null ? !introducation.equals(that.introducation) : that.introducation != null)
-            return false;
         if (wish != null ? !wish.equals(that.wish) : that.wish != null) return false;
         if (circle != null ? !circle.equals(that.circle) : that.circle != null) return false;
         if (level != null ? !level.equals(that.level) : that.level != null) return false;
@@ -259,6 +267,8 @@ public class Blog163AuthorEntity {
         if (experience != null ? !experience.equals(that.experience) : that.experience != null) return false;
         if (contact != null ? !contact.equals(that.contact) : that.contact != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (introduce != null ? !introduce.equals(that.introduce) : that.introduce != null) return false;
 
         return true;
     }
@@ -273,7 +283,6 @@ public class Blog163AuthorEntity {
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (hometown != null ? hometown.hashCode() : 0);
         result = 31 * result + (apartment != null ? apartment.hashCode() : 0);
-        result = 31 * result + (introducation != null ? introducation.hashCode() : 0);
         result = 31 * result + (wish != null ? wish.hashCode() : 0);
         result = 31 * result + (circle != null ? circle.hashCode() : 0);
         result = 31 * result + (level != null ? level.hashCode() : 0);
@@ -285,16 +294,8 @@ public class Blog163AuthorEntity {
         result = 31 * result + (experience != null ? experience.hashCode() : 0);
         result = 31 * result + (contact != null ? contact.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (introduce != null ? introduce.hashCode() : 0);
         return result;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

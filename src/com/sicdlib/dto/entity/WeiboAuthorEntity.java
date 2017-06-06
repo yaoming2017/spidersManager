@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/5.
  */
 @Entity
 @Table(name = "weibo_author", schema = "socialmind", catalog = "")
 public class WeiboAuthorEntity {
     private String id;
     private String url;
-    private String parseTime;
+    private Timestamp parseTime;
     private String userId;
     private String pageId;
     private String headImgUrl;
@@ -62,11 +62,11 @@ public class WeiboAuthorEntity {
 
     @Basic
     @Column(name = "parse_time")
-    public String getParseTime() {
+    public Timestamp getParseTime() {
         return parseTime;
     }
 
-    public void setParseTime(String parseTime) {
+    public void setParseTime(Timestamp parseTime) {
         this.parseTime = parseTime;
     }
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/3.
  */
 @Entity
 @Table(name = "blogchina_blog", schema = "socialmind", catalog = "")
@@ -13,7 +13,6 @@ public class BlogchinaBlogEntity {
     private String title;
     private String subTitle;
     private String authorId;
-    private String publishTime;
     private String category;
     private Integer readNum;
     private Integer commentNum;
@@ -25,6 +24,7 @@ public class BlogchinaBlogEntity {
     private String commentIds;
     private Timestamp timeStamp;
     private String id;
+    private String dateTime;
 
     @Basic
     @Column(name = "blog_id")
@@ -64,16 +64,6 @@ public class BlogchinaBlogEntity {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
-    }
-
-    @Basic
-    @Column(name = "publish_time")
-    public String getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
     }
 
     @Basic
@@ -176,6 +166,26 @@ public class BlogchinaBlogEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -187,7 +197,6 @@ public class BlogchinaBlogEntity {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (subTitle != null ? !subTitle.equals(that.subTitle) : that.subTitle != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
         if (readNum != null ? !readNum.equals(that.readNum) : that.readNum != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
@@ -198,6 +207,8 @@ public class BlogchinaBlogEntity {
         if (bPicturesNum != null ? !bPicturesNum.equals(that.bPicturesNum) : that.bPicturesNum != null) return false;
         if (commentIds != null ? !commentIds.equals(that.commentIds) : that.commentIds != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -208,7 +219,6 @@ public class BlogchinaBlogEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (subTitle != null ? subTitle.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
-        result = 31 * result + (publishTime != null ? publishTime.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (readNum != null ? readNum.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
@@ -219,16 +229,8 @@ public class BlogchinaBlogEntity {
         result = 31 * result + (bPicturesNum != null ? bPicturesNum.hashCode() : 0);
         result = 31 * result + (commentIds != null ? commentIds.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

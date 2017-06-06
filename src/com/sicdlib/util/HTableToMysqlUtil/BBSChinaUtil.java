@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -77,16 +79,13 @@ public class BBSChinaUtil {
                     case  "url":
                         bbsChinaAuthor.setUrl(value);
                     case  "parse_time":
-                        //System.out.println(value);
-                        //String intNumber = value.substring(0,value.indexOf("h"));
+                        if(value.contains("")){
+
+                        }
                         Double time = Double.parseDouble(value) * 1000;
                         Long longTime = new Long(time.longValue());
                         bbsChinaAuthor.setParseTime(new Timestamp(longTime));
                         break;
-                  /*  case  "time_stamp":
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        bbsChinaAuthor.setTimeStamp(Timestamp.valueOf(df.format(value)));
-                        break;*/
                 }
                 Long time = new Long(rowKV.getTimestamp());
                bbsChinaAuthor.setTimeStamp(new Timestamp(time));
@@ -143,21 +142,22 @@ public class BBSChinaUtil {
                 case  "author_name":
                      bbsChinaComment.setAuthorName(value);
                      break;
-                case  "praise_num":
+                case  "prise_num":
                     bbsChinaComment.setPriseNum(Integer.parseInt(value));
                     break;
                 case  "date_time":
-                    bbsChinaComment.setDateTime(value);
+                    String dateTime = "";
+                    DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-ddhh:mm:ss");
+                    DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    dateTime = destFormat.format(sourceFormat.parse(value));
+                    bbsChinaComment.setDateTime(dateTime);
                     break;
                 case  "floor":
                     bbsChinaComment.setFloor(value);
                     break;
                 case  "content":
-                    bbsChinaComment.setFloor(value);
+                    bbsChinaComment.setContent(value);
                     break;
-               /* case  "time_stamp":
-                    bbsChinaComment.setTimeStamp(Timestamp.valueOf(value));
-                    break;*/
             }
             Long time = new Long(rowKV.getTimestamp());
             bbsChinaComment.setTimeStamp(new Timestamp(time));
@@ -185,7 +185,6 @@ public class BBSChinaUtil {
     @Test
     public  void test_bbsChinaPost_HTableMysql() throws  Exception{
         IBBSChinaPostService bbsChinaPostService = (IBBSChinaPostService) apx.getBean("bbsChinaPostService");
-        IBBSChinaCommentPostIdService bbsChinaCommentPostIdService = (IBBSChinaCommentPostIdService) apx.getBean("bbsChinaCommentPostIdService");
         Long beginTime = new Date().getTime();
         /**
          * 中华网社区
@@ -204,20 +203,14 @@ public class BBSChinaUtil {
                 String qualifer = new String(rowKV.getQualifier());
                 //值，字段对应的值
                 String value = new String(rowKV.getValue());
-                //定义postId
-                String postID=null;
-                //定义commentIds
-                List<String> commentIds = new ArrayList<String>();
                 //数据公共清理
                 value = CleanPublicUtil.publicCleanMethods(value);
                 switch (qualifer){
                     case "post_id":
-                        postID = value;
                         bbsChinaPost.setPostId(value);
                         break;
                     case "comment_ids":
                         List<String> listString = this.getCommentId(value);
-                        commentIds = listString;
                         bbsChinaPost.setCommentNum(listString.size());
                         break;
                     case  "author_id":
@@ -241,47 +234,46 @@ public class BBSChinaUtil {
                     case  "author_name":
                         bbsChinaPost.setAuthorName(value);
                         break;
-                    case    "content":
+                    case   "content":
                         bbsChinaPost.setContent(value);
                         break;
-                    case    "level":
+                    case   "level":
                         bbsChinaPost.setLevel(value);
                         break;
-                    case    "point":
+                    case   "point":
                         bbsChinaPost.setPoint(value);
                         break;
-                    case   "date_time":
-                        bbsChinaPost.setDateTime(value);
+                    case  "date_time":
+                        String dateTime = "";
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-ddhh:mm:ss");
+                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        dateTime = destFormat.format(sourceFormat.parse(value));
+                        bbsChinaPost.setDateTime(dateTime);
                         break;
-                    case    "read_num":
+                    case   "read_num":
                         bbsChinaPost.setReadNum(Integer.parseInt(value));
                         break;
-                    case    "participant_num":
+                    case   "participant_num":
                         bbsChinaPost.setParticipantNum(Integer.parseInt(value));
                         break;
-                    case    "reply_num":
+                    case   "reply_num":
                         bbsChinaPost.setReplyNum(Integer.parseInt(value));
                         break;
                     case    "picture_hrefs":
                         bbsChinaPost.setPictureHrefs(value);
+                        System.out.println(value);
                         break;
-                    case    "url":
+                    case  "url":
                         bbsChinaPost.setUrl(value);
                         break;
-                    case    "parse_time":
-                        Long time = new Long(String.valueOf(bbsChinaPost.getParseTime()).trim());
-                        bbsChinaPost.setParseTime(new Timestamp(time));
+                    case  "parse_time":
+                        Double time = Double.parseDouble(value) * 1000;
+                        Long longTime = new Long(time.longValue());
+                        bbsChinaPost.setParseTime(new Timestamp(longTime));
+                        break;
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 bbsChinaPost.setTimeStamp(new Timestamp(time));
-                if(postID !=null && commentIds!=null && commentIds.size()>0){
-                    for(String commentId :commentIds){
-                        BbsChinaCommentPostIdEntity commentPostId = new BbsChinaCommentPostIdEntity();
-                        commentPostId.setPostId(postID);
-                        commentPostId.setCommentId(commentId);
-                        bbsChinaCommentPostIdService.saveBBSChinaCommentPostId(commentPostId);
-                    }
-                }
             }
             bbsChinaPostService.saveBBSChinaPost(bbsChinaPost);
             //每隔100条打印一下时间

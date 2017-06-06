@@ -11,6 +11,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,10 +60,24 @@ public class BBSPeopleUtil {
                         bbsPeopleAuthor.setUrl(value);
                         break;
                     case "post_num":
-                        bbsPeopleAuthor.setPostNum(Integer.parseInt(value));
+                        int postNum =0;
+                        if(value.contains("万")){
+                             double doublePostNum = Double.parseDouble(value.substring(0,value.length()-1));
+                             postNum = (int)(doublePostNum*10000);
+                        }else{
+                            postNum =Integer.parseInt(value);
+                        }
+                        bbsPeopleAuthor.setPostNum(postNum);
                         break;
                     case "reply_num":
-                        bbsPeopleAuthor.setReplyNum(Integer.parseInt(value));
+                        int replyNum=0;
+                        if(value.contains("万")) {
+                            double doubleReplyNum= Double.parseDouble(value.substring(0, value.length() - 1));
+                            replyNum =(int)(doubleReplyNum* 10000);
+                        }else{
+                            replyNum =Integer.parseInt(value);
+                        }
+                        bbsPeopleAuthor.setReplyNum(replyNum);
                         break;
                     case "elite_num":
                         bbsPeopleAuthor.setEliteNum(Integer.parseInt(value));
@@ -130,7 +146,11 @@ public class BBSPeopleUtil {
                         bbsPeopleComment.setAuthorHref(value);
                         break;
                     case "date_time":
-                        bbsPeopleComment.setDateTime(value);
+                        String dateTime = "";
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        dateTime = destFormat.format(sourceFormat.parse(value));
+                        bbsPeopleComment.setDateTime(dateTime);
                         break;
                     case "floor":
                         bbsPeopleComment.setFloor(value);
@@ -166,7 +186,6 @@ public class BBSPeopleUtil {
     @Test
     public void test_bbsPeoplePost_HTableToMysql() throws Exception{
         IBBSPeoplePostService bbsPeoplePostService = (IBBSPeoplePostService) apx.getBean("bbsPeoplePostService");
-        IBBSPeopleCommentPostIdService bbsPeopleCommentPostIdService = (IBBSPeopleCommentPostIdService) apx.getBean("bbsPeopleCommentPostIdService");
         Long beginTime = new Date().getTime();
         /**
          * 人民网
@@ -187,11 +206,8 @@ public class BBSPeopleUtil {
                 String value = new String(rowKV.getValue());
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
-                String postID = null;
-                List<String> commentIds = new ArrayList<>();
                 switch (qualifer){
                     case "post_id":
-                        postID = value;
                         bbsPeoplePost.setPostId(value);
                         break;
                     case "author_id":
@@ -199,7 +215,6 @@ public class BBSPeopleUtil {
                         break;
                     case "comment_ids":
                         List<String> listString = this.getCommentId(value);
-                        commentIds =listString;
                         bbsPeoplePost.setCommentNum(listString.size());
                         break;
                     case "title":
@@ -235,24 +250,17 @@ public class BBSPeopleUtil {
                     case "content":
                         bbsPeoplePost.setContent(value);
                         break;
-                    case "picture_hrefs_num":
+                    case "picture_hrefs":
                         bbsPeoplePost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "parse_time":
-                        Long time = new Long(String.valueOf(bbsPeoplePost.getParseTime()).trim());
-                        bbsPeoplePost.setParseTime(new Timestamp(time));
+                        Double time = Double.parseDouble(value) * 1000;
+                        Long longTime = new Long(time.longValue());
+                        bbsPeoplePost.setParseTime(new Timestamp(longTime));
+                        break;
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 bbsPeoplePost.setTimeStamp(new Timestamp(time));
-                if(postID != null && commentIds != null && commentIds.size() > 0) {
-                    for(String commentId: commentIds){
-                        BbsPeopleCommentPostIdEntity commentPostId =new BbsPeopleCommentPostIdEntity();
-                        commentPostId.setPostId(postID);
-                        commentPostId.setCommentId(commentId);
-                        bbsPeopleCommentPostIdService.saveBBSPeopleCommentPostId(commentPostId);
-                    }
-                }
-
             }
             bbsPeoplePostService.saveBBSPeoplePost(bbsPeoplePost);
             //每隔100条打印一下时间
@@ -265,7 +273,7 @@ public class BBSPeopleUtil {
         }
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
-        System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
+        System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
     private List<String> getCommentId(String comment_ids){
         String[] commentIdsSplit = comment_ids.split("'");

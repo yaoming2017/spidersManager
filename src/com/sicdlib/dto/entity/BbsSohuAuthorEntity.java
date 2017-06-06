@@ -4,19 +4,16 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/2.
  */
 @Entity
 @Table(name = "bbs_sohu_author", schema = "socialmind", catalog = "")
 public class BbsSohuAuthorEntity {
-
     private String authorId;
-    private String id;
     private String nickName;
     private String sex;
     private String level;
     private String title;
-    private String introducation;
     private String duty;
     private Integer postNum;
     private Integer eliteNum;
@@ -38,6 +35,8 @@ public class BbsSohuAuthorEntity {
     private Integer fansNum;
     private Timestamp parseTime;
     private Timestamp timeStamp;
+    private String id;
+    private String introduction;
 
     @Basic
     @Column(name = "author_id")
@@ -47,36 +46,6 @@ public class BbsSohuAuthorEntity {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BbsSohuAuthorEntity that = (BbsSohuAuthorEntity) o;
-
-        if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = authorId != null ? authorId.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        return result;
     }
 
     @Basic
@@ -117,16 +86,6 @@ public class BbsSohuAuthorEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "introducation")
-    public String getIntroducation() {
-        return introducation;
-    }
-
-    public void setIntroducation(String introducation) {
-        this.introducation = introducation;
     }
 
     @Basic
@@ -337,5 +296,97 @@ public class BbsSohuAuthorEntity {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "introduction")
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BbsSohuAuthorEntity that = (BbsSohuAuthorEntity) o;
+
+        if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
+        if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
+        if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
+        if (level != null ? !level.equals(that.level) : that.level != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (duty != null ? !duty.equals(that.duty) : that.duty != null) return false;
+        if (postNum != null ? !postNum.equals(that.postNum) : that.postNum != null) return false;
+        if (eliteNum != null ? !eliteNum.equals(that.eliteNum) : that.eliteNum != null) return false;
+        if (point != null ? !point.equals(that.point) : that.point != null) return false;
+        if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
+        if (onlineTime != null ? !onlineTime.equals(that.onlineTime) : that.onlineTime != null) return false;
+        if (reputation != null ? !reputation.equals(that.reputation) : that.reputation != null) return false;
+        if (lastLogin != null ? !lastLogin.equals(that.lastLogin) : that.lastLogin != null) return false;
+        if (loginNum != null ? !loginNum.equals(that.loginNum) : that.loginNum != null) return false;
+        if (sport != null ? !sport.equals(that.sport) : that.sport != null) return false;
+        if (movie != null ? !movie.equals(that.movie) : that.movie != null) return false;
+        if (music != null ? !music.equals(that.music) : that.music != null) return false;
+        if (food != null ? !food.equals(that.food) : that.food != null) return false;
+        if (book != null ? !book.equals(that.book) : that.book != null) return false;
+        if (person != null ? !person.equals(that.person) : that.person != null) return false;
+        if (education != null ? !education.equals(that.education) : that.education != null) return false;
+        if (profession != null ? !profession.equals(that.profession) : that.profession != null) return false;
+        if (friendsNum != null ? !friendsNum.equals(that.friendsNum) : that.friendsNum != null) return false;
+        if (fansNum != null ? !fansNum.equals(that.fansNum) : that.fansNum != null) return false;
+        if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
+        if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (introduction != null ? !introduction.equals(that.introduction) : that.introduction != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = authorId != null ? authorId.hashCode() : 0;
+        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (level != null ? level.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (duty != null ? duty.hashCode() : 0);
+        result = 31 * result + (postNum != null ? postNum.hashCode() : 0);
+        result = 31 * result + (eliteNum != null ? eliteNum.hashCode() : 0);
+        result = 31 * result + (point != null ? point.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (onlineTime != null ? onlineTime.hashCode() : 0);
+        result = 31 * result + (reputation != null ? reputation.hashCode() : 0);
+        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
+        result = 31 * result + (loginNum != null ? loginNum.hashCode() : 0);
+        result = 31 * result + (sport != null ? sport.hashCode() : 0);
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
+        result = 31 * result + (music != null ? music.hashCode() : 0);
+        result = 31 * result + (food != null ? food.hashCode() : 0);
+        result = 31 * result + (book != null ? book.hashCode() : 0);
+        result = 31 * result + (person != null ? person.hashCode() : 0);
+        result = 31 * result + (education != null ? education.hashCode() : 0);
+        result = 31 * result + (profession != null ? profession.hashCode() : 0);
+        result = 31 * result + (friendsNum != null ? friendsNum.hashCode() : 0);
+        result = 31 * result + (fansNum != null ? fansNum.hashCode() : 0);
+        result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
+        result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
+        result = 31 * result + (introduction != null ? introduction.hashCode() : 0);
+        return result;
     }
 }

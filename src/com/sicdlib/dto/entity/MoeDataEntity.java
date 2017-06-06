@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/4.
  */
 @Entity
 @Table(name = "moe_data", schema = "socialmind", catalog = "")
@@ -13,7 +13,6 @@ public class MoeDataEntity {
     private String url;
     private String spiderPath;
     private String position;
-    private String date;
     private String titleYt;
     private String title;
     private String subTitle;
@@ -25,6 +24,7 @@ public class MoeDataEntity {
     private String bFiles;
     private String bQrCode;
     private Timestamp timeStamp;
+    private String dateTime;
 
     @Id
     @Column(name = "id")
@@ -64,16 +64,6 @@ public class MoeDataEntity {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    @Basic
-    @Column(name = "date")
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @Basic
@@ -186,6 +176,16 @@ public class MoeDataEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -197,7 +197,6 @@ public class MoeDataEntity {
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (spiderPath != null ? !spiderPath.equals(that.spiderPath) : that.spiderPath != null) return false;
         if (position != null ? !position.equals(that.position) : that.position != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (titleYt != null ? !titleYt.equals(that.titleYt) : that.titleYt != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (subTitle != null ? !subTitle.equals(that.subTitle) : that.subTitle != null) return false;
@@ -209,6 +208,7 @@ public class MoeDataEntity {
         if (bFiles != null ? !bFiles.equals(that.bFiles) : that.bFiles != null) return false;
         if (bQrCode != null ? !bQrCode.equals(that.bQrCode) : that.bQrCode != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -219,7 +219,6 @@ public class MoeDataEntity {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (spiderPath != null ? spiderPath.hashCode() : 0);
         result = 31 * result + (position != null ? position.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (titleYt != null ? titleYt.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (subTitle != null ? subTitle.hashCode() : 0);
@@ -231,6 +230,7 @@ public class MoeDataEntity {
         result = 31 * result + (bFiles != null ? bFiles.hashCode() : 0);
         result = 31 * result + (bQrCode != null ? bQrCode.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

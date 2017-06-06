@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/6.
  */
 @Entity
 @Table(name = "sanqin_news", schema = "socialmind", catalog = "")
@@ -14,7 +14,6 @@ public class SanqinNewsEntity {
     private String pathUrl;
     private String pathText;
     private String title;
-    private String publishTime;
     private String editor;
     private String sourceText;
     private String sourceHref;
@@ -22,6 +21,7 @@ public class SanqinNewsEntity {
     private String keyWords;
     private Timestamp timeStamp;
     private String content;
+    private String dateTime;
 
     @Id
     @Column(name = "id")
@@ -71,16 +71,6 @@ public class SanqinNewsEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "publish_time")
-    public String getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(String publishTime) {
-        this.publishTime = publishTime;
     }
 
     @Basic
@@ -153,6 +143,16 @@ public class SanqinNewsEntity {
         this.content = content;
     }
 
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -165,7 +165,6 @@ public class SanqinNewsEntity {
         if (pathUrl != null ? !pathUrl.equals(that.pathUrl) : that.pathUrl != null) return false;
         if (pathText != null ? !pathText.equals(that.pathText) : that.pathText != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (publishTime != null ? !publishTime.equals(that.publishTime) : that.publishTime != null) return false;
         if (editor != null ? !editor.equals(that.editor) : that.editor != null) return false;
         if (sourceText != null ? !sourceText.equals(that.sourceText) : that.sourceText != null) return false;
         if (sourceHref != null ? !sourceHref.equals(that.sourceHref) : that.sourceHref != null) return false;
@@ -174,6 +173,7 @@ public class SanqinNewsEntity {
         if (keyWords != null ? !keyWords.equals(that.keyWords) : that.keyWords != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -185,7 +185,6 @@ public class SanqinNewsEntity {
         result = 31 * result + (pathUrl != null ? pathUrl.hashCode() : 0);
         result = 31 * result + (pathText != null ? pathText.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (publishTime != null ? publishTime.hashCode() : 0);
         result = 31 * result + (editor != null ? editor.hashCode() : 0);
         result = 31 * result + (sourceText != null ? sourceText.hashCode() : 0);
         result = 31 * result + (sourceHref != null ? sourceHref.hashCode() : 0);
@@ -193,6 +192,7 @@ public class SanqinNewsEntity {
         result = 31 * result + (keyWords != null ? keyWords.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

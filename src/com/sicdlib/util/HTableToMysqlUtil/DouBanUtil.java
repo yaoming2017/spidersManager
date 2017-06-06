@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,10 +75,6 @@ public class DouBanUtil {
                         case "url":
                             doubanGroupAuthor.setUrl(value);
                             break;
-                        /*case "time_stamp":
-                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                            doubanGroupAuthor.setTimeStamp(Timestamp.valueOf(df.format(value)));
-                            break;*/
                     }
                 Long time = new Long(rowKV.getTimestamp());
                 doubanGroupAuthor.setTimeStamp(new Timestamp(time));
@@ -152,10 +150,6 @@ public class DouBanUtil {
                     case "url":
                         doubanGroupComment.setUrl(value);
                         break;
-                    /*case  "time_stamp":
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        doubanGroupComment.setTimeStamp(Timestamp.valueOf(df.format(value)));
-                        break;*/
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 doubanGroupComment.setTimeStamp(new Timestamp(time));
@@ -181,7 +175,6 @@ public class DouBanUtil {
     @Test
     public void test_doubanGroupPost_HTableToMysql() throws Exception{
         IDoubanGroupPostService doubanGroupPostService = (IDoubanGroupPostService) apx.getBean("doubanGroupPostService");
-        IDoubanGroupCommentPostIdService doubanGroupCommentPostIdService = (IDoubanGroupCommentPostIdService) apx.getBean("doubanGroupCommentPostIdService");
         Long beginTime = new Date().getTime();
         /**
          * 豆瓣小组
@@ -202,8 +195,6 @@ public class DouBanUtil {
                 String value = new String(rowKV.getValue());
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
-                String postID = null;
-                List<String> commentIds = new ArrayList<>();
                 switch (qualifer){
                     case "author_href":
                         doubanGrouppost.setAuthorHref(value);
@@ -218,16 +209,18 @@ public class DouBanUtil {
                         doubanGrouppost.setContent(value);
                         break;
                     case "post_id":
-                        postID = value;
                         doubanGrouppost.setPostId(value);
                         break;
                     case "comment_ids":
                         List<String> listString = this.getCommentId(value);
-                        commentIds = listString;
                         doubanGrouppost.setCommentNum(listString.size());
                         break;
                     case "date_time":
-                        doubanGrouppost.setDateTime(value);
+                        String dateTime = " ";
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                        dateTime = destFormat.format(sourceFormat.parse(value));
+                        doubanGrouppost.setDateTime(dateTime);
                         break;
                     case "group_href":
                         doubanGrouppost.setGroupHref(value);
@@ -247,27 +240,15 @@ public class DouBanUtil {
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
-                    case "picture_hrefs_num":
+                    case "picture_hrefs":
                         doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "url":
                         doubanGrouppost.setUrl(value);
                         break;
-                    /*case  "time_stamp":
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        doubanGrouppost.setTimeStamp(Timestamp.valueOf(df.format(value)));
-                        break;*/
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 doubanGrouppost.setTimeStamp(new Timestamp(time));
-                if(postID != null && commentIds != null && commentIds.size() > 0) {
-                    for(String commentId: commentIds){
-                        DoubanGroupComentPostIdEntity commentPostId = new DoubanGroupComentPostIdEntity();
-                        commentPostId.setPostId(postID);
-                        commentPostId.setCommentId(commentId);
-                        doubanGroupCommentPostIdService.saveDoubanGroupCommentPostId(commentPostId);
-                    }
-                }
 
             }
             doubanGroupPostService.saveDoubanGroupPost(doubanGrouppost);
@@ -281,7 +262,7 @@ public class DouBanUtil {
         }
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
-        System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
+        System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
     private List<String> getCommentId(String comment_ids){
         String[] commentIdsSplit = comment_ids.split("'");
@@ -343,10 +324,6 @@ public class DouBanUtil {
                             case    "leader_href":
                                     doubanGroupGroup.setLeaderHref(value);
                                     break;
-                            /*case    "time_stamp":
-                                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                                    doubanGroupGroup.setTimeStamp(Timestamp.valueOf(df.format(value)));
-                                    break;*/
                         }
                         Long time = new Long(rowKV.getTimestamp());
                        doubanGroupGroup.setTimeStamp(new Timestamp(time));
@@ -363,7 +340,7 @@ public class DouBanUtil {
                }
                  Long endTime = new Date().getTime();
                  Long EndtoBeginTime = (endTime - beginTime) % 1000;
-                 System.out.println("test_doubanGroupGroup_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
+                 System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
              }
 
 }

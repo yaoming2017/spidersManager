@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/4.
  */
 @Entity
 @Table(name = "moe_conference", schema = "socialmind", catalog = "")
@@ -14,7 +14,6 @@ public class MoeConferenceEntity {
     private String spiderPath;
     private String position;
     private String title;
-    private String date;
     private String author;
     private String source;
     private String time;
@@ -29,6 +28,7 @@ public class MoeConferenceEntity {
     private String filesUrl;
     private String newsUrls;
     private Timestamp timeStamp;
+    private String dateTime;
 
     @Id
     @Column(name = "id")
@@ -78,16 +78,6 @@ public class MoeConferenceEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "date")
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     @Basic
@@ -230,6 +220,16 @@ public class MoeConferenceEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -242,7 +242,6 @@ public class MoeConferenceEntity {
         if (spiderPath != null ? !spiderPath.equals(that.spiderPath) : that.spiderPath != null) return false;
         if (position != null ? !position.equals(that.position) : that.position != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (source != null ? !source.equals(that.source) : that.source != null) return false;
         if (time != null ? !time.equals(that.time) : that.time != null) return false;
@@ -259,6 +258,7 @@ public class MoeConferenceEntity {
         if (filesUrl != null ? !filesUrl.equals(that.filesUrl) : that.filesUrl != null) return false;
         if (newsUrls != null ? !newsUrls.equals(that.newsUrls) : that.newsUrls != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -270,7 +270,6 @@ public class MoeConferenceEntity {
         result = 31 * result + (spiderPath != null ? spiderPath.hashCode() : 0);
         result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
@@ -285,6 +284,7 @@ public class MoeConferenceEntity {
         result = 31 * result + (filesUrl != null ? filesUrl.hashCode() : 0);
         result = 31 * result + (newsUrls != null ? newsUrls.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

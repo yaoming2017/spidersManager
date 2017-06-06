@@ -1,16 +1,8 @@
 package com.sicdlib.dao.imple;
+
 import com.sicdlib.dao.IBaseDAO;
-<<<<<<< HEAD
-
-
 import com.sicdlib.dao.IStopWordsDAO;
 
-
-
-
-=======
-import com.sicdlib.dao.IStopWordsDAO;
->>>>>>> 13ba83711a945e51186219e98bf023f743f73915
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

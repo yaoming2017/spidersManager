@@ -4,10 +4,7 @@ import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ISpiderDAO;
 import com.sicdlib.dto.SpiderInfoEntity;
 import com.sicdlib.dto.WebsiteEntity;
-<<<<<<< HEAD
 
-=======
->>>>>>> 13ba83711a945e51186219e98bf023f743f73915
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

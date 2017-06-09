@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by haoyang on 2017/4/20.
@@ -52,5 +54,27 @@ public class WebsiteDAO implements IWebsiteDAO{
         WebsiteEntity website = (WebsiteEntity) baseDAO.get(hql);
 
         return website;
+    }
+
+    @Override
+    public List<WebsiteEntity> getWebsiteByEventID(String eventID) {
+        String hql = "FROM WebsiteEntity ws " +
+                "WHERE ws.id in (" +
+                "SELECT tb.websiteId " +
+                "FROM TbTableEntity tb, TbEventArticleEntity ea " +
+                "WHERE tb.id = ea.table.id AND ea.event.id = '" + eventID + "' " +
+                ") ";
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public WebsiteEntity getWebsiteByTableID(String tableID) {
+        String hql = "FROM WebsiteEntity ws " +
+                "WHERE ws.id in (" +
+                "SELECT tb.websiteId " +
+                "FROM TbTableEntity tb " +
+                "WHERE tb.id = '" + tableID + "'" +
+                ")";
+        return (WebsiteEntity) baseDAO.get(hql);
     }
 }

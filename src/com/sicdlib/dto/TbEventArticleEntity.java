@@ -1,6 +1,7 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by YH on 2017/5/19.
@@ -124,5 +125,16 @@ public class TbEventArticleEntity {
 
     public void setSimiDegree(Float simiDegree) {
         this.simiDegree = simiDegree;
+    }
+
+    private Collection<TbArticleSimilarityEntity> tbArticleSimilarityEntity;
+
+    @OneToMany(mappedBy = "articleA")
+    public Collection<TbArticleSimilarityEntity> getTbArticleSimilarityEntity() {
+        return tbArticleSimilarityEntity;
+    }
+
+    public void setTbArticleSimilarityEntity(Collection<TbArticleSimilarityEntity> tbArticleSimilarityEntity) {
+        this.tbArticleSimilarityEntity = tbArticleSimilarityEntity;
     }
 }

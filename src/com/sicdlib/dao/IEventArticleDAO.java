@@ -12,4 +12,5 @@ public interface IEventArticleDAO {
     String getArticleTitle(String tableID, String articleID);
     String getArticleDateTime(String tableID, String articleID);
     Boolean saveOrUpdateEventArticle(TbEventArticleEntity eventArticle);
+    TbEventArticleEntity getEventArticleEntity(String id);
 }

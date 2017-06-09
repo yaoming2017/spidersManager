@@ -1,9 +1,7 @@
 package com.sicdlib.dao.imple;
 
 import com.sicdlib.dao.IBaseDAO;
-import com.sicdlib.dao.IEventDAO;
 import com.sicdlib.dao.ITableDAO;
-import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbTableEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -68,5 +66,14 @@ public class TableDAO implements ITableDAO {
                 ") s " +
                 "WHERE articleTable.id = s.source_article_id";
         return baseDAO.getSqlList(sql);
+    }
+
+    @Override
+    public String getArticleContent(String articleID, String tableName) {
+        String sql = "SELECT tb.content " +
+                "FROM " + tableName + " tb " +
+                "WHERE tb.id = '" + articleID + "'";
+
+        return (String) baseDAO.getSqlList(sql).get(0);
     }
 }

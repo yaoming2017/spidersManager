@@ -1,21 +1,14 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-<<<<<<< HEAD
 import com.sicdlib.dto.entity.*;
 import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
 import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
 import com.sicdlib.service.pythonService.IDoubanGroupGroupService;
 import com.sicdlib.service.pythonService.IDoubanGroupPostService;
-=======
 import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
 import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
 import com.sicdlib.dto.entity.DoubanGroupGroupEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
-import com.sicdlib.service.IDoubanGroupAuthorService;
-import com.sicdlib.service.IDoubanGroupCommentService;
-import com.sicdlib.service.IDoubanGroupGroupService;
-import com.sicdlib.service.IDoubanGroupPostService;
->>>>>>> e0605e0ab93060f3243b58b14a50d9004be130ac
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;

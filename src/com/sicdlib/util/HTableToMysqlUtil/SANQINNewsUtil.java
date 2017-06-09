@@ -1,7 +1,7 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.SanqinNewsEntity;
-import com.sicdlib.service.ISANQINNewsService;
+import com.sicdlib.service.pythonService.ISANQINNewsService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -74,9 +74,6 @@ public class SANQINNewsUtil {
                         break;
                     case "source_href":
                         sanqinNews.setSourceHref(value);
-                        break;
-                    case  "picture_hrefs":
-                        sanqinNews.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "content":
                         sanqinNews.setContent(value);

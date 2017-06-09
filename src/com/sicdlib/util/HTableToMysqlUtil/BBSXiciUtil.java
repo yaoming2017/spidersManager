@@ -1,9 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSXiciCommentService;
+import com.sicdlib.service.pythonService.IBBSXiciPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -13,8 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,17 +22,17 @@ import java.util.List;
  */
 public class BBSXiciUtil {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
-
-    /**
+/*
+    *//**
      * 天涯htable_作者转换到Mysql中
-     */
+     *//*
     @Test
     public void test_bbsXiciAuthor_HTableToMysql() throws Exception{
         IBBSXiciAuthorService bbsXiciAuthorService = (IBBSXiciAuthorService) apx.getBean("bbsXiciAuthorService");
         Long beginTime = new Date().getTime();
-        /**
+        *//**
          * 西祠
-         */
+         *//*
         //西祠 - 作者
         String htable_name = "bbs_xici_author";
         HBaseData hBaseData = new HBaseData(htable_name);
@@ -85,7 +83,7 @@ public class BBSXiciUtil {
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
-    }
+    }*/
 
     /**
      * 西祠htable_评论转换到Mysql中
@@ -132,15 +130,8 @@ public class BBSXiciUtil {
                     case "content":
                         bbsXiciComment .setContent(value);
                         break;
-                    case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsXiciComment .setDateTime(dateTime);
-                        break;
-                    case "picture_hrefs":
-                        bbsXiciComment.setPictureHrefsNum(Integer.valueOf(value));
+                    case "date_time":;
+                        bbsXiciComment .setDateTime(value);
                         break;
                     case "floor":
                         bbsXiciComment.setFloor(value);
@@ -223,14 +214,7 @@ public class BBSXiciUtil {
                         bbsXiciPost.setContent(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsXiciPost.setDateTime(dateTime);
-                        break;
-                    case "picture_hrefs":
-                        bbsXiciPost.setPictureHrefsNum(Integer.parseInt(value));
+                        bbsXiciPost.setDateTime(value);
                         break;
                     case "url":
                         bbsXiciPost.setUrl(value);

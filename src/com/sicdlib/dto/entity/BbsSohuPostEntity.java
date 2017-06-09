@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/2.
+ * Created by init on 2017/6/8.
  */
 @Entity
 @Table(name = "bbs_sohu_post", schema = "socialmind", catalog = "")
@@ -14,7 +14,6 @@ public class BbsSohuPostEntity {
     private String title;
     private String content;
     private String dateTime;
-    private Integer pictureHrefsNum;
     private String authorId;
     private String authorName;
     private String authorHref;
@@ -73,16 +72,6 @@ public class BbsSohuPostEntity {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
-    }
-
-    @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
     }
 
     @Basic
@@ -187,8 +176,6 @@ public class BbsSohuPostEntity {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (authorHref != null ? !authorHref.equals(that.authorHref) : that.authorHref != null) return false;
@@ -209,7 +196,6 @@ public class BbsSohuPostEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (authorHref != null ? authorHref.hashCode() : 0);

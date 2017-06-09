@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSTianyaAuthorService;
+import com.sicdlib.service.pythonService.IBBSTianyaCommentService;
+import com.sicdlib.service.pythonService.IBBSTianyaPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -13,10 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by init on 2017/6/2.
@@ -146,7 +145,7 @@ public class BBSTianyaUtil {
                         break;
                     case "date_time":
                         String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                         DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         dateTime = destFormat.format(sourceFormat.parse(value));
                         bbsTianyaComment.setDateTime(dateTime);
@@ -168,7 +167,6 @@ public class BBSTianyaUtil {
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
-
     }
     /**
      * 天涯htable_发布信息转换到Mysql中
@@ -223,9 +221,12 @@ public class BBSTianyaUtil {
                         break;
                     case "date_time":
                         String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
+                        if(value.contains("yyyy-MM-dd hh:mm 星期")){
+                            dateTime=value.substring(0,16);
+                            dateTime = dateTime + ":00";
+                        }else{
+                           dateTime = value;
+                        }
                         bbsTianyaPost.setDateTime(dateTime);
                         break;
                     case "create_time":
@@ -233,9 +234,6 @@ public class BBSTianyaUtil {
                         break;
                     case "content":
                         bbsTianyaPost.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        bbsTianyaPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "category":
                         bbsTianyaPost.setCategory(value);

@@ -1,7 +1,10 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IWEIBOAuthorService;
+import com.sicdlib.service.pythonService.IWEIBOCommentService;
+import com.sicdlib.service.pythonService.IWEIBOContentService;
+import com.sicdlib.service.pythonService.IWEIBOPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -9,7 +12,6 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import sun.awt.SunHints;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

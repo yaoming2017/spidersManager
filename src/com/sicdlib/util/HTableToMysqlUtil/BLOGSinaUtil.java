@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBLOGSinaAuthorService;
+import com.sicdlib.service.pythonService.IBLOGSinaCommentService;
+import com.sicdlib.service.pythonService.IBLOGSinaPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -13,10 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by init on 2017/6/3.
@@ -247,9 +246,6 @@ public class BLOGSinaUtil {
                         break;
                     case "content":
                         blogSinaPost.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        blogSinaPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "url_in_content":
                         blogSinaPost.setUrlInContent(value);

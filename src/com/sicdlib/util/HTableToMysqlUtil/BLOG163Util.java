@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBLOG163AuthorService;
+import com.sicdlib.service.pythonService.IBLOG163CommentService;
+import com.sicdlib.service.pythonService.IBLOG163PostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -265,9 +267,6 @@ public class BLOG163Util {
                         break;
                     case "url":
                         blog163Post.setUrl(value);
-                        break;
-                    case "picture_hrefs":
-                        blog163Post.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "hrefs_in_post":
                         blog163Post.setHrefsInPost(value);

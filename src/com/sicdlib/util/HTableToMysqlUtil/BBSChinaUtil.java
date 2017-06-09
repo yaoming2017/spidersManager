@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSChinaAuthorService;
+import com.sicdlib.service.pythonService.IBBSChinaCommentService;
+import com.sicdlib.service.pythonService.IBBSChinaPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -51,6 +53,10 @@ public class BBSChinaUtil {
                 String value = new String(rowKV.getValue());
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
+                value = value.replaceAll("<dd>","");
+                value = value.replaceAll("</dd>","");
+                Long time = new Long(rowKV.getTimestamp());
+                bbsChinaAuthor.setTimeStamp(new Timestamp(time));
                 switch (qualifer){
                     case "author_id":
                         bbsChinaAuthor.setAuthorId(value);
@@ -79,16 +85,16 @@ public class BBSChinaUtil {
                     case  "url":
                         bbsChinaAuthor.setUrl(value);
                     case  "parse_time":
-                        if(value.contains("")){
-
+                        if(value.contains("http://i.club.china.com/user/UserInfoAction.do?processID=myhome&userId")){
+                            bbsChinaAuthor.setParseTime(new Timestamp(time));
+                        }else {
+                            Double doubleTime = Double.parseDouble(value) * 1000;
+                            Long longTime = new Long(doubleTime.longValue());
+                            bbsChinaAuthor.setParseTime(new Timestamp(longTime));
                         }
-                        Double time = Double.parseDouble(value) * 1000;
-                        Long longTime = new Long(time.longValue());
-                        bbsChinaAuthor.setParseTime(new Timestamp(longTime));
                         break;
                 }
-                Long time = new Long(rowKV.getTimestamp());
-               bbsChinaAuthor.setTimeStamp(new Timestamp(time));
+
             }
             bbsChinaAuthorService.saveBBSChinaAuthor(bbsChinaAuthor);
             //每隔100条打印一下时间
@@ -238,13 +244,14 @@ public class BBSChinaUtil {
                         bbsChinaPost.setContent(value);
                         break;
                     case   "level":
-                        bbsChinaPost.setLevel(value);
+                        String contentValue = value.replaceAll("等级","");
+                        bbsChinaPost.setLevel(contentValue);
                         break;
                     case   "point":
                         bbsChinaPost.setPoint(value);
                         break;
                     case  "date_time":
-                        String dateTime = "";
+                        String dateTime = " ";
                         DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-ddhh:mm:ss");
                         DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         dateTime = destFormat.format(sourceFormat.parse(value));
@@ -258,10 +265,6 @@ public class BBSChinaUtil {
                         break;
                     case   "reply_num":
                         bbsChinaPost.setReplyNum(Integer.parseInt(value));
-                        break;
-                    case    "picture_hrefs":
-                        bbsChinaPost.setPictureHrefs(value);
-                        System.out.println(value);
                         break;
                     case  "url":
                         bbsChinaPost.setUrl(value);

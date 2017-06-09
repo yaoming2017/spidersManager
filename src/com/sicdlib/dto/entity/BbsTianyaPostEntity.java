@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/2.
+ * Created by init on 2017/6/8.
  */
 @Entity
 @Table(name = "bbs_tianya_post", schema = "socialmind", catalog = "")
@@ -20,7 +20,6 @@ public class BbsTianyaPostEntity {
     private String dateTime;
     private String createTime;
     private String content;
-    private Integer pictureHrefsNum;
     private String category;
     private Integer commentNum;
     private Timestamp timeStamp;
@@ -137,16 +136,6 @@ public class BbsTianyaPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "category")
     public String getCategory() {
         return category;
@@ -204,8 +193,6 @@ public class BbsTianyaPostEntity {
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
@@ -227,7 +214,6 @@ public class BbsTianyaPostEntity {
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);

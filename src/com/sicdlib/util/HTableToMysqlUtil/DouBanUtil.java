@@ -1,8 +1,10 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.kenai.jffi.Array;
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
+import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
+import com.sicdlib.service.pythonService.IDoubanGroupGroupService;
+import com.sicdlib.service.pythonService.IDoubanGroupPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -139,10 +141,13 @@ public class DouBanUtil {
                         doubanGroupComment.setPriseNum(Integer.parseInt(value));
                         break;
                     case "pub_time":
-                        doubanGroupComment.setPubTime(value);
+                        doubanGroupComment.setDateTime(value);
                         break;
                     case "quote_author_href":
                         doubanGroupComment.setQuoteAuthorHref(value);
+                        break;
+                    case "quote_author_name":
+                        doubanGroupComment.setQuoteAuthorName(value);
                         break;
                     case "quote_content":
                         doubanGroupComment.setQuoteContent(value);
@@ -239,9 +244,6 @@ public class DouBanUtil {
                         break;
                     case "title":
                         doubanGrouppost.setTitle(value);
-                        break;
-                    case "picture_hrefs":
-                        doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "url":
                         doubanGrouppost.setUrl(value);

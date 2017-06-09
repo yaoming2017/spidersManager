@@ -1,7 +1,8 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSPeopleAuthorService;
+import com.sicdlib.service.pythonService.IBBSPeoplePostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -11,8 +12,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -83,7 +82,8 @@ public class BBSPeopleUtil {
                         bbsPeopleAuthor.setEliteNum(Integer.parseInt(value));
                         break;
                     case "level":
-                        bbsPeopleAuthor.setLevel(value);
+                        String levelValue = value.replaceAll("级","");
+                        bbsPeopleAuthor.setLevel(levelValue);
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());
@@ -102,84 +102,6 @@ public class BBSPeopleUtil {
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
-
-    /**
-     * 人民网htable_评论转换到Mysql中
-     */
-    @Test
-    public void test_bbsPeopleComment_HTableToMysql() throws Exception{
-        IBBSPeopleCommentService bbsPeopleCommentService = (IBBSPeopleCommentService) apx.getBean("bbsPeopleCommentService");
-        Long beginTime = new Date().getTime();
-        /**
-         * 人民网
-         */
-        //人民网- 评论
-        String htable_name = "bbs_people_comment";
-        HBaseData hBaseData = new HBaseData(htable_name);
-        ResultScanner results = hBaseData.getAllData();
-        int i = 0;
-        //输出结果
-        for (Result result : results) {
-          BbsPeopleCommentEntity bbsPeopleComment = new BbsPeopleCommentEntity();
-            i++;
-            for (KeyValue rowKV : result.raw()) {
-                //字段名
-                String qualifer = new String(rowKV.getQualifier());
-                //值：字段对应的值
-                String value = new String(rowKV.getValue());
-                //将4字节表情或特殊字符去掉
-                value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
-                switch (qualifer){
-                    case "comment_id":
-                       bbsPeopleComment.setId(value);
-                        break;
-                    case "post_id":
-                       bbsPeopleComment.setPostId(value);
-                        break;
-                    case "author_id":
-                        bbsPeopleComment.setAuthorId(value);
-                        break;
-                    case "author_name":
-                        bbsPeopleComment.setAuthorName(value);
-                        break;
-                    case "author_href":
-                        bbsPeopleComment.setAuthorHref(value);
-                        break;
-                    case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsPeopleComment.setDateTime(dateTime);
-                        break;
-                    case "floor":
-                        bbsPeopleComment.setFloor(value);
-                        break;
-                    case "prise_num":
-                       bbsPeopleComment.setPriseNum(Integer.parseInt(value));
-                        break;
-                    case "parent_comment_id":
-                       bbsPeopleComment.setParentCommentId(value);
-                        break;
-                }
-                Long time = new Long(rowKV.getTimestamp());
-                bbsPeopleComment.setTimeStamp(new Timestamp(time));
-            }
-            bbsPeopleCommentService.saveBBSPeopleComment(bbsPeopleComment);
-            //每隔100条打印一下时间
-            if (i % 100 == 0){
-                int k = i/100;
-                Long end100Time = new Date().getTime();
-                Long end100toBeginTime = (end100Time - beginTime) / 1000;
-                System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime+"秒");
-            }
-        }
-        Long endTime = new Date().getTime();
-        Long EndtoBeginTime = (endTime - beginTime) % 1000;
-        System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
-    }
-
-
     /**
      * 人民网htable_发布信息转换到Mysql中
      */
@@ -249,9 +171,6 @@ public class BBSPeopleUtil {
                         break;
                     case "content":
                         bbsPeoplePost.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        bbsPeoplePost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "parse_time":
                         Double time = Double.parseDouble(value) * 1000;

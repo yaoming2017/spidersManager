@@ -24,10 +24,10 @@ public class EventStatisticsController {
     @RequestMapping("sourceWebsiteStatistics")
     public String sourceWebsiteStatistics(HttpServletRequest req, Model model) {
         String eventID = req.getParameter("eventID");
-        eventID = "c2c82ae3-a939-4bb3-a31e-ba540920e00f";
         List<Map> websiteNumList = eventStatisticsService.getMediaSourceStatistics(eventID);
 
         model.addAttribute("websiteNum", JSON.toJSON(websiteNumList));
+        model.addAttribute("eventID", eventID);
 
         return "sourceMedia";
     }

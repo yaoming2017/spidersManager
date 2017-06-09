@@ -34,7 +34,6 @@ public class EventController {
     @RequestMapping("event")
     public String event(HttpServletRequest req, Model model, HttpServletResponse resp) {
         String eventId = req.getParameter("eventID");
-        eventId = "c2c82ae3-a939-4bb3-a31e-ba540920e00f";
         String introduction = eventService.eventIntroduction(eventId);
         List<String> dataTypeList = eventService.eventTrendDataType(eventId);
         List<String> dateList = eventService.eventTrendDate(eventId);
@@ -45,6 +44,8 @@ public class EventController {
         model.addAttribute("dataType", JSON.toJSON(dataTypeList));
         model.addAttribute("dateList", JSON.toJSON(dateList));
         model.addAttribute("data", JSON.toJSON(data));
+        model.addAttribute("eventID", eventId);
+
         return "event";
     }
 

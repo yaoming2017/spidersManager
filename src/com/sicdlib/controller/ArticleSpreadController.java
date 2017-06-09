@@ -39,6 +39,7 @@ public class ArticleSpreadController {
 
         model.addAttribute("category", JSON.toJSONString(categoryName).replace("'", "\\\'"));
         model.addAttribute("nodesAndEdges", JSON.toJSONString(nodesAndEdges).replace("'", "\\\'"));
+        model.addAttribute("eventID", eventID);
 
         return "article_spread";
     }

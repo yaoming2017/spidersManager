@@ -69,9 +69,10 @@
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>分析</a>
     <ul style="display: block;background: #2E363F;height: 800px;">
-        <li><a href="event?eventID=" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
-        <li><a href="hotWords?eventID=" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
-        <li> <a href="sourceWebsiteStatistics?eventID=" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
+        <li><a href="eventsList" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件列表</span></a> </li>
+        <li><a href="event?eventID=${eventID}" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-tint"></i> <span>事件趋势</span></a> </li>
+        <li><a href="hotWords?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+        <li> <a href="sourceWebsiteStatistics?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
         <li class="active"><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>文章传播</span></a></li>
         <%--<li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>--%>
         <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>--%>
@@ -240,8 +241,20 @@
             edgeSymbol:['none', 'arrow'],
             lineStyle: {
                 normal: {
-                    // color: 'target',
-                    curveness: 0
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0, color: 'black' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: 'blue' // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                    width: 2
                 }
             }
         }]

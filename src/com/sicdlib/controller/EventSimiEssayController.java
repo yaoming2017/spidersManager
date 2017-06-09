@@ -272,7 +272,7 @@ public class EventSimiEssayController {
         model.addAttribute("events", events);
         model.addAttribute("doubanGroupPosts", doubanGroupPosts);
         model.addAttribute("eventArticles", eventArticles);
-        return "/WEB-INF/eventsList";
+        return "eventsList";
     }
 
 
@@ -282,7 +282,7 @@ public class EventSimiEssayController {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/WEB-INF/eventsList";
+        return "eventsList";
     }
 
     //新增事件
@@ -291,7 +291,7 @@ public class EventSimiEssayController {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/WEB-INF/addEvent";
+        return "addEvent";
     }
 
     /****************************************************************************************************/

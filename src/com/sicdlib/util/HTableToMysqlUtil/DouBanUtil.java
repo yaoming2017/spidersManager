@@ -1,10 +1,21 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
+<<<<<<< HEAD
 import com.sicdlib.dto.entity.*;
 import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
 import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
 import com.sicdlib.service.pythonService.IDoubanGroupGroupService;
 import com.sicdlib.service.pythonService.IDoubanGroupPostService;
+=======
+import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
+import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
+import com.sicdlib.dto.entity.DoubanGroupGroupEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
+import com.sicdlib.service.IDoubanGroupAuthorService;
+import com.sicdlib.service.IDoubanGroupCommentService;
+import com.sicdlib.service.IDoubanGroupGroupService;
+import com.sicdlib.service.IDoubanGroupPostService;
+>>>>>>> e0605e0ab93060f3243b58b14a50d9004be130ac
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -13,6 +24,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -128,7 +140,7 @@ public class DouBanUtil {
                     case "author_name":
                         doubanGroupComment.setAuthorName(value);
                         break;
-                    case "comment_ids":
+                    case "comment_id":
                         doubanGroupComment.setCommentId(value);
                         break;
                     case "content":
@@ -138,7 +150,7 @@ public class DouBanUtil {
                         doubanGroupComment.setPostId(value);
                         break;
                     case "prise_num":
-                        doubanGroupComment.setPriseNum(Integer.parseInt(value));
+                        doubanGroupComment.setPriseNum(Integer.valueOf(value));
                         break;
                     case "pub_time":
                         doubanGroupComment.setDateTime(value);
@@ -264,85 +276,95 @@ public class DouBanUtil {
         }
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
-        System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
+        System.out.println("test_doubanGroupPost_HTableToMysql运行到结束所需：\t" + EndtoBeginTime + "秒");
     }
-    private List<String> getCommentId(String comment_ids){
+
+    private List<String> getCommentId(String comment_ids) {
         String[] commentIdsSplit = comment_ids.split("'");
         List<String> arrayList = new ArrayList<>();
-        for(int i=1;i<commentIdsSplit.length;i=i+2){
+        for (int i = 1; i < commentIdsSplit.length; i = i + 2) {
             arrayList.add(commentIdsSplit[i]);
         }
-        return  arrayList;
-
+        return arrayList;
     }
+
+        /**
+         * 豆瓣组的组信息转换到Mysql中
+         */
+        @Test
+        public void test_doubanGroupGroup_HTableToMysql () throws IOException {
+            IDoubanGroupGroupService doubanGroupGroupService = (IDoubanGroupGroupService) apx.getBean("doubanGroupGroupService");
+            Long beginTime = new Date().getTime();
             /**
-             * 豆瓣组的组信息转换到Mysql中
+             * 豆瓣小组
              */
-             @Test
-             public void test_doubanGroupGroup_HTableToMysql() throws Exception {
-                 IDoubanGroupGroupService doubanGroupGroupService = (IDoubanGroupGroupService) apx.getBean("doubanGroupGroupService");
-                 Long beginTime = new Date().getTime();
-                 /**
-                  * 豆瓣小组
-                  */
-                 //群组
-                 String htable_name ="douban_group_group";
-                 HBaseData hBaseData = new HBaseData(htable_name);
-                 ResultScanner results = hBaseData.getAllData();
-                 int i = 0;
-                 //输出结果
-               for(Result result : results){
-                    DoubanGroupGroupEntity doubanGroupGroup = new DoubanGroupGroupEntity();
-                    i++;
-                    for(KeyValue rowKV : result.raw()){
-                        //字段名
-                        String qualifer = new String(rowKV.getQualifier());
-                        //值,字段对应的值
-                        String value = new String(rowKV.getValue());
-                        //数据公共清理
-                        value = CleanPublicUtil.publicCleanMethods(value);
-                        switch(qualifer){
-                            case "group_id":
-                                   doubanGroupGroup.setGroupId(value);
-                                   break;
-                            case "group_name":
-                                   doubanGroupGroup.setGroupName(value);
-                                   break;
-                            case  "group_tags":
-                                   doubanGroupGroup.setGroupTags(value);
-                                   break;
-                            case  "url":
-                                   doubanGroupGroup.setUrl(value);
-                                   break;
-                            case   "content":
-                                   doubanGroupGroup.setContent(value);
-                                   break;
-                            case  "create_time":
-                                   doubanGroupGroup.setCreateTime(value);
-                                   break;
-                            case   "leader_name":
-                                    doubanGroupGroup.setLeaderName(value);
-                                    break;
-                            case    "leader_href":
-                                    doubanGroupGroup.setLeaderHref(value);
-                                    break;
-                        }
-                        Long time = new Long(rowKV.getTimestamp());
-                       doubanGroupGroup.setTimeStamp(new Timestamp(time));
-
+            //群组
+            String htable_name = "douban_group_group";
+            HBaseData hBaseData = null;
+            try {
+                hBaseData = new HBaseData(htable_name);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ResultScanner results = null;
+            try {
+                results = hBaseData.getAllData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int i = 0;
+            //输出结果
+            for (Result result : results) {
+                DoubanGroupGroupEntity doubanGroupGroup = new DoubanGroupGroupEntity();
+                i++;
+                for (KeyValue rowKV : result.raw()) {
+                    //字段名
+                    String qualifer = new String(rowKV.getQualifier());
+                    //值,字段对应的值
+                    String value = new String(rowKV.getValue());
+                    //数据公共清理
+                    value = CleanPublicUtil.publicCleanMethods(value);
+                    switch (qualifer) {
+                        case "group_id":
+                            doubanGroupGroup.setGroupId(value);
+                            break;
+                        case "group_name":
+                            doubanGroupGroup.setGroupName(value);
+                            break;
+                        case "group_tags":
+                            doubanGroupGroup.setGroupTags(value);
+                            break;
+                        case "url":
+                            doubanGroupGroup.setUrl(value);
+                            break;
+                        case "content":
+                            doubanGroupGroup.setContent(value);
+                            break;
+                        case "create_time":
+                            doubanGroupGroup.setCreateTime(value);
+                            break;
+                        case "leader_name":
+                            doubanGroupGroup.setLeaderName(value);
+                            break;
+                        case "leader_href":
+                            doubanGroupGroup.setLeaderHref(value);
+                            break;
                     }
-                    doubanGroupGroupService.saveDoubanGroupGroup(doubanGroupGroup);
-                    //每隔100条打印一下时间
-                   if (i % 100 == 0){
-                       int k = i/100;
-                       Long end100Time = new Date().getTime();
-                       Long end100toBeginTime = (end100Time - beginTime) / 1000;
-                       System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime+"秒");
-                   }
-               }
-                 Long endTime = new Date().getTime();
-                 Long EndtoBeginTime = (endTime - beginTime) % 1000;
-                 System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
-             }
+                    Long time = new Long(rowKV.getTimestamp());
+                    doubanGroupGroup.setTimeStamp(new Timestamp(time));
 
+                }
+                doubanGroupGroupService.saveDoubanGroupGroup(doubanGroupGroup);
+                //每隔100条打印一下时间
+                if (i % 100 == 0) {
+                    int k = i / 100;
+                    Long end100Time = new Date().getTime();
+                    Long end100toBeginTime = (end100Time - beginTime) / 1000;
+                    System.out.println("运行到第" + k + "百条所需：\t" + end100toBeginTime + "秒");
+                }
+            }
+            Long endTime = new Date().getTime();
+            Long EndtoBeginTime = (endTime - beginTime) % 1000;
+            System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
+        }
 }

@@ -32,4 +32,10 @@ public class DoubanGroupPostService implements IDoubanGroupPostService{
     public List<DoubanGroupPostEntity> getAllDoubanGroupPost() {
         return doubanGroupPostDAO.getAllDoubanGroupPosts();
     }
+
+    @Override
+    public DoubanGroupPostEntity getDoubanGroupPost(String id) {
+        return doubanGroupPostDAO.getDoubangroupPost(id);
+    }
+
 }

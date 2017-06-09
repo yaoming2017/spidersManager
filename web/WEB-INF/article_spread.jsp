@@ -69,9 +69,10 @@
 
 <div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>分析</a>
     <ul style="display: block;background: #2E363F;height: 800px;">
-        <li><a href="event?eventID=" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件</span></a> </li>
-        <li><a href="hotWords?eventID=" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
-        <li> <a href="sourceWebsiteStatistics?eventID=" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
+        <li><a href="eventsList" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件列表</span></a> </li>
+        <li><a href="event?eventID=${eventID}" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-tint"></i> <span>事件趋势</span></a> </li>
+        <li><a href="hotWords?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+        <li> <a href="sourceWebsiteStatistics?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
         <li class="active"><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>文章传播</span></a></li>
         <%--<li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>--%>
         <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>--%>
@@ -96,12 +97,12 @@
 <div id="content">
     <div id="content-header">
         <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>主页</a> <a
-                href="#" class="current">媒体来源比例分析</a></div>
-        <h1>媒体来源比例分析</h1>
+                href="#" class="current">文章传播图</a></div>
+        <h1>文章传播分析</h1>
         <hr>
     </div>
     <!--为Echarts准备一个具备大小（宽高）的Dom-->
-    <div id="main" style="width: 1200px;height: 600px;"></div>
+    <div id="main" style="width: 1400px;height: 800px;"></div>
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.ui.custom.js"></script>
@@ -113,458 +114,85 @@
     var myChart = echarts.init(document.getElementById("main"));
     //指定图表的配置项和数据
 
-    var data = [
-        {
-            "name": "宇哥考研",
-            "symbolSize": 27,
-            "draggable": "True",
-            "value": "ssss",
-            "category": "宇哥考研",
-            "label": {
-                "normal": {
-                    "show": "True"
-                }
-            }
-        },
-        {
-            "name": "张宇考研图书交流论坛",
-            "symbolSize": 35,
-            "draggable": "True",
-            "value": "wqer",
-            "category": "张宇考研图书交流论坛",
-            "label": {
-                "normal": {
-                    "show": "True"
-                }
-            }
-        },
-        {
-            "name": "悠悠伟心",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 1,
-            "category": "悠悠伟心",
-            "label": {
-                "normal": {
-                    "show": "True"
-                }
-            }
-        },
-        {
-            "name": "晓艳考研",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 1,
-            "category": "晓艳考研",
-            "label": {
-                "normal": {
-                    "show": "True"
-                }
-            }
-        },
-        {
-            "name": "胖子不是壮士",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 1,
-            "category": "胖子不是壮士",
-            "label": {
-                "normal": {
-                    "show": "True"
-                }
-            }
-        },
-        {
-            "name": "吕小越越越",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "Ada哞哞",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "小含页",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "不搞事boy",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "暴走de影魔",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "Cen笔中情",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "宇哥考研"
-        },
-        {
-            "name": "萌萌哒的贝吉塔丶",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "love_binguo",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "悬空空空",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "___考研喵",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "宇哥考研"
-        },
-        {
-            "name": "爱启航在线考研",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "灼卓燃烧的蔬菜",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "宇哥考研"
-        },
-        {
-            "name": "lovely小倩儿",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "美丽大方的周小颖",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "YoungLani",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "小破孩1057",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "agitte",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "老妖家风七",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "宇哥考研"
-        },
-        {
-            "name": "薯条FF",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "宇哥考研o",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "i寒霜",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "有一颗心叫良心",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "2018我要去成都啊",
-            "symbolSize": 5,
-            "draggable": "False",
-            "value": 0,
-            "category": "宇哥考研"
-        }]
-    var links = [
-        {
-            "source": "宇哥考研",
-            "target": "Bob_bOb_boB_"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "仔细思考晚上该吃"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "TubeChen"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "7SeVen启程"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "独自一人奔未来"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "用户6045119904"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "Slade灬Willson"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇宙区区长"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "BelieveMonster"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "GT好好学英语吧"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "Leanna_ZL"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "追着光影奔跑的小裤衩"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "能做的只有珍惜"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "ONB_brave"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "yiyuanymyf"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "LESSSSSSSSON"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "一只特立独行的朱朱朱"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "风太大我当你傻"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "风太大我当你傻"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "lyf8797"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "风太大我当你傻"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "汉子琳Lin"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "Astrorical"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "睡得头痛"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "ELSA0720"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "原来的原本wyju"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "姜旭57150"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "用户5311839154"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "l颢影"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "Powerful朱海"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "Chen晓敏xs"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "可能真的是小仙女"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "今有心兮"
-        },
-        {
-            "source": "宇哥考研",
-            "target": "谢东33198"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "宇哥考研"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "武大_颖"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "yuzuodeyunwcj"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "DesignedSpark"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "八点半的光"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "是李婧瑶呀"
-        },
-        {
-            "source": "晓艳考研",
-            "target": "陈滋凯亚厉克斯"
-        },
-        {
-            "source": "张宇考研图书交流论坛",
-            "target": "晓艳考研"
-        }];
+    var category = JSON.parse('${category}');
+    var nodesAndEdges = JSON.parse('${nodesAndEdges}');
 
-    var categories = [
-        {
-            "name": "宇哥考研"
-        },
-        {
-            "name": "张宇考研图书交流论坛"
-        },
-        {
-            "name": "悠悠伟心"
-        },
-        {
-            "name": "晓艳考研"
-        },
-        {
-            "name": "胖子不是壮士"
-        }
-    ];
+    var nodes = nodesAndEdges['nodes'];
+    var edges = nodesAndEdges['edges'];
 
-    var cont = 'a'
-    var mid = 'b'
-    var user1 = 'c'
+    var titleMap = new Map();
+    var numMap = new Map();
+    var tableMap = new Map();
+    var data = [];
+    for (var i =0; i < nodes.length; i++) {
+        titleMap.set(nodes[i]['id'], nodes[i]['title']);
+        numMap.set(nodes[i]['id'], nodes[i]['num']);
+        tableMap.set(nodes[i]['id'], nodes[i]['table']);
+
+        data.push({
+            "name": nodes[i]['id'],
+            "symbolSize": (nodes[i]['num'] + 1) * 3,
+            "draggable": true,
+            "value": nodes[i]['title'],
+            "category": nodes[i]['website'],
+            "label": {
+                "normal": {
+                    "show": true
+                }
+            },
+            "d_index": i
+        });
+    }
+
     option = {
-//
-//        title: {
-//            text: "微博转发关系图",
-//            subtext: '@' + user1 + ':' + cont,
-//            sublink: 'http://m.weibo.cn/status/' + mid,
-//            top: "top",
-//            left: "center"
-//        },
+        tooltip: {
+            show: true,
+            position: function (pos, params, dom, rect, size) {
+                // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+                var obj = {top: 60};
+                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+                return obj;
+            },
+            hideDelay: 250,
+            formatter: function (params, ticket, callback) {
+                var result = '';
+                if (params.dataType == 'node') {
+                    var id = params.name;
+                    result = "<span style='color: sienna'>标题：</span> " + titleMap.get(id).replace(/(.{25})/g,'$1<br />') + "<br />";
+                    result += "<span style='color: #1e23d5'>相关文章数：</span> ";
+                    result += numMap.get(id);
+                    result += "<br />";
 
-        tooltip: {},
+//                    $.get('tooltipContent?table=' + tableMap.get(id) + '&articleID=' + id, function (content) {
+//                        result += content;
+//                        callback(ticket, result);
+//                    });
+                    $.ajax({
+                        type : "post",
+                        url : "tooltipContent",
+                        data : {'table' : tableMap.get(id), 'articleID' : id},
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success : function (msg) {
+                            var content = msg.replace(/(.{30})/g,'$1<br />'); //换行显示
+                            result += content;
+                            callback(ticket, result);
+                        },
+                        error : function (msg) {
+                            alert(msg)
+                        }
+                    });
+                    return 'Loading';
+                } else {
+                    var src_id = params.data.source;
+                    var tar_id = params.data.target;
+                    result = "<span style='color: #b90c25'>source:</span> " + titleMap.get(src_id) + "  <span style='color: #5eb95e'>" + numMap.get(src_id) + "</span>";
+                    result += "<br />"
+                    result += "<span style='color: #d54ac9'>target: </span>" + titleMap.get(tar_id) + "  <span style='color: #5eb95e'>" + numMap.get(tar_id) + "</span>";
+
+                    return result;
+                }
+            }
+        },
 
         toolbox: {
             show: true,
@@ -584,32 +212,49 @@
         animationDuration: 1500,
         animationEasingUpdate: 'quinticInOut',
         series: [{
-            name: '微博',
+//            name: '媒体',
             type: 'graph',
             layout: 'force',
 
             force: {
-                //initLayout:'circular'
+                initLayout:'circular',
                 edgeLength: 50,
                 repulsion: 50,
-                gravity: 0.2
+                gravity: 0.2,
+                layoutAnimation : true
             },
             data: data,
-            edges: links,
-            categories: categories,
+            edges: edges,
+            categories: category,
             focusNodeAdjacency: true,
             roam: true,
             label: {
                 normal: {
+                    textStyle: {
+                        color: ["#12617f"]
+                    },
+                    show: true,
                     position: 'right',
-                    formatter: '{b}'
+                    formatter: '{c}'
                 }
             },
-            edgeSymbol: 'arrow',
+            edgeSymbol:['none', 'arrow'],
             lineStyle: {
                 normal: {
-                    // color: 'target',
-                    curveness: 0
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0, color: 'black' // 0% 处的颜色
+                        }, {
+                            offset: 1, color: 'blue' // 100% 处的颜色
+                        }],
+                        globalCoord: false // 缺省为 false
+                    },
+                    width: 2
                 }
             }
         }]

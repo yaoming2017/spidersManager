@@ -146,4 +146,6 @@ public interface IEventDAO {
      * @return
      */
     List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName);
+
+    List<TbEventEntity> getAllEvent();
 }

@@ -34,4 +34,5 @@ public interface IEventService {
     Boolean saveOrUpdateEvent(TbEventEntity event);
     String setEventAttributes(String eventID);
     TbEventEntity getEventByName(String eventName);
+    List<TbEventEntity> getAllEvent();
 }

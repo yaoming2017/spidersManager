@@ -118,6 +118,7 @@ public class BaseDAO<T> implements IBaseDAO<T> {
                 query.setParameter(key, params.get(key));
             }
         }
+
         return query.list();
     }
 

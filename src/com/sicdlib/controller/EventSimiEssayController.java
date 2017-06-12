@@ -223,7 +223,10 @@ public class EventSimiEssayController {
             }
         }
         System.out.println("耗时：\t" + internalTime + "秒");
-//        model.addAttribute("eventEssaySimis", eventEssaySimis);
+        System.out.println("事件ID：" + eve.getId());
+        //添加事件摘要、趋势类型、开始时间、结束时间等属性
+        eventService.setEventAttributes(eve.getId());
+
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
         return "/WEB-INF/addEvent";

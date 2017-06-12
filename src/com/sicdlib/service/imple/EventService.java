@@ -185,11 +185,12 @@ public class EventService implements IEventService {
         //从事件文章中获取事件的高峰时间
         //从事件文章中获取事件的高峰时间当天的文章量
         Object[] rushTimeAndNum = eventDAO.getRushTimeAndNum(eventID);
-
+        System.out.println("事件高峰期：" + rushTimeAndNum);
+        System.out.println("事件0和1：" + rushTimeAndNum[0] + " : " + rushTimeAndNum[1]);
         String rushTime = "";
         int rushNum = 0;
         if(rushTimeAndNum != null && rushTimeAndNum.length == 2) {
-            rushTime = (String) rushTimeAndNum[0];
+            rushTime = (String)rushTimeAndNum[0];
             BigDecimal bigTime = (BigDecimal) rushTimeAndNum[1];
             rushNum = bigTime.intValue();
         }

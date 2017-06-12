@@ -230,9 +230,9 @@ class HTableToMysqlUtil {
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
-                    case "picture_hrefs_num":
-                        doubanGrouppost.setPictureHrefsNum(Integer.valueOf(value));
-                        break;
+//                    case "picture_hrefs_num":
+//                        doubanGrouppost.setPictureHrefsNum(Integer.valueOf(value));
+//                        break;
                     case "url":
                         doubanGrouppost.setUrl(value);
                         break;

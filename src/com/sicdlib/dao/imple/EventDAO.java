@@ -171,7 +171,7 @@ public class EventDAO implements IEventDAO {
                 ") sm2 " +
                 ")";
 
-        return (String[]) baseDAO.getSqlList(sql).get(0);
+        return (Object[]) baseDAO.getSqlList(sql).get(0);
     }
 
     @Override

@@ -246,9 +246,9 @@ public class DouBanUtil {
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
-                    case "picture_hrefs":
-                        doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
-                        break;
+//                    case "picture_hrefs":
+//                        doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
+//                        break;
                     case "url":
                         doubanGrouppost.setUrl(value);
                         break;

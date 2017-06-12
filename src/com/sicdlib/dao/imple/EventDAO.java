@@ -77,7 +77,13 @@ public class EventDAO implements IEventDAO {
     @Override
     public WebsiteEntity sourceWebsite(String eventID) {
         String tableID = this.getSourceEventArticle(eventID).getTable().getId();
-        String hql = "FROM WebsiteEntity w and TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
+        String hql = "FROM WebsiteEntity w " +
+                "WHERE w.id in " +
+                "(" +
+                "SELECT t.websiteId " +
+                "FROM TbTableEntity t " +
+                "WHERE t.id = '" + tableID + "'"+
+                ")";
         return (WebsiteEntity) baseDAO.get(hql);
     }
 

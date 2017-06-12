@@ -32,57 +32,7 @@ public class EventService implements IEventService {
 
     @Override
     public String eventIntroduction(String eventID) {
-//        //事件简介的模板
-//        String eventIntroTemplate = dataDictDAO.getDictValue(Constant.EVENT_INTRODUCTION).get(0);
-//
-//        //关键词，取前三个，并用加号拼接
-//        List<TbHotWordEntity> keyWordsEntity = eventDAO.getKeyWords(eventID, 3);
-//        List<String> keyWords = new ArrayList<>();
-//
-//        for (TbHotWordEntity hotWords: keyWordsEntity) {
-//            keyWords.add(hotWords.getName());
-//        }
-//
-//        String keyWordsStr = StringUtils.join(keyWords.toArray(),"+");
-//
-//        TbEventEntity event = eventDAO.getEvent(eventID);
-//
-//        //事件的开始时间
-//        String eventStartDate = event.getEventStartTime();
-//
-//        //事件的结束时间
-//        String eventEndDate = event.getEventEndTime();
-//
-//        //整个事件的文章数量
-//        int articleNum = eventDAO.eventArticleNum(eventID);
-//
-//        //源文章的标题
-//        String sourceTitle = eventDAO.sourceArticleTitle(eventID);
-//
-//        //事件发生的高峰日期
-//        String rushDate = eventDAO.rushDate(eventID);
-//
-//        //高峰时间的文章数量
-//        int rushNum = eventDAO.rushNum(eventID);
-//
-//        //文章出现的网站名，并用顿号拼接
-//        List<WebsiteEntity> websiteList = eventDAO.sourceWebsiteList(eventID);
-//        String websiteStr = "";
-//        for (WebsiteEntity website: websiteList) {
-//            websiteStr = websiteStr + website.getWebsiteName() + "、";
-//        }
-//        websiteStr = websiteStr.substring(0, websiteStr.length() - 1);
-//
-//        //事件的来源网站
-//        String sourceWebsite = eventDAO.sourceWebsite(eventID).getWebsiteName();
-//
-//        //事件的趋势
-//        String trend = eventDAO.eventTrend(eventID);
-//
-//        //格式化事件简介模板
-//        String introduction = String.format(eventIntroTemplate, keyWordsStr, eventStartDate,
-//                eventEndDate, articleNum, rushDate, rushNum, eventStartDate, sourceWebsite,
-//                sourceTitle, websiteStr, trend);
+
         String introduction = eventDAO.getEvent(eventID).getEventIntroduction();
 
         return introduction;

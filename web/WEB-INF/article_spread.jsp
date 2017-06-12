@@ -231,7 +231,7 @@
             label: {
                 normal: {
                     textStyle: {
-                        color: ["#12617f"]
+                        color: ["#327df8"]
                     },
                     show: true,
                     position: 'right',

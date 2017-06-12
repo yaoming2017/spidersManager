@@ -35,7 +35,7 @@ public class HotWordsController {
 
     @RequestMapping("setHotWords")
     public void setHotWords(HttpServletRequest req) {
-        String eventID = "ef4edd79-c167-48c9-960e-aadad7eaa327";
+        String eventID = req.getParameter("eventID");
         hotWordsService.setHotWords(eventID);
     }
 }

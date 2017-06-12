@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/8.
  */
 @Entity
 @Table(name = "moe_declaration", schema = "socialmind", catalog = "")
@@ -21,7 +21,6 @@ public class MoeDeclarationEntity {
     private String infoCategory;
     private String infoAbstract;
     private String infoContent;
-    private String publishDate;
     private String author;
     private String qrCodeUrl;
     private String qrCodeBase64;
@@ -29,6 +28,7 @@ public class MoeDeclarationEntity {
     private String fileUrlNames;
     private String bFiles;
     private Timestamp timeStamp;
+    private String dateTime;
 
     @Id
     @Column(name = "id")
@@ -151,16 +151,6 @@ public class MoeDeclarationEntity {
     }
 
     @Basic
-    @Column(name = "publish_date")
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    @Basic
     @Column(name = "author")
     public String getAuthor() {
         return author;
@@ -230,6 +220,16 @@ public class MoeDeclarationEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Basic
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -250,7 +250,6 @@ public class MoeDeclarationEntity {
         if (infoCategory != null ? !infoCategory.equals(that.infoCategory) : that.infoCategory != null) return false;
         if (infoAbstract != null ? !infoAbstract.equals(that.infoAbstract) : that.infoAbstract != null) return false;
         if (infoContent != null ? !infoContent.equals(that.infoContent) : that.infoContent != null) return false;
-        if (publishDate != null ? !publishDate.equals(that.publishDate) : that.publishDate != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (qrCodeUrl != null ? !qrCodeUrl.equals(that.qrCodeUrl) : that.qrCodeUrl != null) return false;
         if (qrCodeBase64 != null ? !qrCodeBase64.equals(that.qrCodeBase64) : that.qrCodeBase64 != null) return false;
@@ -258,6 +257,7 @@ public class MoeDeclarationEntity {
         if (fileUrlNames != null ? !fileUrlNames.equals(that.fileUrlNames) : that.fileUrlNames != null) return false;
         if (bFiles != null ? !bFiles.equals(that.bFiles) : that.bFiles != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -276,7 +276,6 @@ public class MoeDeclarationEntity {
         result = 31 * result + (infoCategory != null ? infoCategory.hashCode() : 0);
         result = 31 * result + (infoAbstract != null ? infoAbstract.hashCode() : 0);
         result = 31 * result + (infoContent != null ? infoContent.hashCode() : 0);
-        result = 31 * result + (publishDate != null ? publishDate.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (qrCodeUrl != null ? qrCodeUrl.hashCode() : 0);
         result = 31 * result + (qrCodeBase64 != null ? qrCodeBase64.hashCode() : 0);
@@ -284,6 +283,7 @@ public class MoeDeclarationEntity {
         result = 31 * result + (fileUrlNames != null ? fileUrlNames.hashCode() : 0);
         result = 31 * result + (bFiles != null ? bFiles.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

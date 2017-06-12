@@ -1,7 +1,10 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IMOEConferenceService;
+import com.sicdlib.service.pythonService.IMOEDataService;
+import com.sicdlib.service.pythonService.IMOEDeclarationService;
+import com.sicdlib.service.pythonService.IMOENewsService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -83,9 +86,6 @@ public class MOEUtil {
                         break;
                     case "content":
                         moeConference.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        moeConference.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "agenda_url":
                         moeConference.setAgendaUrl(value);
@@ -217,7 +217,7 @@ public class MOEUtil {
      */
     @Test
     public void test_MOEDeclaration_HTableToMysql() throws Exception{
-        IMOEDeclarationService  moeDeclarationService = (IMOEDeclarationService) apx.getBean("moeDeclarationService");
+        IMOEDeclarationService moeDeclarationService = (IMOEDeclarationService) apx.getBean("moeDeclarationService");
         Long beginTime = new Date().getTime();
         /**
          * 教育网公告
@@ -273,7 +273,7 @@ public class MOEUtil {
                         moeDeclaration.setInfoContent(value);
                         break;
                     case "publish_date":
-                        moeDeclaration.setPublishDate(value);
+                        moeDeclaration.setDateTime(value);
                         break;
                     case "author":
                         moeDeclaration.setAuthor(value);
@@ -315,7 +315,7 @@ public class MOEUtil {
      */
     @Test
     public void test_MOENews_HTableToMysql() throws Exception{
-        IMOENewsService  moeNewsService = (IMOENewsService) apx.getBean("moeNewsService");
+        IMOENewsService moeNewsService = (IMOENewsService) apx.getBean("moeNewsService");
         Long beginTime = new Date().getTime();
         /**
          * 教育网新闻
@@ -369,9 +369,6 @@ public class MOEUtil {
                         break;
                     case "news_content":
                         moeNews.setNewsContent(value);
-                        break;
-                    case "pictures_hrefs":
-                        moeNews.setPicturesHrefsNum(Integer.parseInt(value));
                         break;
                     case "file_url_names":
                         moeNews.setFileUrlNames(value);

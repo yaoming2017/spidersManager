@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface IArticleSimiDAO {
     void batchSaveSimiEntity(List<TbArticleSimilarityEntity> simiList);
+    List<TbArticleSimilarityEntity> getSimiArticleEntityList(String eventID, double simi);
+    List<TbArticleSimilarityEntity> getSimiArticleEntityList(String eventID);
 }

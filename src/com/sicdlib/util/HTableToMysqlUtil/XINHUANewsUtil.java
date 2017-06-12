@@ -1,7 +1,7 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.XinhuaNewsEntity;
-import com.sicdlib.service.IXINHUANewsService;
+import com.sicdlib.service.pythonService.IXINHUANewsService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -11,8 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -63,20 +61,17 @@ public class XINHUANewsUtil {
                         xinhuaNews.setTitle(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
+                       /* String dateTime = "";
                         DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
                         DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        xinhuaNews.setDateTime(dateTime);
+                        dateTime = destFormat.format(sourceFormat.parse(value));*/
+                        xinhuaNews.setDateTime(value);
                         break;
                     case "source":
                         xinhuaNews.setSource(value);
                         break;
                     case "content":
                         xinhuaNews.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        xinhuaNews.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "editor":
                         xinhuaNews.setEditor(value);

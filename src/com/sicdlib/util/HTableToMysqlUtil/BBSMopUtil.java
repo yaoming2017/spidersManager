@@ -4,9 +4,9 @@ package com.sicdlib.util.HTableToMysqlUtil;
 import com.sicdlib.dto.entity.BbsMopAuthorEntity;
 import com.sicdlib.dto.entity.BbsMopCommentEntity;
 import com.sicdlib.dto.entity.BbsMopPostEntity;
-import com.sicdlib.service.IBBSMopAuthorService;
-import com.sicdlib.service.IBBSMopCommentService;
-import com.sicdlib.service.IBBSMopPostService;
+import com.sicdlib.service.pythonService.IBBSMopAuthorService;
+import com.sicdlib.service.pythonService.IBBSMopCommentService;
+import com.sicdlib.service.pythonService.IBBSMopPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -65,10 +65,6 @@ public class BBSMopUtil {
                     case "sex":
                         bbsMopAuthor.setSex(value);
                         break;
-                    case "location":
-                        bbsMopAuthor.setLocation(value);
-                        System.out.println(value);
-                        break;
                     case "age":
                         bbsMopAuthor.setAge(value);
                         break;
@@ -83,10 +79,6 @@ public class BBSMopUtil {
                         break;
                     case  "fans_num":
                         bbsMopAuthor.setFansNum(Integer.parseInt(value));
-                        break;
-                    case "point":
-                        bbsMopAuthor.setPoint(value);
-                        System.out.println(value);
                         break;
                     case  "post_num":
                         bbsMopAuthor.setPostNum(Integer.parseInt(value));
@@ -221,9 +213,6 @@ public class BBSMopUtil {
                     case "content":
                         bbsMopComment.setContent(value);
                         break;
-                    case "picture_hrefs_num":
-                       bbsMopComment.setPictureHrefsNum(Integer.parseInt(value));
-                        break;
                     case "praise_num":
                         bbsMopComment.setPraiseNum(Integer.parseInt(value));
                         break;
@@ -295,8 +284,8 @@ public class BBSMopUtil {
                     case "title":
                         bbsMopPost.setTitle(value);
                         break;
-                    case "publish_date":
-                        bbsMopPost.setPublishDate(value);
+                    case "date_time":
+                        bbsMopPost.setDateTime(value);
                         break;
                     case "hits":
                         bbsMopPost.setHits(Integer.parseInt(value));
@@ -312,10 +301,6 @@ public class BBSMopUtil {
                         break;
                     case "content":
                         bbsMopPost.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        System.out.println(value);
-                        bbsMopPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "tags":
                         bbsMopPost.setTags(value);

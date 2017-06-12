@@ -9,9 +9,11 @@ import javax.persistence.*;
 @Table(name = "tb_article_similarity", schema = "socialMind")
 public class TbArticleSimilarityEntity {
     private String id;
-    private String articleAId;
-    private String articleBId;
     private Double similarity;
+
+    //多对一映射
+    private TbEventArticleEntity articleA;
+    private TbEventArticleEntity articleB;
 
     @Id
     @Column(name = "ID")
@@ -23,25 +25,26 @@ public class TbArticleSimilarityEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "article_a_id")
-    public String getArticleAId() {
-        return articleAId;
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "article_a_id", referencedColumnName = "id")
+    public TbEventArticleEntity getArticleA() {
+        return articleA;
     }
 
-    public void setArticleAId(String articleAId) {
-        this.articleAId = articleAId;
+    public void setArticleA(TbEventArticleEntity articleA) {
+        this.articleA = articleA;
     }
 
-    @Basic
-    @Column(name = "article_b_id")
-    public String getArticleBId() {
-        return articleBId;
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name = "article_b_id", referencedColumnName = "id")
+    public TbEventArticleEntity getArticleB() {
+        return articleB;
     }
 
-    public void setArticleBId(String articleBId) {
-        this.articleBId = articleBId;
+    public void setArticleB(TbEventArticleEntity articleB) {
+        this.articleB = articleB;
     }
+
 
     @Basic
     @Column(name = "similarity")
@@ -61,8 +64,6 @@ public class TbArticleSimilarityEntity {
         TbArticleSimilarityEntity that = (TbArticleSimilarityEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (articleAId != null ? !articleAId.equals(that.articleAId) : that.articleAId != null) return false;
-        if (articleBId != null ? !articleBId.equals(that.articleBId) : that.articleBId != null) return false;
         if (similarity != null ? !similarity.equals(that.similarity) : that.similarity != null) return false;
 
         return true;
@@ -71,8 +72,6 @@ public class TbArticleSimilarityEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (articleAId != null ? articleAId.hashCode() : 0);
-        result = 31 * result + (articleBId != null ? articleBId.hashCode() : 0);
         result = 31 * result + (similarity != null ? similarity.hashCode() : 0);
         return result;
     }

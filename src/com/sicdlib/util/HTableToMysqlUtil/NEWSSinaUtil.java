@@ -1,7 +1,7 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.NewsSinaEntity;
-import com.sicdlib.service.INEWSSinaService;
+import com.sicdlib.service.pythonService.INEWSSinaService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -90,20 +90,16 @@ public class NEWSSinaUtil {
                     case  "editor":
                         newsSina.setEditor(value);
                         break;
-                    case    "from_media":
+                    case  "from_media":
                         newsSina.setFromMedia(value);
                         break;
-                    case    "from_media_url":
+                    case "from_media_url":
                         newsSina.setFromMediaUrl(value);
                         break;
-                    case    "content":
+                    case "content":
                         newsSina.setContent(value);
                         break;
-                    case    "picture_hrefs":
-
-                        newsSina.setPictureHrefsNum(Integer.parseInt(value));
-                        break;
-                    case    "participant_num":
+                    case  "participant_num":
                         newsSina.setParticipantNum(Integer.parseInt(value));
                         break;
                 }

@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSSohuAuthorService;
+import com.sicdlib.service.pythonService.IBBSSohuCommentService;
+import com.sicdlib.service.pythonService.IBBSSohuPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -11,10 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +93,8 @@ public class BBSSohuUtil {
                         bbsSohuAuthor.setLastLogin(value);
                         break;
                     case "login_num":
-                        bbsSohuAuthor.setLoginNum(Integer.parseInt(value));
+                        String loginNumValue = value.replaceAll("次","");
+                        bbsSohuAuthor.setLoginNum(Integer.parseInt(loginNumValue));
                         break;
                     case "sport":
                         bbsSohuAuthor.setSport(value);
@@ -121,10 +121,18 @@ public class BBSSohuUtil {
                         bbsSohuAuthor.setProfession(value);
                         break;
                     case "friends_num":
-                        bbsSohuAuthor.setFriendsNum(Integer.parseInt(value));
+                        if(value.equals("")){
+                            bbsSohuAuthor.setFriendsNum(0);
+                        }else {
+                            bbsSohuAuthor.setFriendsNum(Integer.parseInt(value));
+                        }
                         break;
                     case "fans_num":
-                        bbsSohuAuthor.setFansNum(Integer.parseInt(value));
+                        if(value.equals("")){
+                            bbsSohuAuthor.setFansNum(0);
+                        }else{
+                            bbsSohuAuthor.setFansNum(Integer.parseInt(value));
+                        }
                         break;
                     case "parse_time":
                         Double time = Double.parseDouble(value) * 1000;
@@ -154,7 +162,7 @@ public class BBSSohuUtil {
      */
     @Test
     public void test_bbsSohuComment_HTableToMysql() throws Exception{
-        IBBSSohuCommentService bbsSohuCommentService = (IBBSSohuCommentService) apx.getBean(" bbsSohuCommentService");
+        IBBSSohuCommentService bbsSohuCommentService = (IBBSSohuCommentService) apx.getBean("bbsSohuCommentService");
         Long beginTime = new Date().getTime();
         /**
          * 搜狐
@@ -202,14 +210,7 @@ public class BBSSohuUtil {
                         bbsSohuComment.setContent(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsSohuComment.setDateTime(dateTime);
-                        break;
-                    case "picture_hrefs":
-                        bbsSohuComment.setPictureHrefsNum(Integer.parseInt(value));
+                        bbsSohuComment.setDateTime(value);
                         break;
                     case "quote_floor":
                         bbsSohuComment.setQuoteFloor(value);
@@ -279,14 +280,7 @@ public class BBSSohuUtil {
                                 bbsSohuPost.setContent(value);
                                 break;
                             case "date_time":
-                                String dateTime = "";
-                                DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                                DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                                dateTime = destFormat.format(sourceFormat.parse(value));
-                                bbsSohuPost.setDateTime(dateTime);
-                                break;
-                            case "picture_hrefs":
-                                bbsSohuPost.setPictureHrefsNum(Integer.parseInt(value));
+                                bbsSohuPost.setDateTime(value);
                                 break;
                             case "author_id":
                                 bbsSohuPost.setAuthorId(value);

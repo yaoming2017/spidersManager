@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IKDNETAuthorService;
+import com.sicdlib.service.pythonService.IKDNETCommentService;
+import com.sicdlib.service.pythonService.IKDNETPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -111,7 +113,7 @@ public class KDNETUtil {
      */
     @Test
     public void test_KDNETComment_HTableToMysql() throws Exception{
-        IKDNETCommentService  kdnetCommentService = (IKDNETCommentService) apx.getBean(" kdnetCommentService");
+        IKDNETCommentService kdnetCommentService = (IKDNETCommentService) apx.getBean(" kdnetCommentService");
         Long beginTime = new Date().getTime();
         /**
          * 凯迪社区
@@ -150,6 +152,7 @@ public class KDNETUtil {
                         break;
                     case "floor_num":
                         kdnetComment.setFloorNum(Integer.parseInt(value));
+                        break;
                     case "date_time":
                         String dateTime = "";
                         DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
@@ -166,8 +169,6 @@ public class KDNETUtil {
                     case "at_href":
                         kdnetComment.setAtHref(value);
                         break;
-                    case "picture_hrefs":
-                        kdnetComment.setPictureHrefsNum(Integer.parseInt(value));
                     case "quote_comment_id":
                         kdnetComment.setQuoteCommentId(value);
                         break;
@@ -201,7 +202,7 @@ public class KDNETUtil {
      */
     @Test
     public void test_KDNETPost_HTableToMysql() throws Exception{
-        IKDNETPostService  kdnetPostService = (IKDNETPostService) apx.getBean("kdnetPostService");
+        IKDNETPostService kdnetPostService = (IKDNETPostService) apx.getBean("kdnetPostService");
         Long beginTime = new Date().getTime();
         /**
          * 凯迪社区
@@ -261,9 +262,6 @@ public class KDNETUtil {
                         break;
                     case "at_href":
                         kdnetPost.setAtHref(value);
-                        break;
-                    case "picture_hrefs":
-                        kdnetPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "content":
                         kdnetPost.setContent(value);

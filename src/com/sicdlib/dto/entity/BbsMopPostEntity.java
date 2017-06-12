@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/26.
+ * Created by init on 2017/6/8.
  */
 @Entity
 @Table(name = "bbs_mop_post", schema = "socialmind", catalog = "")
@@ -14,7 +14,6 @@ public class BbsMopPostEntity {
     private String pathText;
     private String pathHref;
     private String title;
-    private String publishDate;
     private Integer hits;
     private Integer replyNum;
     private String authorName;
@@ -27,7 +26,7 @@ public class BbsMopPostEntity {
     private Timestamp timeStamp;
     private String id;
     private Integer commentNum;
-    private Integer pictureHrefsNum;
+    private String dateTime;
 
     @Basic
     @Column(name = "post_id")
@@ -77,16 +76,6 @@ public class BbsMopPostEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    @Basic
-    @Column(name = "publish_date")
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
     }
 
     @Basic
@@ -210,13 +199,13 @@ public class BbsMopPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
@@ -231,7 +220,6 @@ public class BbsMopPostEntity {
         if (pathText != null ? !pathText.equals(that.pathText) : that.pathText != null) return false;
         if (pathHref != null ? !pathHref.equals(that.pathHref) : that.pathHref != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (publishDate != null ? !publishDate.equals(that.publishDate) : that.publishDate != null) return false;
         if (hits != null ? !hits.equals(that.hits) : that.hits != null) return false;
         if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
@@ -244,8 +232,7 @@ public class BbsMopPostEntity {
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
 
         return true;
     }
@@ -257,7 +244,6 @@ public class BbsMopPostEntity {
         result = 31 * result + (pathText != null ? pathText.hashCode() : 0);
         result = 31 * result + (pathHref != null ? pathHref.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (publishDate != null ? publishDate.hashCode() : 0);
         result = 31 * result + (hits != null ? hits.hashCode() : 0);
         result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
@@ -270,7 +256,7 @@ public class BbsMopPostEntity {
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         return result;
     }
 }

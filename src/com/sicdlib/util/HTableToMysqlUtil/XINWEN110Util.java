@@ -1,9 +1,7 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dto.entity.MoeConferenceEntity;
 import com.sicdlib.dto.entity.Xinwen110NewsEntity;
-import com.sicdlib.service.IMOEConferenceService;
-import com.sicdlib.service.IXINWEN110NewsService;
+import com.sicdlib.service.pythonService.IXINWEN110NewsService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -13,8 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -63,11 +59,7 @@ public class XINWEN110Util {
                         xinwen110News.setTitle(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        xinwen110News.setDateTime(dateTime);
+                        xinwen110News.setDateTime(value);
                         break;
                     case "source":
                         xinwen110News.setSource(value);
@@ -80,9 +72,6 @@ public class XINWEN110Util {
                         break;
                     case "content":
                         xinwen110News.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        xinwen110News.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());

@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBBSXinhuaAuthorService;
+import com.sicdlib.service.pythonService.IBBSXinhuaCommentService;
+import com.sicdlib.service.pythonService.IBBSXinhuaPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -11,12 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by init on 2017/6/3.
@@ -29,7 +26,7 @@ public class BBSXinhuaUtil {
      */
     @Test
     public void test_bbsXinhuaAuthor_HTableToMysql() throws Exception{
-        IBBSXinhuaAuthorService bbsXinhuaAuthorService = (IBBSXinhuaAuthorService) apx.getBean("bbsXinhuaAuthorService ");
+        IBBSXinhuaAuthorService bbsXinhuaAuthorService = (IBBSXinhuaAuthorService) apx.getBean("bbsXinhuaAuthorService");
         Long beginTime = new Date().getTime();
         /**
          * 新华网
@@ -148,17 +145,10 @@ public class BBSXinhuaUtil {
                         bbsXinhuaComment.setAuthorHref(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsXinhuaComment.setDateTime(dateTime);
+                        bbsXinhuaComment.setDateTime(value);
                         break;
                     case "content":
                         bbsXinhuaComment.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        bbsXinhuaComment.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "floor":
                         bbsXinhuaComment.setFloor(value);
@@ -239,11 +229,7 @@ public class BBSXinhuaUtil {
                         bbsXinhuaPost.setPathHref(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        bbsXinhuaPost.setDateTime(dateTime);
+                        bbsXinhuaPost.setDateTime(value);
                         break;
                     case "path_text":
                         bbsXinhuaPost.setPathText(value);
@@ -262,9 +248,6 @@ public class BBSXinhuaUtil {
                         break;
                     case "content":
                         bbsXinhuaPost.setContent(value);
-                        break;
-                    case "picture_hrefs":
-                        bbsXinhuaPost.setPictureHrefsNum(Integer.parseInt(value));
                         break;
                     case "url":
                         bbsXinhuaPost.setUrl(value);

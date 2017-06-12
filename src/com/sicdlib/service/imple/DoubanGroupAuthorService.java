@@ -1,8 +1,8 @@
 package com.sicdlib.service.imple;
 
-import com.sicdlib.dao.IDoubanGroupAuthorDAO;
+import com.sicdlib.dao.pyhtonDAO.IDoubanGroupAuthorDAO;
 import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
-import com.sicdlib.service.IDoubanGroupAuthorService;
+import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

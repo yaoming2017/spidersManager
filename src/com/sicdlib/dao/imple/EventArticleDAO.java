@@ -44,5 +44,10 @@ public class EventArticleDAO implements IEventArticleDAO {
             return false;
         }
     }
+
+    @Override
+    public TbEventArticleEntity getEventArticleEntity(String id) {
+        return (TbEventArticleEntity) baseDAO.get(TbEventArticleEntity.class, id);
+    }
 }
 

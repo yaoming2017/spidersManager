@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/26.
+ * Created by init on 2017/6/6.
  */
 @Entity
 @Table(name = "bbs_china_post", schema = "socialmind", catalog = "")
@@ -29,7 +29,6 @@ public class BbsChinaPostEntity {
     private Timestamp timeStamp;
     private String id;
     private Integer commentNum;
-    private String pictureHrefs;
 
     @Basic
     @Column(name = "post_id")
@@ -231,16 +230,6 @@ public class BbsChinaPostEntity {
         this.commentNum = commentNum;
     }
 
-    @Basic
-    @Column(name = "picture_hrefs")
-    public String getPictureHrefs() {
-        return pictureHrefs;
-    }
-
-    public void setPictureHrefs(String pictureHrefs) {
-        this.pictureHrefs = pictureHrefs;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -269,7 +258,6 @@ public class BbsChinaPostEntity {
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
-        if (pictureHrefs != null ? !pictureHrefs.equals(that.pictureHrefs) : that.pictureHrefs != null) return false;
 
         return true;
     }
@@ -296,7 +284,6 @@ public class BbsChinaPostEntity {
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
-        result = 31 * result + (pictureHrefs != null ? pictureHrefs.hashCode() : 0);
         return result;
     }
 }

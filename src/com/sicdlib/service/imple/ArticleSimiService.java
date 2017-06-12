@@ -1,10 +1,8 @@
 package com.sicdlib.service.imple;
 
-import com.sicdlib.dao.IArticleSimiDAO;
-import com.sicdlib.dao.IHotWordsDAO;
-import com.sicdlib.dao.IStopWordsDAO;
-import com.sicdlib.dao.ITableDAO;
+import com.sicdlib.dao.*;
 import com.sicdlib.dto.TbArticleSimilarityEntity;
+import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbTableEntity;
 import com.sicdlib.service.IArticleSimiService;
 import com.sicdlib.util.KeyWordsUtil.Segmentation;
@@ -22,6 +20,10 @@ import java.util.List;
  */
 @Service("articleSimiService")
 public class ArticleSimiService implements IArticleSimiService {
+    @Autowired
+    @Qualifier("eventArticleDAO")
+    private IEventArticleDAO eventArticleDAO;
+
     @Autowired
     @Qualifier("tableDAO")
     private ITableDAO tableDAO;
@@ -59,8 +61,8 @@ public class ArticleSimiService implements IArticleSimiService {
 
                 TbArticleSimilarityEntity simiEntity = new TbArticleSimilarityEntity();
                 simiEntity.setId(UUIDUtil.getUUID());
-                simiEntity.setArticleAId(idList.get(i));
-                simiEntity.setArticleBId(idList.get(j));
+                simiEntity.setArticleA(eventArticleDAO.getEventArticleEntity(idList.get(i)));
+                simiEntity.setArticleA(eventArticleDAO.getEventArticleEntity(idList.get(j)));
                 simiEntity.setSimilarity(simi);
 
                 simiEntityList.add(simiEntity);

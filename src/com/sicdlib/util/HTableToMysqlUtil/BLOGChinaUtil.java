@@ -1,7 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.*;
+import com.sicdlib.service.pythonService.IBLOGChinaAuthorService;
+import com.sicdlib.service.pythonService.IBLOGChinaBlogService;
+import com.sicdlib.service.pythonService.IBLOGChinaCommentService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -104,7 +106,7 @@ public class BLOGChinaUtil {
      */
     @Test
     public void test_BLOGChinaComment_HTableToMysql() throws Exception{
-        IBLOGChinaCommentService  blogChinaCommentService = (IBLOGChinaCommentService) apx.getBean(" blogChinaCommentService");
+        IBLOGChinaCommentService blogChinaCommentService = (IBLOGChinaCommentService) apx.getBean(" blogChinaCommentService");
         Long beginTime = new Date().getTime();
         /**
          * 博客中国
@@ -177,7 +179,7 @@ public class BLOGChinaUtil {
      */
     @Test
     public void test_BLOGChinaBlog_HTableToMysql() throws Exception{
-        IBLOGChinaBlogService  blogChinaBlogService = (IBLOGChinaBlogService) apx.getBean("blogChinaBlogService");
+        IBLOGChinaBlogService blogChinaBlogService = (IBLOGChinaBlogService) apx.getBean("blogChinaBlogService");
         Long beginTime = new Date().getTime();
         /**
          *博客中国

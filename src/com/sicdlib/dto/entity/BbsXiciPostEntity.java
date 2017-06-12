@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/3.
+ * Created by init on 2017/6/8.
  */
 @Entity
 @Table(name = "bbs_xici_post", schema = "socialmind", catalog = "")
@@ -18,7 +18,6 @@ public class BbsXiciPostEntity {
     private String title;
     private String dateTime;
     private String content;
-    private Integer pictureHrefsNum;
     private String url;
     private Timestamp timeStamp;
     private String id;
@@ -115,16 +114,6 @@ public class BbsXiciPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "url")
     public String getUrl() {
         return url;
@@ -180,8 +169,6 @@ public class BbsXiciPostEntity {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
@@ -201,7 +188,6 @@ public class BbsXiciPostEntity {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);

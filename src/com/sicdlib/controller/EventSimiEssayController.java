@@ -3,11 +3,10 @@ package com.sicdlib.controller;
 import com.sicdlib.dto.*;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.*;
-import com.sicdlib.service.imple.SourceArticleNumService;
+import com.sicdlib.service.pythonService.IDoubanGroupPostService;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Test.Word2Vec;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.Learn;
-import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.Word2VEC;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Vec.domain.WordEntry;
 import org.ansj.library.UserDefineLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -275,7 +274,7 @@ public class EventSimiEssayController {
         model.addAttribute("events", events);
         model.addAttribute("doubanGroupPosts", doubanGroupPosts);
         model.addAttribute("eventArticles", eventArticles);
-        return "/WEB-INF/eventsList";
+        return "eventsList";
     }
 
 
@@ -285,7 +284,7 @@ public class EventSimiEssayController {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/WEB-INF/eventsList";
+        return "eventsList";
     }
 
     //新增事件
@@ -294,7 +293,7 @@ public class EventSimiEssayController {
         //获得所有事件信息
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);
-        return "/WEB-INF/addEvent";
+        return "addEvent";
     }
 
     /****************************************************************************************************/

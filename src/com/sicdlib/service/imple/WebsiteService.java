@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,5 +59,23 @@ public class WebsiteService implements IWebsiteService {
         List<WebsiteEntity> wsList = websiteDAO.listWebsite();
 
         return wsList;
+    }
+
+    @Override
+    public List<String> listAllWebsiteName() {
+        List<WebsiteEntity> wsList = websiteDAO.listWebsite();
+        List<String> wsNameList = new ArrayList<>();
+        wsList.forEach(ws-> wsNameList.add(ws.getWebsiteName()));
+        return wsNameList;
+    }
+
+    @Override
+    public List<String> getWebsiteNameByEvent(String eventID) {
+        List<WebsiteEntity> wsList = websiteDAO.getWebsiteByEventID(eventID);
+
+        List<String> wsNameList = new ArrayList<>();
+        wsList.forEach(ws-> wsNameList.add(ws.getWebsiteName()));
+
+        return wsNameList;
     }
 }

@@ -36,7 +36,7 @@ public class HotWordsService implements IHotWordsService {
 
     @Override
     public List<Map> getHotWordsMap(String eventID) {
-        int limit = 50;
+        int limit = 100;
         List<TbHotWordEntity> hotWordsList = hotWordsDAO.getHotWordsEntityList(eventID, limit);
 
         List<Map> mapList = new ArrayList<>();

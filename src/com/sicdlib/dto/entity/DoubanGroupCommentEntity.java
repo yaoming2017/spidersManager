@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/8.
+ * Created by init on 2017/6/13.
  */
 @Entity
 @Table(name = "douban_group_comment", schema = "socialmind", catalog = "")
@@ -16,8 +16,6 @@ public class DoubanGroupCommentEntity {
     private String content;
     private Integer priseNum;
     private String quoteContent;
-    private String quoteAuthorName;
-    private String quoteAuthorHref;
     private String url;
     private String id;
     private String dateTime;
@@ -94,26 +92,6 @@ public class DoubanGroupCommentEntity {
     }
 
     @Basic
-    @Column(name = "quote_author_name")
-    public String getQuoteAuthorName() {
-        return quoteAuthorName;
-    }
-
-    public void setQuoteAuthorName(String quoteAuthorName) {
-        this.quoteAuthorName = quoteAuthorName;
-    }
-
-    @Basic
-    @Column(name = "quote_author_href")
-    public String getQuoteAuthorHref() {
-        return quoteAuthorHref;
-    }
-
-    public void setQuoteAuthorHref(String quoteAuthorHref) {
-        this.quoteAuthorHref = quoteAuthorHref;
-    }
-
-    @Basic
     @Column(name = "url")
     public String getUrl() {
         return url;
@@ -167,10 +145,6 @@ public class DoubanGroupCommentEntity {
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (priseNum != null ? !priseNum.equals(that.priseNum) : that.priseNum != null) return false;
         if (quoteContent != null ? !quoteContent.equals(that.quoteContent) : that.quoteContent != null) return false;
-        if (quoteAuthorName != null ? !quoteAuthorName.equals(that.quoteAuthorName) : that.quoteAuthorName != null)
-            return false;
-        if (quoteAuthorHref != null ? !quoteAuthorHref.equals(that.quoteAuthorHref) : that.quoteAuthorHref != null)
-            return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
@@ -188,8 +162,6 @@ public class DoubanGroupCommentEntity {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (priseNum != null ? priseNum.hashCode() : 0);
         result = 31 * result + (quoteContent != null ? quoteContent.hashCode() : 0);
-        result = 31 * result + (quoteAuthorName != null ? quoteAuthorName.hashCode() : 0);
-        result = 31 * result + (quoteAuthorHref != null ? quoteAuthorHref.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);

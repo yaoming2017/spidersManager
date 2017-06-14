@@ -67,7 +67,7 @@ public class XINHUANewsUtil {
                         dateTime = destFormat.format(sourceFormat.parse(value));*/
                         xinhuaNews.setDateTime(value);
                         break;
-                    case "source":
+                    case "source_text":
                         xinhuaNews.setSource(value);
                         break;
                     case "content":

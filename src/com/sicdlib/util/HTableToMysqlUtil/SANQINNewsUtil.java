@@ -59,12 +59,8 @@ public class SANQINNewsUtil {
                     case "title":
                         sanqinNews.setTitle(value);
                         break;
-                    case "date_time":
-                        String dateTime = " ";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        sanqinNews.setDateTime(dateTime);
+                    case "publish_time":
+                        sanqinNews.setDateTime(value);
                         break;
                     case "editor":
                         sanqinNews.setEditor(value);

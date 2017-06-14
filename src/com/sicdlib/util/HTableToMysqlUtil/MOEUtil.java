@@ -26,14 +26,14 @@ public class MOEUtil {
 
     /**
      * 教育部htable_作者转换到Mysql中
-     */
+     *//*
     @Test
     public void test_MOEConference_HTableToMysql() throws Exception{
-       IMOEConferenceService moeConferenceService = (IMOEConferenceService) apx.getBean("moeConferenceService ");
+       IMOEConferenceService moeConferenceService = (IMOEConferenceService) apx.getBean("moeConferenceService");
         Long beginTime = new Date().getTime();
-        /**
+        *//**
          * 教育部
-         */
+         *//*
         //教育部- 会议
         String htable_name = "moe_conference";
         HBaseData hBaseData = new HBaseData(htable_name);
@@ -69,7 +69,7 @@ public class MOEUtil {
                     case "author":
                         moeConference.setAuthor(value);
                         break;
-                    case "source":
+                    case "source_text":
                         moeConference.setSource(value);
                         break;
                     case "time":
@@ -118,7 +118,7 @@ public class MOEUtil {
         Long endTime = new Date().getTime();
         Long EndtoBeginTime = (endTime - beginTime) % 1000;
         System.out.println("运行到结束所需：\t" + EndtoBeginTime + "秒");
-    }
+    }*/
 
     /**
      * 教育部htable_转换到Mysql中
@@ -156,15 +156,8 @@ public class MOEUtil {
                     case "position":
                         moeData.setPosition(value);
                         break;
-                    case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        moeData.setDateTime(dateTime);
-                        break;
-                    case "title_yt":
-                        moeData.setTitleYt(value);
+                    case "date":
+                        moeData.setDateTime(value);
                         break;
                     case "title":
                         moeData.setTitle(value);
@@ -172,26 +165,17 @@ public class MOEUtil {
                     case "sub_title":
                         moeData.setSubTitle(value);
                         break;
-                    case "title_fwzh":
-                        moeData.setTitleFwzh(value);
-                        break;
                     case "content":
                         moeData.setContent(value);
                         break;
                     case "editor":
                         moeData.setEditor(value);
                         break;
-                    case "file_url_names":
-                        moeData.setFileUrlNames(value);
-                        break;
                     case "QRCode_url":
                         moeData.setQrCodeUrl(value);
                         break;
-                    case "b_files":
-                        moeData.setbFiles(value);
-                        break;
-                    case "b_QRCode":
-                        moeData.setbQrCode(value);
+                    case "file_num":
+                        moeData.setFileNum(Integer.parseInt(value));
                         break;
                 }
                 // 获取爬取数据时间戳
@@ -260,9 +244,6 @@ public class MOEUtil {
                     case "info_institution":
                         moeDeclaration.setInfoInstitution(value);
                         break;
-                    case "document_num":
-                        moeDeclaration.setDocumentNum(Integer.parseInt(value));
-                        break;
                     case "info_category":
                         moeDeclaration.setInfoCategory(value);
                         break;
@@ -281,17 +262,8 @@ public class MOEUtil {
                     case "QRCode_url":
                         moeDeclaration.setQrCodeUrl(value);
                         break;
-                    case "QRCode_base64":
-                        moeDeclaration.setQrCodeBase64(value);
-                        break;
-                    case "b_QRCode":
-                        moeDeclaration.setbQrCode(value);
-                        break;
-                    case "file_url_names":
-                        moeDeclaration.setFileUrlNames(value);
-                        break;
-                    case "b_files":
-                        moeDeclaration.setbFiles(value);
+                    case "file_num":
+                        moeDeclaration.setFileNum(Integer.parseInt(value));
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());
@@ -370,17 +342,11 @@ public class MOEUtil {
                     case "news_content":
                         moeNews.setNewsContent(value);
                         break;
-                    case "file_url_names":
-                        moeNews.setFileUrlNames(value);
-                        break;
                     case "QRCode_url":
                         moeNews.setQrCodeUrl(value);
                         break;
-                    case "b_files":
-                        moeNews.setbFiles(value);
-                        break;
-                    case "b_QRCode":
-                        moeNews.setbQrCode(value);
+                    case "file_num":
+                        moeNews.setFileNum(Integer.parseInt(value));
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());

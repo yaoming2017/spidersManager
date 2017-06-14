@@ -130,7 +130,7 @@ public class BLOG163Util {
      */
     @Test
     public void test_BLOG163Comment_HTableToMysql() throws Exception{
-        IBLOG163CommentService blog163CommentService = (IBLOG163CommentService) apx.getBean("blog163CommentService ");
+        IBLOG163CommentService blog163CommentService = (IBLOG163CommentService) apx.getBean("blog163CommentService");
         Long beginTime = new Date().getTime();
         /**
          * 网易博客

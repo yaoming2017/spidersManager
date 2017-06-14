@@ -139,8 +139,7 @@
                 "normal": {
                     "show": true
                 }
-            },
-            "d_index": i
+            }
         });
     }
 
@@ -193,7 +192,6 @@
                 }
             }
         },
-
         toolbox: {
             show: true,
             feature: {

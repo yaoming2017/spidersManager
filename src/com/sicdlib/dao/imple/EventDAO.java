@@ -211,7 +211,8 @@ public class EventDAO implements IEventDAO {
                 "SELECT table.id " +
                 "FROM TbTableEntity table, WebsiteEntity website " +
                 "WHERE website.websiteName = '" + websiteName + "' AND website.id = table.websiteId" +
-                ")";
+                ")" +
+                "GROUP BY articleNum.startTime";
         return baseDAO.find(hql);
     }
 
@@ -219,6 +220,13 @@ public class EventDAO implements IEventDAO {
     public List<TbEventEntity> getAllEvent() {
         String hql = "FROM TbEventEntity event";
         return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleDateAndHotValue(String eventID) {
+        String sql = "";
+
+        return baseDAO.getSqlList(sql);
     }
 }
 

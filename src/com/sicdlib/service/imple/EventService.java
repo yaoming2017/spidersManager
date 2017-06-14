@@ -172,15 +172,15 @@ public class EventService implements IEventService {
 
         //文章出现的网站名，并用顿号拼接
         List<WebsiteEntity> websiteList = eventDAO.sourceWebsiteList(eventID);
-        String websiteStr = "";
+        StringBuilder websiteStr = new StringBuilder();
         for (WebsiteEntity website: websiteList) {
-            websiteStr = websiteStr + website.getWebsiteName() + "、";
+            websiteStr.append(website.getWebsiteName()).append("、");
         }
-        websiteStr = websiteStr.substring(0, websiteStr.length() - 1);
+        websiteStr = new StringBuilder(websiteStr.substring(0, websiteStr.length() - 1));
 
         String introduction = String.format(eventIntroTemplate, keyWordsStr, startTime,
                 endTime, articleNum, rushTime, rushNum, startTime, sourceWebsite,
-                sourceTitle, websiteStr, trend);
+                sourceTitle, websiteStr.toString(), trend);
 
         TbEventEntity event = eventDAO.getEvent(eventID);
         event.setEventStartTime(startTime);
@@ -204,5 +204,12 @@ public class EventService implements IEventService {
     @Override
     public List<TbEventEntity> getAllEvent() {
         return eventDAO.getAllEvent();
+    }
+
+    @Override
+    public String calEventTrend(String eventID) {
+
+
+        return null;
     }
 }

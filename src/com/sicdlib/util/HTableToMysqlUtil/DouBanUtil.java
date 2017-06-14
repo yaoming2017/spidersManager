@@ -1,6 +1,5 @@
-package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dto.entity.*;
+package com.sicdlib.util.HTableToMysqlUtil;
 import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
 import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
 import com.sicdlib.service.pythonService.IDoubanGroupGroupService;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/13.
+ * Created by init on 2017/6/14.
  */
 @Entity
 @Table(name = "douban_group_post", schema = "socialmind", catalog = "")

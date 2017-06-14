@@ -139,8 +139,7 @@
                 "normal": {
                     "show": true
                 }
-            },
-            "d_index": i
+            }
         });
     }
 
@@ -193,7 +192,6 @@
                 }
             }
         },
-
         toolbox: {
             show: true,
             feature: {
@@ -231,7 +229,7 @@
             label: {
                 normal: {
                     textStyle: {
-                        color: ["#12617f"]
+                        color: ["#327df8"]
                     },
                     show: true,
                     position: 'right',

@@ -32,57 +32,7 @@ public class EventService implements IEventService {
 
     @Override
     public String eventIntroduction(String eventID) {
-//        //事件简介的模板
-//        String eventIntroTemplate = dataDictDAO.getDictValue(Constant.EVENT_INTRODUCTION).get(0);
-//
-//        //关键词，取前三个，并用加号拼接
-//        List<TbHotWordEntity> keyWordsEntity = eventDAO.getKeyWords(eventID, 3);
-//        List<String> keyWords = new ArrayList<>();
-//
-//        for (TbHotWordEntity hotWords: keyWordsEntity) {
-//            keyWords.add(hotWords.getName());
-//        }
-//
-//        String keyWordsStr = StringUtils.join(keyWords.toArray(),"+");
-//
-//        TbEventEntity event = eventDAO.getEvent(eventID);
-//
-//        //事件的开始时间
-//        String eventStartDate = event.getEventStartTime();
-//
-//        //事件的结束时间
-//        String eventEndDate = event.getEventEndTime();
-//
-//        //整个事件的文章数量
-//        int articleNum = eventDAO.eventArticleNum(eventID);
-//
-//        //源文章的标题
-//        String sourceTitle = eventDAO.sourceArticleTitle(eventID);
-//
-//        //事件发生的高峰日期
-//        String rushDate = eventDAO.rushDate(eventID);
-//
-//        //高峰时间的文章数量
-//        int rushNum = eventDAO.rushNum(eventID);
-//
-//        //文章出现的网站名，并用顿号拼接
-//        List<WebsiteEntity> websiteList = eventDAO.sourceWebsiteList(eventID);
-//        String websiteStr = "";
-//        for (WebsiteEntity website: websiteList) {
-//            websiteStr = websiteStr + website.getWebsiteName() + "、";
-//        }
-//        websiteStr = websiteStr.substring(0, websiteStr.length() - 1);
-//
-//        //事件的来源网站
-//        String sourceWebsite = eventDAO.sourceWebsite(eventID).getWebsiteName();
-//
-//        //事件的趋势
-//        String trend = eventDAO.eventTrend(eventID);
-//
-//        //格式化事件简介模板
-//        String introduction = String.format(eventIntroTemplate, keyWordsStr, eventStartDate,
-//                eventEndDate, articleNum, rushDate, rushNum, eventStartDate, sourceWebsite,
-//                sourceTitle, websiteStr, trend);
+
         String introduction = eventDAO.getEvent(eventID).getEventIntroduction();
 
         return introduction;
@@ -185,11 +135,12 @@ public class EventService implements IEventService {
         //从事件文章中获取事件的高峰时间
         //从事件文章中获取事件的高峰时间当天的文章量
         Object[] rushTimeAndNum = eventDAO.getRushTimeAndNum(eventID);
-
+        System.out.println("事件高峰期：" + rushTimeAndNum);
+        System.out.println("事件0和1：" + rushTimeAndNum[0] + " : " + rushTimeAndNum[1]);
         String rushTime = "";
         int rushNum = 0;
         if(rushTimeAndNum != null && rushTimeAndNum.length == 2) {
-            rushTime = (String) rushTimeAndNum[0];
+            rushTime = (String)rushTimeAndNum[0];
             BigDecimal bigTime = (BigDecimal) rushTimeAndNum[1];
             rushNum = bigTime.intValue();
         }
@@ -221,15 +172,15 @@ public class EventService implements IEventService {
 
         //文章出现的网站名，并用顿号拼接
         List<WebsiteEntity> websiteList = eventDAO.sourceWebsiteList(eventID);
-        String websiteStr = "";
+        StringBuilder websiteStr = new StringBuilder();
         for (WebsiteEntity website: websiteList) {
-            websiteStr = websiteStr + website.getWebsiteName() + "、";
+            websiteStr.append(website.getWebsiteName()).append("、");
         }
-        websiteStr = websiteStr.substring(0, websiteStr.length() - 1);
+        websiteStr = new StringBuilder(websiteStr.substring(0, websiteStr.length() - 1));
 
         String introduction = String.format(eventIntroTemplate, keyWordsStr, startTime,
                 endTime, articleNum, rushTime, rushNum, startTime, sourceWebsite,
-                sourceTitle, websiteStr, trend);
+                sourceTitle, websiteStr.toString(), trend);
 
         TbEventEntity event = eventDAO.getEvent(eventID);
         event.setEventStartTime(startTime);
@@ -253,5 +204,12 @@ public class EventService implements IEventService {
     @Override
     public List<TbEventEntity> getAllEvent() {
         return eventDAO.getAllEvent();
+    }
+
+    @Override
+    public String calEventTrend(String eventID) {
+
+
+        return null;
     }
 }

@@ -16,6 +16,8 @@ public class Constant {
     public static final String SPIDER_STATUS_RUN = "SPIDER_STATUS_RUN"; //爬虫状态为正在运行
     public static final String SPIDER_STATUS_STOP = "SPIDER_STATUS_STOP"; //爬虫状态为停止
     public static final String EVENT_INTRODUCTION = "EVENT_INTRODUCTION"; //事件简介模板
+    public static final String TREND_1 = "TREND_1"; //事件的第一等级趋势
+    public static final String TREND_2 = "TREND_2"; //事件的第二等级趋势
     /**
      * 数据字典中的网站类别字段
      */

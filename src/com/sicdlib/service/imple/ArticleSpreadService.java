@@ -36,7 +36,7 @@ public class ArticleSpreadService implements IArticleSpreadService {
 
     @Override
     public Map<String, List> getNodeAndEdgeAttributes(String eventID) {
-        double simi = 0.4;
+        double simi = 0.35;
         List<TbArticleSimilarityEntity> articleSimiList = articleSimiDAO.getSimiArticleEntityList(eventID);
         Map<String, Integer> articleSimiNumMap = new ConcurrentHashMap<>();
         Map<String, String> articleTitleMap = new ConcurrentHashMap<>();

@@ -62,7 +62,7 @@ public class ArticleSimiService implements IArticleSimiService {
                 TbArticleSimilarityEntity simiEntity = new TbArticleSimilarityEntity();
                 simiEntity.setId(UUIDUtil.getUUID());
                 simiEntity.setArticleA(eventArticleDAO.getEventArticleEntity(idList.get(i)));
-                simiEntity.setArticleA(eventArticleDAO.getEventArticleEntity(idList.get(j)));
+                simiEntity.setArticleB(eventArticleDAO.getEventArticleEntity(idList.get(j)));
                 simiEntity.setSimilarity(simi);
 
                 simiEntityList.add(simiEntity);

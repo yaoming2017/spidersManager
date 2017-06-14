@@ -77,14 +77,19 @@ public class EventDAO implements IEventDAO {
     @Override
     public WebsiteEntity sourceWebsite(String eventID) {
         String tableID = this.getSourceEventArticle(eventID).getTable().getId();
-        String hql = "FROM WebsiteEntity w and TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
+        String hql = "SELECT w FROM WebsiteEntity w, TbTableEntity t WHERE w.id = t.websiteId AND t.id = '" + tableID + "'";
         return (WebsiteEntity) baseDAO.get(hql);
     }
 
     @Override
     public List<WebsiteEntity> sourceWebsiteList(String eventID) {
-        String hql = "SELECT articleNum FROM TbSourceArticleNumEntity articleNum, TbTableEntity table, WebsiteEntity website " +
-                "WHERE articleNum.tableId = table.id AND table.websiteId = website.id AND articleNum.eventId = '" + eventID + "'";
+        String hql = "FROM WebsiteEntity website " +
+                "WHERE website.id in " +
+                "(" +
+                "SELECT table.websiteId " +
+                "FROM TbSourceArticleNumEntity articleNum, TbTableEntity table " +
+                "WHERE articleNum.table.id = table.id AND articleNum.event.id = '" + eventID + "'" +
+                ")";
 
         List<WebsiteEntity> websiteList = baseDAO.find(hql);
 
@@ -171,7 +176,7 @@ public class EventDAO implements IEventDAO {
                 ") sm2 " +
                 ")";
 
-        return (String[]) baseDAO.getSqlList(sql).get(0);
+        return (Object[]) baseDAO.getSqlList(sql).get(0);
     }
 
     @Override
@@ -213,8 +218,15 @@ public class EventDAO implements IEventDAO {
 
     @Override
     public List<TbEventEntity> getAllEvent() {
-        String hql = "from TbEventEntity e";
+        String hql = "FROM TbEventEntity event";
         return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleDateAndHotValue(String eventID) {
+        String sql = "";
+
+        return baseDAO.getSqlList(sql);
     }
 }
 

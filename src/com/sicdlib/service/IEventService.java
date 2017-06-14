@@ -35,4 +35,11 @@ public interface IEventService {
     String setEventAttributes(String eventID);
     TbEventEntity getEventByName(String eventName);
     List<TbEventEntity> getAllEvent();
+
+    /**
+     * 计算事件的趋势
+     * @param eventID 事件ID
+     * @return 事件趋势
+     */
+    String calEventTrend(String eventID);
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/11.
  */
 @Entity
 @Table(name = "moe_news", schema = "socialmind", catalog = "")
@@ -21,12 +21,9 @@ public class MoeNewsEntity {
     private String newsSource;
     private String newsEditor;
     private String newsContent;
-    private Integer picturesHrefsNum;
-    private String fileUrlNames;
     private String qrCodeUrl;
-    private String bFiles;
-    private String bQrCode;
     private Timestamp timeStamp;
+    private Integer fileNum;
 
     @Id
     @Column(name = "id")
@@ -149,26 +146,6 @@ public class MoeNewsEntity {
     }
 
     @Basic
-    @Column(name = "pictures_hrefs_num")
-    public Integer getPicturesHrefsNum() {
-        return picturesHrefsNum;
-    }
-
-    public void setPicturesHrefsNum(Integer picturesHrefsNum) {
-        this.picturesHrefsNum = picturesHrefsNum;
-    }
-
-    @Basic
-    @Column(name = "file_url_names")
-    public String getFileUrlNames() {
-        return fileUrlNames;
-    }
-
-    public void setFileUrlNames(String fileUrlNames) {
-        this.fileUrlNames = fileUrlNames;
-    }
-
-    @Basic
     @Column(name = "QRCode_url")
     public String getQrCodeUrl() {
         return qrCodeUrl;
@@ -179,26 +156,6 @@ public class MoeNewsEntity {
     }
 
     @Basic
-    @Column(name = "b_files")
-    public String getbFiles() {
-        return bFiles;
-    }
-
-    public void setbFiles(String bFiles) {
-        this.bFiles = bFiles;
-    }
-
-    @Basic
-    @Column(name = "b_QRCode")
-    public String getbQrCode() {
-        return bQrCode;
-    }
-
-    public void setbQrCode(String bQrCode) {
-        this.bQrCode = bQrCode;
-    }
-
-    @Basic
     @Column(name = "time_stamp")
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -206,6 +163,16 @@ public class MoeNewsEntity {
 
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    @Basic
+    @Column(name = "file_num")
+    public Integer getFileNum() {
+        return fileNum;
+    }
+
+    public void setFileNum(Integer fileNum) {
+        this.fileNum = fileNum;
     }
 
     @Override
@@ -227,13 +194,9 @@ public class MoeNewsEntity {
         if (newsSource != null ? !newsSource.equals(that.newsSource) : that.newsSource != null) return false;
         if (newsEditor != null ? !newsEditor.equals(that.newsEditor) : that.newsEditor != null) return false;
         if (newsContent != null ? !newsContent.equals(that.newsContent) : that.newsContent != null) return false;
-        if (picturesHrefsNum != null ? !picturesHrefsNum.equals(that.picturesHrefsNum) : that.picturesHrefsNum != null)
-            return false;
-        if (fileUrlNames != null ? !fileUrlNames.equals(that.fileUrlNames) : that.fileUrlNames != null) return false;
         if (qrCodeUrl != null ? !qrCodeUrl.equals(that.qrCodeUrl) : that.qrCodeUrl != null) return false;
-        if (bFiles != null ? !bFiles.equals(that.bFiles) : that.bFiles != null) return false;
-        if (bQrCode != null ? !bQrCode.equals(that.bQrCode) : that.bQrCode != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (fileNum != null ? !fileNum.equals(that.fileNum) : that.fileNum != null) return false;
 
         return true;
     }
@@ -252,12 +215,9 @@ public class MoeNewsEntity {
         result = 31 * result + (newsSource != null ? newsSource.hashCode() : 0);
         result = 31 * result + (newsEditor != null ? newsEditor.hashCode() : 0);
         result = 31 * result + (newsContent != null ? newsContent.hashCode() : 0);
-        result = 31 * result + (picturesHrefsNum != null ? picturesHrefsNum.hashCode() : 0);
-        result = 31 * result + (fileUrlNames != null ? fileUrlNames.hashCode() : 0);
         result = 31 * result + (qrCodeUrl != null ? qrCodeUrl.hashCode() : 0);
-        result = 31 * result + (bFiles != null ? bFiles.hashCode() : 0);
-        result = 31 * result + (bQrCode != null ? bQrCode.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (fileNum != null ? fileNum.hashCode() : 0);
         return result;
     }
 }

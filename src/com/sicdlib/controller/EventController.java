@@ -52,8 +52,6 @@ public class EventController {
     @RequestMapping("setEventAttributes")
     public void setEventAttributes(HttpServletRequest req) {
         String eventID = req.getParameter("eventID");
-//        eventID = "ef4edd79-c167-48c9-960e-aadad7eaa327";
-//        eventID = "c2c82ae3-a939-4bb3-a31e-ba540920e00f";
         hotWordsService.setHotWords(eventID);
         eventService.setEventAttributes(eventID);
         articleSimiService.setEventArticleSimi(eventID);

@@ -79,14 +79,6 @@ public interface IEventDAO {
      */
     List<WebsiteEntity> sourceWebsiteList(String eventID);
 
-
-    /**
-     * 整个事件的发展趋势
-     * @param eventID
-     * @return
-     */
-    String eventTrend(String eventID);
-
     /**
      * 获取事件实体
      * @param eventID

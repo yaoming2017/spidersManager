@@ -61,7 +61,7 @@ public class XINWEN110Util {
                     case "date_time":
                         xinwen110News.setDateTime(value);
                         break;
-                    case "source":
+                    case "source_text":
                         xinwen110News.setSource(value);
                         break;
                     case "read_num":

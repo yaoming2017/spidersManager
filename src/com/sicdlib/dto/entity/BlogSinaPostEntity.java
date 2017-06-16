@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/11.
  */
 @Entity
 @Table(name = "blog_sina_post", schema = "socialmind", catalog = "")
@@ -19,7 +19,6 @@ public class BlogSinaPostEntity {
     private String keyWords;
     private String tags;
     private String content;
-    private Integer pictureHrefsNum;
     private String urlInContent;
     private Integer enjoyNum;
     private Integer getGoldenNum;
@@ -131,16 +130,6 @@ public class BlogSinaPostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "url_in_content")
     public String getUrlInContent() {
         return urlInContent;
@@ -220,6 +209,16 @@ public class BlogSinaPostEntity {
         this.timeStamp = timeStamp;
     }
 
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -237,8 +236,6 @@ public class BlogSinaPostEntity {
         if (keyWords != null ? !keyWords.equals(that.keyWords) : that.keyWords != null) return false;
         if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (urlInContent != null ? !urlInContent.equals(that.urlInContent) : that.urlInContent != null) return false;
         if (enjoyNum != null ? !enjoyNum.equals(that.enjoyNum) : that.enjoyNum != null) return false;
         if (getGoldenNum != null ? !getGoldenNum.equals(that.getGoldenNum) : that.getGoldenNum != null) return false;
@@ -247,6 +244,7 @@ public class BlogSinaPostEntity {
         if (collectNum != null ? !collectNum.equals(that.collectNum) : that.collectNum != null) return false;
         if (forwardNum != null ? !forwardNum.equals(that.forwardNum) : that.forwardNum != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
@@ -263,7 +261,6 @@ public class BlogSinaPostEntity {
         result = 31 * result + (keyWords != null ? keyWords.hashCode() : 0);
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (urlInContent != null ? urlInContent.hashCode() : 0);
         result = 31 * result + (enjoyNum != null ? enjoyNum.hashCode() : 0);
         result = 31 * result + (getGoldenNum != null ? getGoldenNum.hashCode() : 0);
@@ -272,16 +269,7 @@ public class BlogSinaPostEntity {
         result = 31 * result + (collectNum != null ? collectNum.hashCode() : 0);
         result = 31 * result + (forwardNum != null ? forwardNum.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

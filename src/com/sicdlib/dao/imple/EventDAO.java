@@ -97,11 +97,6 @@ public class EventDAO implements IEventDAO {
     }
 
     @Override
-    public String eventTrend(String eventID) {
-        return "突出";
-    }
-
-    @Override
     public TbEventEntity getEvent(String eventID) {
         return (TbEventEntity) baseDAO.get(TbEventEntity.class, eventID);
     }
@@ -219,7 +214,8 @@ public class EventDAO implements IEventDAO {
                 "SELECT table.id " +
                 "FROM TbTableEntity table, WebsiteEntity website " +
                 "WHERE website.websiteName = '" + websiteName + "' AND website.id = table.websiteId" +
-                ")";
+                ")" +
+                "GROUP BY articleNum.startTime";
         return baseDAO.find(hql);
     }
 
@@ -227,6 +223,38 @@ public class EventDAO implements IEventDAO {
     public List<TbEventEntity> getAllEvent() {
         String hql = "FROM TbEventEntity event";
         return baseDAO.find(hql);
+    }
+
+
+    @Override
+    public List<Object[]> getEventArticleDateAndHotValue(String eventID) {
+        String sql = "SELECT\n" +
+                "\ta.time,\n" +
+                "\tSum(h.hot_value)\n" +
+                "FROM\n" +
+                "\tarticle_hot_value h,\n" +
+                "\t(\n" +
+                "\t\tSELECT\n" +
+                "\t\t\tea.time,\n" +
+                "\t\t\tea.source_article_id\n" +
+                "\t\tFROM\n" +
+                "\t\t\ttb_event_article ea\n" +
+                "\t\tWHERE\n" +
+                "\t\t\tea.event_id = '" + eventID + "'\n" +
+                "\t) a\n" +
+                "WHERE\n" +
+                "\ta.source_article_id = h.source_article_id\n" +
+                "GROUP BY\n" +
+                "\ta.time\n" +
+                "ORDER BY\n" +
+                "\ta.time ASC";
+
+        return baseDAO.getSqlList(sql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleCommentNum(String eventID) {
+        return null;
     }
 }
 

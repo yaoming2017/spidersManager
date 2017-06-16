@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/8.
+ * Created by init on 2017/6/11.
  */
 @Entity
 @Table(name = "moe_declaration", schema = "socialmind", catalog = "")
@@ -17,18 +17,16 @@ public class MoeDeclarationEntity {
     private String infoIndex;
     private String infoDate;
     private String infoInstitution;
-    private Integer documentNum;
     private String infoCategory;
     private String infoAbstract;
     private String infoContent;
     private String author;
     private String qrCodeUrl;
     private String qrCodeBase64;
-    private String bQrCode;
-    private String fileUrlNames;
-    private String bFiles;
     private Timestamp timeStamp;
     private String dateTime;
+    private String fileName;
+    private Integer fileNum;
 
     @Id
     @Column(name = "id")
@@ -111,16 +109,6 @@ public class MoeDeclarationEntity {
     }
 
     @Basic
-    @Column(name = "document_num")
-    public Integer getDocumentNum() {
-        return documentNum;
-    }
-
-    public void setDocumentNum(Integer documentNum) {
-        this.documentNum = documentNum;
-    }
-
-    @Basic
     @Column(name = "info_category")
     public String getInfoCategory() {
         return infoCategory;
@@ -181,36 +169,6 @@ public class MoeDeclarationEntity {
     }
 
     @Basic
-    @Column(name = "b_QRCode")
-    public String getbQrCode() {
-        return bQrCode;
-    }
-
-    public void setbQrCode(String bQrCode) {
-        this.bQrCode = bQrCode;
-    }
-
-    @Basic
-    @Column(name = "file_url_names")
-    public String getFileUrlNames() {
-        return fileUrlNames;
-    }
-
-    public void setFileUrlNames(String fileUrlNames) {
-        this.fileUrlNames = fileUrlNames;
-    }
-
-    @Basic
-    @Column(name = "b_files")
-    public String getbFiles() {
-        return bFiles;
-    }
-
-    public void setbFiles(String bFiles) {
-        this.bFiles = bFiles;
-    }
-
-    @Basic
     @Column(name = "time_stamp")
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -230,6 +188,26 @@ public class MoeDeclarationEntity {
         this.dateTime = dateTime;
     }
 
+    @Basic
+    @Column(name = "file_name")
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Basic
+    @Column(name = "file_num")
+    public Integer getFileNum() {
+        return fileNum;
+    }
+
+    public void setFileNum(Integer fileNum) {
+        this.fileNum = fileNum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -246,18 +224,16 @@ public class MoeDeclarationEntity {
         if (infoDate != null ? !infoDate.equals(that.infoDate) : that.infoDate != null) return false;
         if (infoInstitution != null ? !infoInstitution.equals(that.infoInstitution) : that.infoInstitution != null)
             return false;
-        if (documentNum != null ? !documentNum.equals(that.documentNum) : that.documentNum != null) return false;
         if (infoCategory != null ? !infoCategory.equals(that.infoCategory) : that.infoCategory != null) return false;
         if (infoAbstract != null ? !infoAbstract.equals(that.infoAbstract) : that.infoAbstract != null) return false;
         if (infoContent != null ? !infoContent.equals(that.infoContent) : that.infoContent != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (qrCodeUrl != null ? !qrCodeUrl.equals(that.qrCodeUrl) : that.qrCodeUrl != null) return false;
         if (qrCodeBase64 != null ? !qrCodeBase64.equals(that.qrCodeBase64) : that.qrCodeBase64 != null) return false;
-        if (bQrCode != null ? !bQrCode.equals(that.bQrCode) : that.bQrCode != null) return false;
-        if (fileUrlNames != null ? !fileUrlNames.equals(that.fileUrlNames) : that.fileUrlNames != null) return false;
-        if (bFiles != null ? !bFiles.equals(that.bFiles) : that.bFiles != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
+        if (fileName != null ? !fileName.equals(that.fileName) : that.fileName != null) return false;
+        if (fileNum != null ? !fileNum.equals(that.fileNum) : that.fileNum != null) return false;
 
         return true;
     }
@@ -272,18 +248,16 @@ public class MoeDeclarationEntity {
         result = 31 * result + (infoIndex != null ? infoIndex.hashCode() : 0);
         result = 31 * result + (infoDate != null ? infoDate.hashCode() : 0);
         result = 31 * result + (infoInstitution != null ? infoInstitution.hashCode() : 0);
-        result = 31 * result + (documentNum != null ? documentNum.hashCode() : 0);
         result = 31 * result + (infoCategory != null ? infoCategory.hashCode() : 0);
         result = 31 * result + (infoAbstract != null ? infoAbstract.hashCode() : 0);
         result = 31 * result + (infoContent != null ? infoContent.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (qrCodeUrl != null ? qrCodeUrl.hashCode() : 0);
         result = 31 * result + (qrCodeBase64 != null ? qrCodeBase64.hashCode() : 0);
-        result = 31 * result + (bQrCode != null ? bQrCode.hashCode() : 0);
-        result = 31 * result + (fileUrlNames != null ? fileUrlNames.hashCode() : 0);
-        result = 31 * result + (bFiles != null ? bFiles.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
+        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
+        result = 31 * result + (fileNum != null ? fileNum.hashCode() : 0);
         return result;
     }
 }

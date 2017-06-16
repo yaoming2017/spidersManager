@@ -206,6 +206,46 @@ public class EventService implements IEventService {
         return eventDAO.getAllEvent();
     }
 
+    @Override
+    public String calEventTrend(String eventID) {
+        List<Object[]> dateAndHotValueList = eventDAO.getEventArticleDateAndHotValue(eventID);
+
+        double max = 0;
+
+        for(int i = 1; i < dateAndHotValueList.size(); i++) {
+            long dateLength = calDateLength((String) dateAndHotValueList.get(i - 1)[0],
+                    (String) dateAndHotValueList.get(i)[0]);
+            double hotDiffer = (double)dateAndHotValueList.get(i)[1] - (double)dateAndHotValueList.get(i -1)[1];
+
+            double dateDiffer = hotDiffer / dateLength;
+
+            if(dateDiffer > max) {
+                max = dateDiffer;
+            }
+        }
+
+        String trend1 = dataDictDAO.getDictValue(Constant.TREND_1).get(0);
+        String trend2 = dataDictDAO.getDictValue(Constant.TREND_2).get(0);
+
+        if(max > 1.5) {
+            return trend1;
+        }
+        return trend2;
+    }
+
+    private long calDateLength(String strDate1, String strDate2) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date1 = sdf.parse(strDate1);
+            Date date2 = sdf.parse(strDate2);
+
+            return (date2.getTime() - date1.getTime()) / 1000;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return Long.MIN_VALUE;
+        }
+    }
+
     public TbEventArticleEntity getSourceEventArticle(String eventID){
         return eventDAO.getSourceEventArticle(eventID);
     }

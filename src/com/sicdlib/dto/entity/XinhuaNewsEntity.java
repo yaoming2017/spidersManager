@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by init on 2017/6/11.
  */
 @Entity
 @Table(name = "xinhua_news", schema = "socialmind", catalog = "")
@@ -18,7 +18,6 @@ public class XinhuaNewsEntity {
     private String dateTime;
     private String source;
     private String content;
-    private Integer pictureHrefsNum;
     private String editor;
     private String author;
     private Timestamp timeStamp;
@@ -114,16 +113,6 @@ public class XinhuaNewsEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "editor")
     public String getEditor() {
         return editor;
@@ -169,8 +158,6 @@ public class XinhuaNewsEntity {
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (source != null ? !source.equals(that.source) : that.source != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (editor != null ? !editor.equals(that.editor) : that.editor != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
@@ -189,7 +176,6 @@ public class XinhuaNewsEntity {
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (editor != null ? editor.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);

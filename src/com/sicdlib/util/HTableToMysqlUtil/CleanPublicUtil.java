@@ -18,7 +18,7 @@ public class CleanPublicUtil {
         value.replaceAll("<p>","");
         value.replaceAll("</p>","");
         value.replaceAll("　","");
-        Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
+        Pattern pattern = Pattern.compile("\\s*|\t*|\r*|\n*");
         Matcher matcher = pattern.matcher(value);
         value = matcher.replaceAll("");
         value.trim();

@@ -79,14 +79,6 @@ public interface IEventDAO {
      */
     List<WebsiteEntity> sourceWebsiteList(String eventID);
 
-
-    /**
-     * 整个事件的发展趋势
-     * @param eventID
-     * @return
-     */
-    String eventTrend(String eventID);
-
     /**
      * 获取事件实体
      * @param eventID
@@ -154,5 +146,22 @@ public interface IEventDAO {
      */
     List<Object[]> getEventArticleNumByWebsite(String eventID, String websiteName);
 
+    /**
+     * 获取所有的事件
+     * @return eventList
+     */
     List<TbEventEntity> getAllEvent();
+
+    /**
+     * 获取事件中文章的时间以及热度，并按时间升序排列
+     * @param eventID 事件ID
+     * @return 时间和热度的二元组
+     */
+    List<Object[]> getEventArticleDateAndHotValue(String eventID);
+    /**
+     * 获取事件下某一网站的评论量
+     * @param
+     * @return
+     */
+    List<Object[]>  getEventArticleCommentNum(String eventID);
 }

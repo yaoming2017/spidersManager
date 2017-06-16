@@ -154,14 +154,10 @@ public class BLOGSinaUtil {
                         blogSinaComment.setAuthorHref(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        blogSinaComment.setDateTime(dateTime);
+                        blogSinaComment.setDateTime(value);
                         break;
                     case "content":
-                        String   content_value = java.net.URLDecoder.decode(value,"utf-8");
+                        String  content_value = java.net.URLDecoder.decode(value,"utf-8");
                         blogSinaComment.setContent(content_value );
                         break;
                     case "replay_num":
@@ -235,11 +231,7 @@ public class BLOGSinaUtil {
                         blogSinaPost.setKeyWords(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        blogSinaPost.setDateTime(dateTime);
+                        blogSinaPost.setDateTime(value);
                         break;
                     case "tags":
                         blogSinaPost.setTags(value);
@@ -254,7 +246,11 @@ public class BLOGSinaUtil {
                         blogSinaPost.setEnjoyNum(Integer.parseInt(value));
                         break;
                     case "get_golden_num":
-                        blogSinaPost.setGetGoldenNum(Integer.parseInt(value));
+                        if(value.contains("")){
+                            blogSinaPost.setGetGoldenNum(0);
+                        }else {
+                            blogSinaPost.setGetGoldenNum(Integer.parseInt(value));
+                        }
                         break;
                     case "read_num":
                         blogSinaPost.setReadNum(Integer.parseInt(value));

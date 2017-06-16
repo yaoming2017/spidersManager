@@ -222,11 +222,17 @@ public class EventDAO implements IEventDAO {
         return baseDAO.find(hql);
     }
 
+
     @Override
     public List<Object[]> getEventArticleDateAndHotValue(String eventID) {
         String sql = "";
 
         return baseDAO.getSqlList(sql);
+    }
+
+    @Override
+    public List<Object[]> getEventArticleCommentNum(String eventID) {
+        return null;
     }
 }
 

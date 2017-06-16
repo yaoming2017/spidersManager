@@ -159,4 +159,10 @@ public interface IEventDAO {
      * @return 时间和热度的二元组
      */
     List<Object[]> getEventArticleDateAndHotValue(String eventID);
+    /**
+     * 获取事件下某一网站的评论量
+     * @param
+     * @return
+     */
+    List<Object[]>  getEventArticleCommentNum(String eventID);
 }

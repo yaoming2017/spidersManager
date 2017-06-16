@@ -3,9 +3,9 @@ package com.sicdlib.util.HTableToMysqlUtil;
 import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
 import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
-import com.sicdlib.service.IDoubanGroupAuthorService;
-import com.sicdlib.service.IDoubanGroupCommentService;
-import com.sicdlib.service.IDoubanGroupPostService;
+import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
+import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
+import com.sicdlib.service.pythonService.IDoubanGroupPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -135,9 +135,9 @@ class HTableToMysqlUtil {
                     case "prise_num":
                         doubanGroupComment.setPriseNum(Integer.valueOf(value));
                         break;
-                    case "pub_time":
-                        doubanGroupComment.setPubTime(value);
-                        break;
+//                    case "pub_time":
+//                        doubanGroupComment.setPubTime(value);
+//                        break;
                     case "quote_author_href":
                         doubanGroupComment.setQuoteAuthorHref(value);
                         break;

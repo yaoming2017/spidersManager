@@ -9,8 +9,11 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bbs_people_post", schema = "socialmind", catalog = "")
 public class BbsPeoplePostEntity {
-    private String postId;
+
+    private String id;
     private String authorId;
+    private String postId;
+    private Integer commentNum;
     private String title;
     private String keyWords;
     private String url;
@@ -22,11 +25,28 @@ public class BbsPeoplePostEntity {
     private Integer priseNum;
     private String contentHref;
     private String content;
-    private Integer pictureHrefsNum;
     private Timestamp parseTime;
     private Timestamp timeStamp;
-    private String id;
-    private Integer commentNum;
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "author_id")
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
 
     @Basic
     @Column(name = "post_id")
@@ -39,13 +59,13 @@ public class BbsPeoplePostEntity {
     }
 
     @Basic
-    @Column(name = "author_id")
-    public String getAuthorId() {
-        return authorId;
+    @Column(name = "comment_num")
+    public Integer getCommentNum() {
+        return commentNum;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
     }
 
     @Basic
@@ -159,16 +179,6 @@ public class BbsPeoplePostEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "parse_time")
     public Timestamp getParseTime() {
         return parseTime;
@@ -188,26 +198,6 @@ public class BbsPeoplePostEntity {
         this.timeStamp = timeStamp;
     }
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "comment_num")
-    public Integer getCommentNum() {
-        return commentNum;
-    }
-
-    public void setCommentNum(Integer commentNum) {
-        this.commentNum = commentNum;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -215,8 +205,10 @@ public class BbsPeoplePostEntity {
 
         BbsPeoplePostEntity that = (BbsPeoplePostEntity) o;
 
-        if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
+        if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
+        if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (keyWords != null ? !keyWords.equals(that.keyWords) : that.keyWords != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
@@ -228,20 +220,18 @@ public class BbsPeoplePostEntity {
         if (priseNum != null ? !priseNum.equals(that.priseNum) : that.priseNum != null) return false;
         if (contentHref != null ? !contentHref.equals(that.contentHref) : that.contentHref != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = postId != null ? postId.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
+        result = 31 * result + (postId != null ? postId.hashCode() : 0);
+        result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (keyWords != null ? keyWords.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
@@ -253,11 +243,8 @@ public class BbsPeoplePostEntity {
         result = 31 * result + (priseNum != null ? priseNum.hashCode() : 0);
         result = 31 * result + (contentHref != null ? contentHref.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
-        result = 31 * result + (id != null ? id.hashCode() : 0);
-        result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         return result;
     }
 }

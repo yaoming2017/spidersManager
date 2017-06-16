@@ -1,5 +1,6 @@
 package com.sicdlib.dto;
 
+import com.sicdlib.dto.entity.BbsPeoplePostEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 
 /**
@@ -12,8 +13,18 @@ public class EventEssaySimi {
     private String tablename;
     //每条记录的ID
     private String id;
-    //特例：豆瓣小组的发布
+    //示例：豆瓣小组的发布
     private DoubanGroupPostEntity doubanGroupPostEntity;
+    //示例：人民网强国论坛的发布
+    private BbsPeoplePostEntity bbsPeoplePostEntity;
+
+    public BbsPeoplePostEntity getBbsPeoplePostEntity() {
+        return bbsPeoplePostEntity;
+    }
+
+    public void setBbsPeoplePostEntity(BbsPeoplePostEntity bbsPeoplePostEntity) {
+        this.bbsPeoplePostEntity = bbsPeoplePostEntity;
+    }
 
     public Float getSimi() {
         return simi;

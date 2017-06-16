@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by YH on 2017/5/26.
  */
@@ -48,6 +50,18 @@ public class EventArticleDAO implements IEventArticleDAO {
     @Override
     public TbEventArticleEntity getEventArticleEntity(String id) {
         return (TbEventArticleEntity) baseDAO.get(TbEventArticleEntity.class, id);
+    }
+
+    @Override
+    public List<TbEventArticleEntity> getEventArticlesByStartEndTime(String eventId, String startTimeStr, String endTimeStr) {
+        String hql = "from TbEventArticleEntity ea where ea.event.id = '"+eventId+"' and ea.time > '"+ startTimeStr +"' and ea.time < '"+ endTimeStr +"'";
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public List<TbEventArticleEntity> getEventArticleByEventID(String eventID) {
+        String hql = "from TbEventArticleEntity ea where ea.event.id = '"+eventID+"'";
+        return baseDAO.find(hql);
     }
 }
 

@@ -101,6 +101,13 @@ public interface IEventDAO {
      */
     TbEventArticleEntity getSourceEventArticle(String eventID);
 
+    /**
+     * 根据时间获取结束时间文章
+     * @param eventID
+     * @return
+     */
+    TbEventArticleEntity getEndtimeSourceEventArticle(String eventID);
+
     Boolean saveOrUpdateEvent(TbEventEntity event);
 
     /**

@@ -107,6 +107,14 @@ public class EventDAO implements IEventDAO {
     }
 
     @Override
+    public TbEventArticleEntity getEndtimeSourceEventArticle(String eventID) {
+        String hql = "FROM TbEventArticleEntity eventArticle WHERE eventArticle.event.id = '"
+                + eventID + "' ORDER BY eventArticle.time desc";
+
+        return (TbEventArticleEntity) baseDAO.find(hql, 0, 1).get(0);
+    }
+
+    @Override
     public TbEventArticleEntity getSourceEventArticle(String eventID) {
         String hql = "FROM TbEventArticleEntity eventArticle WHERE eventArticle.event.id = '"
                 + eventID + "' ORDER BY eventArticle.time asc";

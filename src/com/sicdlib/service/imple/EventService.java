@@ -205,4 +205,13 @@ public class EventService implements IEventService {
     public List<TbEventEntity> getAllEvent() {
         return eventDAO.getAllEvent();
     }
+
+    public TbEventArticleEntity getSourceEventArticle(String eventID){
+        return eventDAO.getSourceEventArticle(eventID);
+    }
+
+    @Override
+    public TbEventArticleEntity getEndtimeSourceEventArticle(String eventID) {
+        return eventDAO.getEndtimeSourceEventArticle(eventID);
+    }
 }

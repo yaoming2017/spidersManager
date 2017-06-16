@@ -20,7 +20,6 @@ public class ArticleSimiController {
     @RequestMapping("setArticleSimi")
     public void ArticleSimi(HttpServletRequest req) {
         String eventID = req.getParameter("eventID");
-        eventID = "ef4edd79-c167-48c9-960e-aadad7eaa327";
         articleSimiService.setEventArticleSimi(eventID);
     }
 }

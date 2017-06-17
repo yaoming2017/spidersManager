@@ -1,17 +1,11 @@
 package com.sicdlib.controller;
 
-import com.alibaba.fastjson.JSON;
+
 import com.sicdlib.dto.TableHotValue;
 import com.sicdlib.dto.TbEventArticleEntity;
-import com.sicdlib.dto.entity.DoubanGroupPostEntity;
-import com.sicdlib.service.IArticleSimiService;
 import com.sicdlib.service.IEventArticleService;
 import com.sicdlib.service.IEventService;
-import com.sicdlib.service.IHotWordsService;
-import com.sicdlib.service.pythonService.IDoubanGroupPostService;
 import com.sicdlib.util.ForeUtil.HotValueUtil;
-import org.joda.time.DateTime;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

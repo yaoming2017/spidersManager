@@ -26,4 +26,9 @@ public class SentimentInflucenceDAO  implements ISentimentInflucenceDAO{
          }
         return  baseDAO.find(hql);
     }
+
+    @Override
+    public List<String> getCommentNumByPost(String eventID, String tableName, String websiteName) {
+        return null;
+    }
 }

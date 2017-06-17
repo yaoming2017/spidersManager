@@ -1,5 +1,6 @@
 package com.sicdlib.service;
 
+import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
 
 import java.util.List;

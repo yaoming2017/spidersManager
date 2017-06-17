@@ -11,4 +11,6 @@ import java.util.List;
 public interface ISentimentInflucenceDAO {
     //得到豆瓣群组文章
     List<DoubanGroupPostEntity> getDoubanGroupPostEntityList(String postId, int limit);
+    //通过文章查找得到评论量
+    List<String> getCommentNumByPost(String eventID,String tableName,String websiteName);
 }

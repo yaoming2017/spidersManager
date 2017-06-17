@@ -77,6 +77,7 @@ public class TableDAO implements ITableDAO {
         return (String) baseDAO.getSqlList(sql).get(0);
     }
 
+/*
     @Override
     public List<String> getArticleCommentNumByEventID(String eventID, String tableID, String tableName) {
         String sql=" select articleTable.commentNum FROM " + tableName + "  articleTable " +
@@ -84,8 +85,15 @@ public class TableDAO implements ITableDAO {
                 "( " +
                 "SELECT ea.source_article_id " +
                 "FROM tb_event_article ea " +
-                "WHERE ea.event_id = '" + eventID + "' AND ea.table_id = '" + tableID +
-                "' )";
+                "WHERE ea.event_id = '" + eventID + "' AND ea.table_id = '" + tableID + "' )";
         return baseDAO.getSqlList(sql);
+    }*/
+
+    @Override
+    public int getCommentNumByTableName(String tableName ){
+
+        String  sql = "select commentNum from"+ tableName;
+
+        return baseDAO.executeSql(sql);
     }
 }

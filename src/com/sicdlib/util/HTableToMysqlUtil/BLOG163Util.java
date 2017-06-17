@@ -60,7 +60,7 @@ public class BLOG163Util {
                         blog163Author.setNick(value);
                         break;
                     case "real_name":
-                        blog163Author.setRealName(value);
+                        blog163Author.setAuthorName(value);
                         break;
                     case "sex":
                         blog163Author.setSex(value);

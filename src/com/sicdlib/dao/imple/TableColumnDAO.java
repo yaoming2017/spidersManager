@@ -19,7 +19,6 @@ public class TableColumnDAO implements ITableColumnDAO {
     private IBaseDAO baseDAO;
 
     @Override
-    @Test
     public boolean isExistColumn(String tableName, String columnName) {
         String sql = "SELECT\n" +
                 "\t*\n" +
@@ -33,4 +32,21 @@ public class TableColumnDAO implements ITableColumnDAO {
 
         return result != null && result.size() > 0;
     }
+
+    @Override
+    public boolean isExistTable(String schemaName, String tableName) {
+        String sql = "SELECT\n" +
+                "\tTABLE_NAME\n" +
+                "FROM\n" +
+                "\tinformation_schema.TABLES\n" +
+                "WHERE\n" +
+                "\tTABLE_SCHEMA = '" + schemaName + "' AND\n" +
+                "\tTABLE_NAME = '" + tableName + "'";
+
+        List result = baseDAO.getSqlList(sql);
+
+        return result != null && result.size() > 0;
+    }
+
+
 }

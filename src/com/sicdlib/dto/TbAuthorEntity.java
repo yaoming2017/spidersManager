@@ -1,6 +1,7 @@
 package com.sicdlib.dto;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 /**
  * Created by YH on 2017/6/16.
@@ -12,12 +13,13 @@ public class TbAuthorEntity {
     private String sourceAuthorName;
     private String sourceAuthorId;
     private Integer authorPostNum;
-    private Integer authorReplyNum;
+    private Integer postReplyNum;
     private Long authorPostReadNum;
     private Double authorInfluence;
-    private Integer authorFansNum;
-
+    private BigInteger authorFansNum;
     private TbTableEntity table;
+    private Integer participateCommentNum;
+    private Double activeness;
 
     @ManyToOne
     @JoinColumn(name = "table_id", referencedColumnName = "id")
@@ -70,13 +72,13 @@ public class TbAuthorEntity {
     }
 
     @Basic
-    @Column(name = "author_reply_num")
-    public Integer getAuthorReplyNum() {
-        return authorReplyNum;
+    @Column(name = "post_reply_num")
+    public Integer getPostReplyNum() {
+        return postReplyNum;
     }
 
-    public void setAuthorReplyNum(Integer authorReplyNum) {
-        this.authorReplyNum = authorReplyNum;
+    public void setPostReplyNum(Integer authorReplyNum) {
+        this.postReplyNum = authorReplyNum;
     }
 
     @Basic
@@ -101,11 +103,11 @@ public class TbAuthorEntity {
 
     @Basic
     @Column(name = "author_fans_num")
-    public Integer getAuthorFansNum() {
+    public BigInteger getAuthorFansNum() {
         return authorFansNum;
     }
 
-    public void setAuthorFansNum(Integer authorFansNum) {
+    public void setAuthorFansNum(BigInteger authorFansNum) {
         this.authorFansNum = authorFansNum;
     }
 
@@ -123,7 +125,7 @@ public class TbAuthorEntity {
             return false;
         if (authorPostNum != null ? !authorPostNum.equals(that.authorPostNum) : that.authorPostNum != null)
             return false;
-        if (authorReplyNum != null ? !authorReplyNum.equals(that.authorReplyNum) : that.authorReplyNum != null)
+        if (postReplyNum != null ? !postReplyNum.equals(that.postReplyNum) : that.postReplyNum != null)
             return false;
         if (authorPostReadNum != null ? !authorPostReadNum.equals(that.authorPostReadNum) : that.authorPostReadNum != null)
             return false;
@@ -141,10 +143,30 @@ public class TbAuthorEntity {
         result = 31 * result + (sourceAuthorName != null ? sourceAuthorName.hashCode() : 0);
         result = 31 * result + (sourceAuthorId != null ? sourceAuthorId.hashCode() : 0);
         result = 31 * result + (authorPostNum != null ? authorPostNum.hashCode() : 0);
-        result = 31 * result + (authorReplyNum != null ? authorReplyNum.hashCode() : 0);
+        result = 31 * result + (postReplyNum != null ? postReplyNum.hashCode() : 0);
         result = 31 * result + (authorPostReadNum != null ? authorPostReadNum.hashCode() : 0);
         result = 31 * result + (authorInfluence != null ? authorInfluence.hashCode() : 0);
         result = 31 * result + (authorFansNum != null ? authorFansNum.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "participate_comment_num")
+    public Integer getParticipateCommentNum() {
+        return participateCommentNum;
+    }
+
+    public void setParticipateCommentNum(Integer participateCommentNum) {
+        this.participateCommentNum = participateCommentNum;
+    }
+
+    @Basic
+    @Column(name = "activeness")
+    public Double getActiveness() {
+        return activeness;
+    }
+
+    public void setActiveness(Double activeness) {
+        this.activeness = activeness;
     }
 }

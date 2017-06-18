@@ -5,4 +5,5 @@ package com.sicdlib.dao;
  */
 public interface ITableColumnDAO {
     boolean isExistColumn(String tableName, String columnName);
+    boolean isExistTable(String schemaName, String tableName);
 }

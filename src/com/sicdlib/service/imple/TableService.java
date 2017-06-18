@@ -1,20 +1,23 @@
 package com.sicdlib.service.imple;
 
 import com.sicdlib.dao.IAuthorDAO;
+import com.sicdlib.dao.ITableColumnDAO;
+import com.sicdlib.dao.ITableCommentDAO;
 import com.sicdlib.dao.ITableDAO;
 import com.sicdlib.dto.TbAuthorEntity;
 import com.sicdlib.dto.TbEventAuthorMappingEntity;
 import com.sicdlib.dto.TbTableEntity;
 import com.sicdlib.service.ITableService;
 import com.sicdlib.util.TableUtil.ArticleAuthorTableMapping;
+import com.sicdlib.util.TableUtil.ArticleCommentTableMapping;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Yh on 2016/9/8.
@@ -28,6 +31,14 @@ public class TableService implements ITableService{
     @Autowired
     @Qualifier("authorDAO")
     private IAuthorDAO authorDAO;
+
+    @Autowired
+    @Qualifier("tableColumnDAO")
+    private ITableColumnDAO tableColumnDAO;
+
+    @Autowired
+    @Qualifier("tableCommentDAO")
+    private ITableCommentDAO tableCommentDAO;
 
     @Override
     public Boolean saveOrUpdateTable(TbTableEntity table) {
@@ -55,6 +66,17 @@ public class TableService implements ITableService{
             String authorTableName = ArticleAuthorTableMapping.getAuthorTable(articleTableName);
             String tableID = articleTable.getId();
 
+            //是否存在相应的评论表
+            //如果存在评论表，查看评论表中是否存在用户id
+            String commentTableName = ArticleCommentTableMapping.getCommentTable(articleTableName);
+            if(!tableColumnDAO.isExistTable("socialmind", commentTableName)) {
+                commentTableName = null;
+            }
+            boolean commentIsExistAuthorID = false;
+            if(commentTableName != null) {
+                commentIsExistAuthorID = tableColumnDAO.isExistColumn(commentTableName, "author_id");
+            }
+
             List<Object[]> authorInfoList;
             //如果作者表和文章表是同一张表
             if (authorTableName.equals(articleTableName)) {
@@ -67,21 +89,43 @@ public class TableService implements ITableService{
 
                     String authorId = (String) authorInfo[0];
                     String authorName = (String) authorInfo[1];
-                    long fansNum = (long) authorInfo[2];
+                    BigInteger fansNum = (BigInteger) authorInfo[2];
 
                     authorEntity.setId(UUIDUtil.getUUID());
                     authorEntity.setSourceAuthorId(authorId);
                     authorEntity.setSourceAuthorName(authorName);
-                    authorEntity.setAuthorFansNum((int) fansNum);
+                    authorEntity.setAuthorFansNum(fansNum);
 
                     Object[] authorNumInfo = authorDAO.getAuthorReadArticleReplyNumInPostTable(authorName, articleTableName);
-                    int postSum = (int) authorNumInfo[0];
-                    int commentNum = (int) authorNumInfo[1];
-                    long readNum = (long) authorNumInfo[2];
+                    BigInteger postSum = (BigInteger) authorNumInfo[0];
+                    BigDecimal commentNum = (BigDecimal) authorNumInfo[1];
+                    BigDecimal readNum = (BigDecimal) authorNumInfo[2];
 
-                    authorEntity.setAuthorPostNum(postSum);
-                    authorEntity.setAuthorReplyNum(commentNum);
-                    authorEntity.setAuthorPostReadNum(readNum);
+                    authorEntity.setAuthorPostNum(postSum.intValue());
+                    authorEntity.setPostReplyNum(commentNum.intValue());
+                    authorEntity.setAuthorPostReadNum(readNum.longValue());
+
+                    //查找用户参与的评论数并计算发布者的参与度
+                    int pCommentNum = 0;
+
+                    if(commentTableName != null) {
+                        if(commentIsExistAuthorID) {
+                            pCommentNum = tableCommentDAO.participantCommentNumById(commentTableName,authorId);
+
+                        }
+                        else {
+                            pCommentNum = tableCommentDAO.participantCommentNumByName(commentTableName,authorName);
+                        }
+                    }
+                    authorEntity.setParticipateCommentNum(pCommentNum);
+
+                    //计算参与度
+                    double activeness = this.calActiveness(postSum.intValue(), pCommentNum);
+                    authorEntity.setActiveness(activeness);
+
+                    authorEntity.setAuthorInfluence(
+                            this.calInfluence(postSum.intValue(), commentNum.intValue(),
+                                    readNum.longValue(), fansNum.intValue()));
 
                     authorEntity.setTable(articleTable);
                     eventMapping.setId(UUIDUtil.getUUID());
@@ -100,21 +144,43 @@ public class TableService implements ITableService{
                     String authorId = (String) authorInfo[0];
                     String sourceAuthorId = (String) authorInfo[1];
                     String authorName = (String) authorInfo[2];
-                    long fansNum = (long) authorInfo[3];
+                    BigInteger fansNum = (BigInteger) authorInfo[3];
 
                     authorEntity.setId(UUIDUtil.getUUID());
                     authorEntity.setSourceAuthorId(authorId);
                     authorEntity.setSourceAuthorName(authorName);
-                    authorEntity.setAuthorFansNum((int) fansNum);
+                    authorEntity.setAuthorFansNum(fansNum);
 
                     Object[] authorNumInfo = authorDAO.getAuthorReadArticleReplyNumInAuthorTable(sourceAuthorId, articleTableName);
-                    int postSum = (int) authorNumInfo[0];
-                    int commentNum = (int) authorNumInfo[1];
-                    long readNum = (long) authorNumInfo[2];
+                    BigInteger postSum = (BigInteger) authorNumInfo[0];
+                    BigDecimal commentNum = (BigDecimal) authorNumInfo[1];
+                    BigDecimal readNum = (BigDecimal) authorNumInfo[2];
 
-                    authorEntity.setAuthorPostNum(postSum);
-                    authorEntity.setAuthorReplyNum(commentNum);
-                    authorEntity.setAuthorPostReadNum(readNum);
+                    authorEntity.setAuthorPostNum(postSum.intValue());
+                    authorEntity.setPostReplyNum(commentNum.intValue());
+                    authorEntity.setAuthorPostReadNum(readNum.longValue());
+
+                    //查找用户参与的评论数并计算发布者的参与度
+                    int pCommentNum = 0;
+
+                    if(commentTableName != null) {
+                        if(commentIsExistAuthorID) {
+                            pCommentNum = tableCommentDAO.participantCommentNumById(commentTableName,authorId);
+                        }
+                        else {
+                            pCommentNum = tableCommentDAO.participantCommentNumByName(commentTableName,authorName);
+                        }
+                    }
+                    authorEntity.setParticipateCommentNum(pCommentNum);
+
+                    //计算参与度
+                    double activeness = this.calActiveness(postSum.intValue(), pCommentNum);
+                    authorEntity.setActiveness(activeness);
+
+                    //计算影响力
+                    authorEntity.setAuthorInfluence(
+                            this.calInfluence(postSum.intValue(), commentNum.intValue(),
+                                    readNum.longValue(), fansNum.intValue()));
 
                     authorEntity.setTable(articleTable);
                     eventMapping.setId(UUIDUtil.getUUID());
@@ -124,10 +190,33 @@ public class TableService implements ITableService{
                     authorDAO.saveEventAuthorMapping(eventMapping, eventID);
                 }
             }
-
-//            authorMap.put(tableID, authorInfoList);
         }
 
     }
 
+    /**
+     * 计算影响力
+     * @param postNum 发布者发布文章数
+     * @param replyNum 发布者发布文章的评论数
+     * @param readNum 发布者发布文章的阅读数
+     * @param fansNum 粉丝数
+     * @return 影响力
+     */
+    private double calInfluence(int postNum, int replyNum, long readNum, int fansNum) {
+        double influenceNum = (postNum + replyNum + readNum + fansNum) / 4;
+
+        return influenceNum;
+    }
+
+    /**
+     * 发布者活跃度，0.7 * 发表文章数 + 0.3 * 参与回复数
+     * @param postNum 发表文章数
+     * @param participateCommentNum 参与回复数
+     * @return 发布者活跃度
+     */
+    private double calActiveness(int postNum, int participateCommentNum) {
+        double result = 0.7 * postNum + 0.3 * participateCommentNum;
+
+        return result;
+    }
 }

@@ -69,6 +69,7 @@
     <li><a href="hotWords?eventID=${eventID}" style="font-family: 新宋体;font-size:18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
     <li><a href="sourceWebsiteStatistics?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
     <li><a href="articleSpread?eventID=${eventID}" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>文章传播</span></a></li>
+    <li> <a href="eventTrend?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>事件走势</span></a> </li>
     <%--<li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>--%>
     <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>--%>
       <%--<ul>--%>
@@ -109,8 +110,8 @@
         <li class="bg_lo"> <a href="transmission.html"> <i class="icon-th"></i>传播途径</a> </li>
         <li class="bg_ls" > <a href="sentiment.html"> <i class="icon-fullscreen"></i>表情分析</a></li>
         <li class="bg_lo"> <a href="publish.html"> <i class="icon-th-list"></i>分析</a> </li>
-        <li class="bg_ls"> <a href="communicate.html"> <i class="icon-tint"></i>核心传播人</a> </li>
-        <li class="bg_lb"> <a href="hot.html"> <i class="icon-pencil"></i>热门信息</a> </li>
+        <li class="bg_ls"> <a href="hotCorePeople.jsp"> <i class="icon-tint"></i>核心传播人</a> </li>
+        <li class="bg_lb"> <a href="hotInformation.jsp"> <i class="icon-pencil"></i>热门信息</a> </li>
         <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> 日历</a> </li>
         <li class="bg_lg"> <a href="data.html"> <i class="icon-tint"></i>数据类型</a> </li>
         <li class="bg_lr"> <a href="area.html"> <i class="icon-info-sign"></i>分布</a> </li>

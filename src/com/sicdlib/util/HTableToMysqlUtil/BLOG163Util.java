@@ -59,9 +59,6 @@ public class BLOG163Util {
                     case "nick":
                         blog163Author.setNick(value);
                         break;
-                    case "real_name":
-                        blog163Author.setAuthorName(value);
-                        break;
                     case "sex":
                         blog163Author.setSex(value);
                         break;
@@ -234,9 +231,6 @@ public class BLOG163Util {
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
                 switch (qualifer){
-                    case "post_id":
-                        blog163Post.setPostId(value);
-                        break;
                     case "author_id":
                         blog163Post.setAuthorId(value);
                         break;
@@ -244,11 +238,7 @@ public class BLOG163Util {
                         blog163Post.setTitle(value);
                         break;
                     case "date_time":
-                        String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        blog163Post.setDateTime(dateTime);
+                        blog163Post.setDateTime(value);
                         break;
                     case "category":
                         blog163Post.setCategory(value);
@@ -263,19 +253,25 @@ public class BLOG163Util {
                         blog163Post.setAuthorHref(value);
                         break;
                     case "content":
-                        blog163Post.setContent(value);
-                        break;
-                    case "url":
-                        blog163Post.setUrl(value);
+                        String content_value = String.valueOf((new BASE64Decoder()).decodeBuffer(value));
+                        blog163Post.setContent(content_value);
                         break;
                     case "hrefs_in_post":
                         blog163Post.setHrefsInPost(value);
                         break;
                     case "read_num":
-                        blog163Post.setReadNum(Integer.parseInt(value));
+                        if(value.equals("")){
+                            blog163Post.setReadNum(0);
+                        }else {
+                            blog163Post.setReadNum(Integer.parseInt(value));
+                        }
                         break;
                     case "comment_num":
-                        blog163Post.setCommentNum(Integer.parseInt(value));
+                        if(value.equals("")){
+                            blog163Post.setCommentNum(0);
+                        }else {
+                            blog163Post.setCommentNum(Integer.parseInt(value));
+                        }
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());

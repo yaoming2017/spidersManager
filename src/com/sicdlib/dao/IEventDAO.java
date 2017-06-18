@@ -93,6 +93,13 @@ public interface IEventDAO {
      */
     TbEventArticleEntity getSourceEventArticle(String eventID);
 
+    /**
+     * 根据时间获取结束时间文章
+     * @param eventID
+     * @return
+     */
+    TbEventArticleEntity getEndtimeSourceEventArticle(String eventID);
+
     Boolean saveOrUpdateEvent(TbEventEntity event);
 
     /**
@@ -151,4 +158,15 @@ public interface IEventDAO {
      * @return 时间和热度的二元组
      */
     List<Object[]> getEventArticleDateAndHotValue(String eventID);
+    /**
+     * 计算事件的趋势
+     *
+     */
+    String eventTrend(String eventID);
+    /**
+     * 获取事件下某一网站的评论量
+     * @param
+     * @return
+     */
+    List<Object[]>  getEventArticleCommentNum(String eventID);
 }

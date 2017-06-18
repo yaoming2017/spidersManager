@@ -6,6 +6,8 @@ import com.sicdlib.dto.entity.BbsPeoplePostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by init on 2017/5/31.
  */
@@ -23,4 +25,17 @@ public class BBSPeoplePostDAO implements IBBSPeoplePostDAO{
             return false;
         }
     }
+
+    @Override
+    public List<BbsPeoplePostEntity> getAllBbsPeoplePosts() {
+        String hql = "from BbsPeoplePostEntity p";
+        return baseDAO.find(hql);
+    }
+
+    @Override
+    public BbsPeoplePostEntity getBbsPeoplePost(String id) {
+        String hql = "from BbsPeoplePostEntity p where p.id = '" + id + "'";
+        return (BbsPeoplePostEntity)baseDAO.get(hql);
+    }
+
 }

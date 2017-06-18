@@ -1,13 +1,13 @@
-
 package com.sicdlib.util.HTableToMysqlUtil;
-import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
-import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
-import com.sicdlib.service.pythonService.IDoubanGroupGroupService;
-import com.sicdlib.service.pythonService.IDoubanGroupPostService;
+
 import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
 import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
 import com.sicdlib.dto.entity.DoubanGroupGroupEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
+import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
+import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
+import com.sicdlib.service.pythonService.IDoubanGroupGroupService;
+import com.sicdlib.service.pythonService.IDoubanGroupPostService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -23,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by init on 2017/5/24.
@@ -146,9 +144,9 @@ public class DouBanUtil {
                     case "prise_num":
                         doubanGroupComment.setPriseNum(Integer.valueOf(value));
                         break;
-                    case "pub_time":
-                        doubanGroupComment.setDateTime(value);
-                        break;
+//                    case "pub_time":
+//                        doubanGroupComment.setPubTime(value);
+//                        break;
                     case "quote_content":
                         doubanGroupComment.setQuoteContent(value);
                         break;
@@ -211,10 +209,6 @@ public class DouBanUtil {
                         doubanGrouppost.setAuthorId(value);
                         break;
                     case "content":
-                        Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
-                        Matcher matcher = pattern.matcher(value);
-                        value = matcher.replaceAll("");
-                        value.trim();
                         doubanGrouppost.setContent(value);
                         break;
                     case "post_id":
@@ -226,7 +220,7 @@ public class DouBanUtil {
                         break;
                     case "date_time":
                         String dateTime = " ";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-ddhh:mm:ss");
+                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
                         DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                         dateTime = destFormat.format(sourceFormat.parse(value));
                         doubanGrouppost.setDateTime(dateTime);
@@ -249,6 +243,9 @@ public class DouBanUtil {
                     case "title":
                         doubanGrouppost.setTitle(value);
                         break;
+//                    case "picture_hrefs":
+//                        doubanGrouppost.setPictureHrefsNum(Integer.parseInt(value));
+//                        break;
                     case "url":
                         doubanGrouppost.setUrl(value);
                         break;

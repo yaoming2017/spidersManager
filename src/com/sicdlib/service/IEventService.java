@@ -1,5 +1,6 @@
 package com.sicdlib.service;
 
+import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
 
 import java.util.List;
@@ -35,6 +36,8 @@ public interface IEventService {
     String setEventAttributes(String eventID);
     TbEventEntity getEventByName(String eventName);
     List<TbEventEntity> getAllEvent();
+    TbEventArticleEntity getSourceEventArticle(String eventID);
+    TbEventArticleEntity getEndtimeSourceEventArticle(String eventID);
 
     /**
      * 计算事件的趋势

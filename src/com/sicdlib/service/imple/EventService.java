@@ -149,7 +149,7 @@ public class EventService implements IEventService {
         String sourceArticleID = sourceArticle.getSourceArticleId();
 
         //计算事件的趋势
-        String trend = this.calEventTrend(eventID);
+        String trend = eventDAO.eventTrend(eventID);
 
         //事件的简介
         String eventIntroTemplate = dataDictDAO.getDictValue(Constant.EVENT_INTRODUCTION).get(0);
@@ -172,15 +172,15 @@ public class EventService implements IEventService {
 
         //文章出现的网站名，并用顿号拼接
         List<WebsiteEntity> websiteList = eventDAO.sourceWebsiteList(eventID);
-        StringBuilder websiteStr = new StringBuilder();
+        String websiteStr = "";
         for (WebsiteEntity website: websiteList) {
-            websiteStr.append(website.getWebsiteName()).append("、");
+            websiteStr = websiteStr + website.getWebsiteName() + "、";
         }
-        websiteStr = new StringBuilder(websiteStr.substring(0, websiteStr.length() - 1));
+        websiteStr = websiteStr.substring(0, websiteStr.length() - 1);
 
         String introduction = String.format(eventIntroTemplate, keyWordsStr, startTime,
                 endTime, articleNum, rushTime, rushNum, startTime, sourceWebsite,
-                sourceTitle, websiteStr.toString(), trend);
+                sourceTitle, websiteStr, trend);
 
         TbEventEntity event = eventDAO.getEvent(eventID);
         event.setEventStartTime(startTime);
@@ -244,5 +244,14 @@ public class EventService implements IEventService {
             e.printStackTrace();
             return Long.MIN_VALUE;
         }
+    }
+
+    public TbEventArticleEntity getSourceEventArticle(String eventID){
+        return eventDAO.getSourceEventArticle(eventID);
+    }
+
+    @Override
+    public TbEventArticleEntity getEndtimeSourceEventArticle(String eventID) {
+        return eventDAO.getEndtimeSourceEventArticle(eventID);
     }
 }

@@ -113,7 +113,7 @@ public class KDNETUtil {
      */
     @Test
     public void test_KDNETComment_HTableToMysql() throws Exception{
-        IKDNETCommentService kdnetCommentService = (IKDNETCommentService) apx.getBean(" kdnetCommentService");
+        IKDNETCommentService kdnetCommentService = (IKDNETCommentService) apx.getBean("kdnetCommentService");
         Long beginTime = new Date().getTime();
         /**
          * 凯迪社区
@@ -155,10 +155,14 @@ public class KDNETUtil {
                         break;
                     case "date_time":
                         String dateTime = "";
-                        DateFormat sourceFormat = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
-                        DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                        dateTime = destFormat.format(sourceFormat.parse(value));
-                        kdnetComment.setDateTime(dateTime);
+                        if(value.equals("")){
+                            kdnetComment.setDateTime("2016-03-12 12:30:21");
+                        }else {
+                            DateFormat sourceFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+                            DateFormat destFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                            dateTime = destFormat.format(sourceFormat.parse(value));
+                            kdnetComment.setDateTime(dateTime);
+                        }
                         break;
                     case "content":
                         kdnetComment.setContent(value);

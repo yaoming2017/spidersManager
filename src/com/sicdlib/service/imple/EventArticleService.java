@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Yh on 2016/9/8.
  */
@@ -27,5 +29,15 @@ public class EventArticleService implements IEventArticleService {
             eventArticle.setId(uuid);
         }
         return eventArticleDAO.saveOrUpdateEventArticle(eventArticle);
+    }
+
+    @Override
+    public List<TbEventArticleEntity> getEventArticlesByStartEndTime(String eventId, String startTimeStr, String endTimeStr) {
+        return eventArticleDAO.getEventArticlesByStartEndTime(eventId, startTimeStr, endTimeStr);
+    }
+
+    @Override
+    public List<TbEventArticleEntity> getEventArticleByEventID(String eventID) {
+        return eventArticleDAO.getEventArticleByEventID(eventID);
     }
 }

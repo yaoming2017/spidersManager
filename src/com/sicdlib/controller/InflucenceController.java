@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.sicdlib.dto.SourceArticleNum;
 import com.sicdlib.dto.TableHotValue;
 import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.*;
 import com.sicdlib.util.ForeUtil.HotValueUtil;
@@ -79,8 +80,14 @@ public class InflucenceController {
 
     @RequestMapping(value="influcence")
     public String listDailyCommentNum(HttpServletRequest req, Model model){
+
+        System.out.println("ccccc");
         List<SourceArticleNum> sourceArticleNums = new ArrayList<>();
+
         String eventID = req.getParameter("eventID");
+
+        Map<String,Integer>map=tableService.getCommentNumByTableName("鹿晗手滑点赞");
+
         List<TbEventArticleEntity>  eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //1. 获得事件的开始文章
         TbEventArticleEntity starttimeEventArticle = eventService.getSourceEventArticle(eventID);
@@ -120,16 +127,16 @@ public class InflucenceController {
                 ca.add(Calendar.DATE, internalDay*i);
                 String endtime = sf.format(ca.getTime());
                 //通过不同事件ID，开始时间，结束时间获得事件文章列表
-                List<TbEventArticleEntity> eventArticles_time = eventArticleService.getEventArticlesByStartEndTime(eventID, starttime, endtime);
+                List<TbSentimentInflucenceEntity> eventComment_time = eventArticleService.getInflucenceByStartEndTime(eventID, starttime, endtime);
                 int doubanNum = 0;
                 int bbs_peopleNum = 0;
                 SourceArticleNum sourceArticleNum_douban = new SourceArticleNum();
                 SourceArticleNum sourceArticleNum_bbspeople = new SourceArticleNum();
-                for (int j = 0;j<eventArticles_time.size();j++){
-                    if (eventArticles_time.get(i).getTable().getTableName().equals("douban_group_post")){
+                for (int j = 0;j<eventComment_time.size();j++){
+                    if (eventComment_time.get(i).getTable().getTableName().equals("douban_group_post")){
                         doubanNum++;
                     }
-                    if (eventArticles_time.get(i).getTable().getTableName().equals("bbs_people_post")){
+                    if (eventComment_time.get(i).getTable().getTableName().equals("bbs_people_post")){
                         bbs_peopleNum ++;
                     }
                 }
@@ -149,6 +156,7 @@ public class InflucenceController {
             }
         }
         model.addAttribute("sourceArticleNums", sourceArticleNums);
-        return null;
+        System.out.println("............"+sourceArticleNums);
+        return "influcence";
     }
 }

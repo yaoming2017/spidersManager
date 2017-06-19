@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * Created by Yh on 2016/9/8.
  */
@@ -32,6 +34,11 @@ public class TableService implements ITableService{
     @Override
     public TbTableEntity getTable(String name) {
         return tableDAO.getTable(name);
+    }
+
+    @Override
+    public Map<String, Integer> getCommentNumByTableName(String eventname) {
+        return  tableDAO.getCommentNumByTableName(eventname);
     }
 
 }

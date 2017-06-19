@@ -4,6 +4,7 @@ import com.sicdlib.dao.IEventArticleDAO;
 import com.sicdlib.dao.IEventDAO;
 import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
+import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.service.IEventArticleService;
 import com.sicdlib.service.IEventService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
@@ -39,5 +40,10 @@ public class EventArticleService implements IEventArticleService {
     @Override
     public List<TbEventArticleEntity> getEventArticleByEventID(String eventID) {
         return eventArticleDAO.getEventArticleByEventID(eventID);
+    }
+
+    @Override
+    public List<TbSentimentInflucenceEntity> getInflucenceByStartEndTime(String eventId, String startTimeStr, String endTimeStr) {
+        return eventArticleDAO.getInflucenceByStartEndTime(eventId, startTimeStr, endTimeStr);
     }
 }

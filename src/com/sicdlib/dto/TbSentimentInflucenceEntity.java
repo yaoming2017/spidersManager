@@ -3,7 +3,7 @@ package com.sicdlib.dto;
 import javax.persistence.*;
 
 /**
- * Created by init on 2017/6/16.
+ * Created by init on 2017/6/17.
  */
 @Entity
 @Table(name = "tb_sentiment_influcence", schema = "socialmind", catalog = "")
@@ -13,6 +13,17 @@ public class TbSentimentInflucenceEntity {
     private String websiteName;
     private String tableName;
     private String dateTime;
+    //多对一：多个事件文章的评论量对应一个表
+    private TbTableEntity table;
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "table_id", referencedColumnName = "id")
+    public TbTableEntity getTable() {
+        return table;
+    }
+
+    public void setTable(TbTableEntity table) {
+        this.table = table;
+    }
 
     @Id
     @Column(name = "id")

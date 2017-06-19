@@ -1,8 +1,10 @@
 package com.sicdlib.dao;
 
+import com.google.protobuf.Internal;
 import com.sicdlib.dto.TbTableEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ITableDAO {
     Boolean saveOrUpdateTable(TbTableEntity table);
@@ -14,7 +16,7 @@ public interface ITableDAO {
     //得到每个网站文章的评论量
     //List<String> getArticleCommentNumByEventID(String eventID);
     List<TbTableEntity> getTableByEventID(String eventID);
-    int getCommentNumByTableName(String tableName);
+    Map<String,Integer> getCommentNumByTableName(String eventname);
 
 }
 

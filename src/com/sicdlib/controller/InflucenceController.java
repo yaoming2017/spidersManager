@@ -1,15 +1,13 @@
 package com.sicdlib.controller;
 
 
-import com.alibaba.fastjson.JSON;
+
 import com.sicdlib.dto.SourceArticleNum;
-import com.sicdlib.dto.TableHotValue;
+
 import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.*;
-import com.sicdlib.util.ForeUtil.HotValueUtil;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
+/**舆情影响力
  * Created by init on 2017/6/14.
  */
 @Controller
@@ -70,13 +68,6 @@ public class InflucenceController {
     @Qualifier("bbsXiciPostService")
     private IBBSXiciPostService bbsXiciPostService;
 
-//    @RequestMapping(value="influcence")
-//    public String listDailyCommentNum(HttpServletRequest req, Model model){
-//        String postId = req.getParameter("postId");
-//        List<Map> commentNum = sentimentInflucenceService.getSentimentInflucenceMap(postId);
-//        model.addAttribute("keyWords",JSON.toJSON(commentNum));
-//        return null;
-//    }
 
     @RequestMapping(value="influcence")
     public String listDailyCommentNum(HttpServletRequest req, Model model){
@@ -94,7 +85,7 @@ public class InflucenceController {
         //2. 获得事件的结束文章
         TbEventArticleEntity EndtimeEventArticle = eventService.getEndtimeSourceEventArticle(eventID);
 
-        //3. 时间平均划分10份，求每份中的热度
+        //3. 时间平均划分10份，求每份中的舆情影响力
         String startTimeStr = starttimeEventArticle.getTime();
         String endTimeStr = EndtimeEventArticle.getTime();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -106,6 +97,7 @@ public class InflucenceController {
         }catch (Exception e){
             e.printStackTrace();
         }
+        //得到的时间是毫秒，将毫秒转换成天数
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000*3600*24));
         /**
          * 策略：时间T
@@ -132,7 +124,7 @@ public class InflucenceController {
                 int bbs_peopleNum = 0;
                 SourceArticleNum sourceArticleNum_douban = new SourceArticleNum();
                 SourceArticleNum sourceArticleNum_bbspeople = new SourceArticleNum();
-                for (int j = 0;j<eventComment_time.size();j++){
+                for(int j = 0;j<eventComment_time.size();j++){
                     if (eventComment_time.get(i).getTable().getTableName().equals("douban_group_post")){
                         doubanNum++;
                     }
@@ -152,10 +144,9 @@ public class InflucenceController {
                 sourceArticleNum_bbspeople.setEndTime(endtime);
                 sourceArticleNum_bbspeople.setTableName("bbs_people_post");
                 sourceArticleNums.add(sourceArticleNum_bbspeople);
-                //
             }
         }
-        model.addAttribute("sourceArticleNums", sourceArticleNums);
+        model.addAttribute("sourceArticleNums",sourceArticleNums);
         System.out.println("............"+sourceArticleNums);
         return "influcence";
     }

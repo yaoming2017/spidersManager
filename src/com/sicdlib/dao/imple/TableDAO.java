@@ -94,23 +94,22 @@ public class TableDAO implements ITableDAO {
 //        String hql1="From TbEventArticleEntity tb_e where tb_e.event.id='"+tbelist.get(0).getId()+"'";
 //        List<TbEventArticleEntity> tb_elist=baseDAO.find(hql1);
         Map<String,Integer> map=new HashMap<>();
-        List<TbTableEntity>list1=getTableByEventID(tbelist.get(0).getId());
+        List<TbTableEntity> list1=getTableByEventID(tbelist.get(0).getId());
         for (TbTableEntity item:list1) {
             if(item.getTableName().contains("post")){
                 String sqlnew="select sum(comment_num) from "+item.getTableName()+" where "+item.getTableName()+
                         ".id in (select distinct tb_event_article.source_article_id from tb_event_article  where tb_event_article.event_id='"
                         +tbelist.get(0).getId()+"')";
-                System.out.println(sqlnew);
+                System.out.println("表名:"+item.getTableName());
                 BigDecimal a=baseDAO.getcount(sqlnew);
-                System.out.println(a);
+                System.out.println("----------" + a);
                 map.put(item.getTableName(),a.intValue());
-
 
             }
 
         }
 
-         System.out.println(map.get("douban_group_post"));
+         System.out.println("*********************"+map.get("douban_group_post"));
          return  map;
     }
 }

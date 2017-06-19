@@ -4,14 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/16.
+ * Created by init on 2017/6/3.
  */
 @Entity
-@Table(name = "blog_163_author", schema = "socialmind", catalog = "")
+@Table(name = "blog_163_author", schema = "socialmind")
 public class Blog163AuthorEntity {
     private String authorId;
     private String url;
     private String nick;
+    private String authorName;
     private String sex;
     private String birthday;
     private String hometown;
@@ -29,7 +30,6 @@ public class Blog163AuthorEntity {
     private Timestamp timeStamp;
     private String id;
     private String introduce;
-    private String authorName;
 
     @Basic
     @Column(name = "author_id")
@@ -59,6 +59,16 @@ public class Blog163AuthorEntity {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    @Basic
+    @Column(name = "author_name")
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String realName) {
+        this.authorName = realName;
     }
 
     @Basic
@@ -231,16 +241,6 @@ public class Blog163AuthorEntity {
         this.introduce = introduce;
     }
 
-    @Basic
-    @Column(name = "author_name")
-    public String getAuthorName() {
-        return authorName;
-    }
-
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -251,6 +251,7 @@ public class Blog163AuthorEntity {
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (nick != null ? !nick.equals(that.nick) : that.nick != null) return false;
+        if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
         if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
         if (hometown != null ? !hometown.equals(that.hometown) : that.hometown != null) return false;
@@ -268,7 +269,6 @@ public class Blog163AuthorEntity {
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (introduce != null ? !introduce.equals(that.introduce) : that.introduce != null) return false;
-        if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
 
         return true;
     }
@@ -278,6 +278,7 @@ public class Blog163AuthorEntity {
         int result = authorId != null ? authorId.hashCode() : 0;
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (nick != null ? nick.hashCode() : 0);
+        result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (hometown != null ? hometown.hashCode() : 0);
@@ -295,7 +296,6 @@ public class Blog163AuthorEntity {
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (introduce != null ? introduce.hashCode() : 0);
-        result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         return result;
     }
 }

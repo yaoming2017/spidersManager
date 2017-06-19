@@ -11,7 +11,6 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import sun.misc.BASE64Decoder;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -210,7 +209,7 @@ public class BLOG163Util {
      */
     @Test
     public void test_BLOG163Post_HTableToMysql() throws Exception{
-        IBLOG163PostService blog163PostService = (IBLOG163PostService) apx.getBean("blog163PostService");
+        IBLOG163PostService blog163PostService = (IBLOG163PostService) apx.getBean("blog163PostService ");
         Long beginTime = new Date().getTime();
         /**
          * 网易博客

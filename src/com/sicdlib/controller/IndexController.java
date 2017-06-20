@@ -45,6 +45,7 @@ public class IndexController {
             result = authorService.getAuthorInfluenceAndActiveness(eventID);
         }
 
+        model.addAttribute("eventID", eventID);
         model.addAttribute("influenceAndActiveness", JSON.toJSON(result));
 
         return "author_index";

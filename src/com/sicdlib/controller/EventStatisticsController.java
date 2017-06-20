@@ -29,6 +29,6 @@ public class EventStatisticsController {
         model.addAttribute("websiteNum", JSON.toJSON(websiteNumList));
         model.addAttribute("eventID", eventID);
 
-        return "sourceMedia";
+        return "source_media";
     }
 }

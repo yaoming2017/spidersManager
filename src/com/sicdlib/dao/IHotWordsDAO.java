@@ -10,4 +10,5 @@ import java.util.List;
 public interface IHotWordsDAO {
     List<TbHotWordEntity> getHotWordsEntityList(String eventID, int limit);
     void batchSaveHotWords(List<TbHotWordEntity> hotWordsList);
+    void saveHotWords(TbHotWordEntity hotWords);
 }

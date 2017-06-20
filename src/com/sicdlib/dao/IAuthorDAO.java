@@ -18,4 +18,6 @@ public interface IAuthorDAO {
     void saveAuthorEntity(TbAuthorEntity authorEntity);
     void saveEventAuthorMapping(TbEventAuthorMappingEntity eventAuthor);
     void saveEventAuthorMapping(TbEventAuthorMappingEntity eventAuthor, String eventID);
+
+    List<TbEventAuthorMappingEntity> getEventAuthorMappingByEventId(String eventID);
 }

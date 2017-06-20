@@ -3,6 +3,7 @@ package com.sicdlib.service.imple;
 import com.sicdlib.dao.*;
 import com.sicdlib.dto.TbArticleSimilarityEntity;
 import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbTableEntity;
 import com.sicdlib.service.IArticleSimiService;
 import com.sicdlib.util.KeyWordsUtil.Segmentation;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by YH on 2017/6/5.
@@ -54,21 +57,26 @@ public class ArticleSimiService implements IArticleSimiService {
         }
         //计算两两之间的相似度
         List<TbArticleSimilarityEntity> simiEntityList = new ArrayList<>();
+        Map<String, TbEventArticleEntity> eventMap = new HashMap<>();
+        eventMap.put(idList.get(0),eventArticleDAO.getEventArticleEntity(idList.get(0)));
         for (int i = 1; i < wordsList.size(); i++) {
             for (int j = 0; j < i; j++) {
                 double simi = CosSimilarity.calculate(wordsList.get(i), wordsList.get(j));
 
+                TbEventArticleEntity eventArticleA = eventArticleDAO.getEventArticleEntity(idList.get(i));
+                eventMap.put(idList.get(i),eventArticleA);
+
+                TbEventArticleEntity eventArticleB = eventMap.get(idList.get(j));
+
                 TbArticleSimilarityEntity simiEntity = new TbArticleSimilarityEntity();
                 simiEntity.setId(UUIDUtil.getUUID());
-                simiEntity.setArticleA(eventArticleDAO.getEventArticleEntity(idList.get(i)));
-                simiEntity.setArticleB(eventArticleDAO.getEventArticleEntity(idList.get(j)));
+                simiEntity.setArticleA(eventArticleA);
+                simiEntity.setArticleB(eventArticleB);
                 simiEntity.setSimilarity(simi);
 
                 simiEntityList.add(simiEntity);
             }
         }
-
-
 
         articleSimiDAO.batchSaveSimiEntity(simiEntityList);
     }

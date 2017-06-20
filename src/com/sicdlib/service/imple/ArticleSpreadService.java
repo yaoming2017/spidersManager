@@ -113,7 +113,7 @@ public class ArticleSpreadService implements IArticleSpreadService {
         List<Map> nodeList = new ArrayList<>();
         articleTitleMap.forEach((articleID, articleTitle)->{
             Map<String, Object> element = new HashMap<>();
-            element.put("title", articleTitle);
+            element.put("title", articleTitle.trim());
             element.put("num", articleSimiNumMap.get(articleID));
             element.put("website", articleWebsite.get(articleID));
             element.put("id", articleID);

@@ -74,6 +74,10 @@ public class KeyWordsExtract {
         List<Map.Entry<String, Float>> entryList = new ArrayList<>(score.entrySet());
         Collections.sort(entryList, (o1, o2) -> (o1.getValue() - o2.getValue() > 0 ? -1 : 1));
 
+        if (entryList.size() > 1000) {
+            return entryList.subList(0, 1000);
+        }
+
         return entryList;
     }
 

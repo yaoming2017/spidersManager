@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by init on 2017/6/2.
  */
-@Service("bbsTianyaPostService ")
+@Service("bbsTianyaPostService")
 public class BBSTianyaPostService  implements IBBSTianyaPostService{
     @Autowired
     @Qualifier("bbsTianyaPostDAO")

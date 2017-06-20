@@ -7,12 +7,12 @@ import java.sql.Timestamp;
  * Created by init on 2017/6/3.
  */
 @Entity
-@Table(name = "blog_163_author", schema = "socialmind", catalog = "")
+@Table(name = "blog_163_author", schema = "socialmind")
 public class Blog163AuthorEntity {
     private String authorId;
     private String url;
     private String nick;
-    private String realName;
+    private String authorName;
     private String sex;
     private String birthday;
     private String hometown;
@@ -62,13 +62,13 @@ public class Blog163AuthorEntity {
     }
 
     @Basic
-    @Column(name = "real_name")
-    public String getRealName() {
-        return realName;
+    @Column(name = "author_name")
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setAuthorName(String realName) {
+        this.authorName = realName;
     }
 
     @Basic
@@ -251,7 +251,7 @@ public class Blog163AuthorEntity {
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (nick != null ? !nick.equals(that.nick) : that.nick != null) return false;
-        if (realName != null ? !realName.equals(that.realName) : that.realName != null) return false;
+        if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
         if (birthday != null ? !birthday.equals(that.birthday) : that.birthday != null) return false;
         if (hometown != null ? !hometown.equals(that.hometown) : that.hometown != null) return false;
@@ -278,7 +278,7 @@ public class Blog163AuthorEntity {
         int result = authorId != null ? authorId.hashCode() : 0;
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (nick != null ? nick.hashCode() : 0);
-        result = 31 * result + (realName != null ? realName.hashCode() : 0);
+        result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (hometown != null ? hometown.hashCode() : 0);

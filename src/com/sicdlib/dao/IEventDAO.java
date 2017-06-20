@@ -159,6 +159,11 @@ public interface IEventDAO {
      */
     List<Object[]> getEventArticleDateAndHotValue(String eventID);
     /**
+     * 计算事件的趋势
+     *
+     */
+    String eventTrend(String eventID);
+    /**
      * 获取事件下某一网站的评论量
      * @param
      * @return

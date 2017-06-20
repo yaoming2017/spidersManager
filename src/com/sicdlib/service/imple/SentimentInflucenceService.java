@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by init on 2017/6/14.
  */
-@Service("sentimentInflucenceService ")
+@Service("sentimentInflucenceService")
 public class SentimentInflucenceService implements ISentimentInflucenceService{
     @Autowired
     @Qualifier("sentimentInflucenceDAO")

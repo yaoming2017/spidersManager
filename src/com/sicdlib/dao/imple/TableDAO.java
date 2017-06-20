@@ -1,12 +1,20 @@
 package com.sicdlib.dao.imple;
 
+import com.google.protobuf.Internal;
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ITableDAO;
+import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbTableEntity;
+import org.jruby.RubyProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository("tableDAO")
 public class TableDAO implements ITableDAO {
@@ -36,9 +44,10 @@ public class TableDAO implements ITableDAO {
                 "WHERE table.id in " +
                 "(" +
                 "SELECT distinct articleNum.table.id " +
-                "FROM TbSourceArticleNumEntity articleNum " +
+                "FROM  TbEventArticleEntity articleNum " +
                 "WHERE articleNum.event.id = '" + eventID + "'" +
                 ")";
+
         return baseDAO.find(hql);
     }
 
@@ -78,14 +87,29 @@ public class TableDAO implements ITableDAO {
     }
 
     @Override
-    public List<String> getArticleCommentNumByEventID(String eventID, String tableID, String tableName) {
-        String sql=" select articleTable.commentNum FROM " + tableName + "  articleTable " +
-                "WHERE articleTable.id in " +
-                "( " +
-                "SELECT ea.source_article_id " +
-                "FROM tb_event_article ea " +
-                "WHERE ea.event_id = '" + eventID + "' AND ea.table_id = '" + tableID +
-                "' )";
-        return baseDAO.getSqlList(sql);
+    public Map<String,Integer> getCommentNumByTableName(String eventname ){
+        System.out.println(eventname);
+        String hql="From TbEventEntity tb_e where tb_e.eventName='"+eventname+"'";
+        List<TbEventEntity> tbelist=baseDAO.find(hql);
+//        String hql1="From TbEventArticleEntity tb_e where tb_e.event.id='"+tbelist.get(0).getId()+"'";
+//        List<TbEventArticleEntity> tb_elist=baseDAO.find(hql1);
+        Map<String,Integer> map=new HashMap<>();
+        List<TbTableEntity> list1=getTableByEventID(tbelist.get(0).getId());
+        for (TbTableEntity item:list1) {
+            if(item.getTableName().contains("post")){
+                String sqlnew="select sum(comment_num) from "+item.getTableName()+" where "+item.getTableName()+
+                        ".id in (select distinct tb_event_article.source_article_id from tb_event_article  where tb_event_article.event_id='"
+                        +tbelist.get(0).getId()+"')";
+                System.out.println("表名:"+item.getTableName());
+                BigDecimal a=baseDAO.getcount(sqlnew);
+                System.out.println("----------" + a);
+                map.put(item.getTableName(),a.intValue());
+
+            }
+
+        }
+
+         System.out.println("*********************"+map.get("douban_group_post"));
+         return  map;
     }
 }

@@ -52,7 +52,6 @@ public class ArticleSimiService implements IArticleSimiService {
                 wordsList.add(words);
             }
         }
-
         //计算两两之间的相似度
         List<TbArticleSimilarityEntity> simiEntityList = new ArrayList<>();
         for (int i = 1; i < wordsList.size(); i++) {

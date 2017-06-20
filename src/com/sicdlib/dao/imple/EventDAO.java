@@ -253,6 +253,11 @@ public class EventDAO implements IEventDAO {
     }
 
     @Override
+    public String eventTrend(String eventID) {
+        return null;
+    }
+
+    @Override
     public List<Object[]> getEventArticleCommentNum(String eventID) {
         return null;
     }

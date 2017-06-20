@@ -224,13 +224,14 @@
             } else {
                 html = html + '<button id="btn_' + key +'" class="btn btn-success" onclick="runSpider(\'' + spider_id + '\', \'' + key + '\')">运行</button>'
             }
+            html += '<button class="btn btn-info"  onclick="addConfig(\'' + spider_id + '\')">添加配置项</button>';
             html += '</div>';
         }
 
         if(html == '') {
             return '<div class="widget-content">' +
                         '<h5>没有配置项</h5>' +
-                        '<button class="btn btn-info"  onclick="addConfig(\'' + spider_id + ')">添加配置项</button>' +
+                        '<button class="btn btn-info"  onclick="addConfig(\'' + spider_id + '\')">添加配置项</button>' +
 //                        '<button class="btn btn-success">以默认配置运行</button>' +
                     '</div>';
         }

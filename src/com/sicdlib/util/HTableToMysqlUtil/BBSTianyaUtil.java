@@ -138,9 +138,9 @@ class HTableToMysqlUtil {
 //                    case "pub_time":
 //                        doubanGroupComment.setPubTime(value);
 //                        break;
-                    case "quote_author_href":
-                        doubanGroupComment.setQuoteAuthorHref(value);
-                        break;
+//                    case "quote_author_href":
+//                        doubanGroupComment.setQuoteAuthorHref(value);
+//                        break;
                     case "quote_content":
                         doubanGroupComment.setQuoteContent(value);
                         break;

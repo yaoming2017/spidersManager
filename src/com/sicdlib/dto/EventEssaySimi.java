@@ -2,6 +2,7 @@ package com.sicdlib.dto;
 
 import com.sicdlib.dto.entity.BbsPeoplePostEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.XinhuaNewsEntity;
 
 /**
  * Created by DeMH on 2017/5/9.
@@ -15,8 +16,18 @@ public class EventEssaySimi {
     private String id;
     //示例：豆瓣小组的发布
     private DoubanGroupPostEntity doubanGroupPostEntity;
-    //示例：人民网强国论坛的发布
+    //示例：人民网BBS的发布
     private BbsPeoplePostEntity bbsPeoplePostEntity;
+    //示例：新华网的发布
+    private XinhuaNewsEntity xinhuaNewsEntity;
+
+    public XinhuaNewsEntity getXinhuaNewsEntity() {
+        return xinhuaNewsEntity;
+    }
+
+    public void setXinhuaNewsEntity(XinhuaNewsEntity xinhuaNewsEntity) {
+        this.xinhuaNewsEntity = xinhuaNewsEntity;
+    }
 
     public BbsPeoplePostEntity getBbsPeoplePostEntity() {
         return bbsPeoplePostEntity;

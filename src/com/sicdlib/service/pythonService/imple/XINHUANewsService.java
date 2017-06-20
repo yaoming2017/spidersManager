@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by init on 2017/6/5.
  */
@@ -24,4 +26,15 @@ public class XINHUANewsService  implements IXINHUANewsService{
         }
         return  xinhuaNewsDAO.saveXINHUANews(xinhuaNews);
     }
+
+    @Override
+    public List<XinhuaNewsEntity> getAllXinHuaNews() {
+        return xinhuaNewsDAO.getAllXinHuaNews();
+    }
+
+    @Override
+    public XinhuaNewsEntity getAllXinHuaNewsByArticleID(String id) {
+        return xinhuaNewsDAO.getAllXinHuaNewsByArticleID(id);
+    }
+
 }

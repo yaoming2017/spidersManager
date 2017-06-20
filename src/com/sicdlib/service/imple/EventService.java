@@ -149,7 +149,8 @@ public class EventService implements IEventService {
         String sourceArticleID = sourceArticle.getSourceArticleId();
 
         //计算事件的趋势
-        String trend = eventDAO.eventTrend(eventID);
+//        String trend = eventDAO.eventTrend(eventID);
+        String trend = "突出";
 
         //事件的简介
         String eventIntroTemplate = dataDictDAO.getDictValue(Constant.EVENT_INTRODUCTION).get(0);

@@ -3,6 +3,7 @@ package com.sicdlib.dao.imple;
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.IEventArticleDAO;
 import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.dto.TbTableEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -62,6 +63,14 @@ public class EventArticleDAO implements IEventArticleDAO {
     public List<TbEventArticleEntity> getEventArticleByEventID(String eventID) {
         String hql = "from TbEventArticleEntity ea where ea.event.id = '"+eventID+"'";
         return baseDAO.find(hql);
+
     }
+
+    @Override
+    public List<TbSentimentInflucenceEntity> getInflucenceByStartEndTime(String eventId, String startTimeStr, String endTimeStr) {
+        String hql = "from TbSentimentInflucenceEntity ea where ea.event.id = '"+eventId+"' and ea.time > '"+ startTimeStr +"' and ea.time < '"+ endTimeStr +"'";
+        return baseDAO.find(hql);
+    }
+
 }
 

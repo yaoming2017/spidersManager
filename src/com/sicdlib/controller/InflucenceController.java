@@ -1,14 +1,13 @@
 package com.sicdlib.controller;
 
 
-import com.alibaba.fastjson.JSON;
+
 import com.sicdlib.dto.SourceArticleNum;
-import com.sicdlib.dto.TableHotValue;
+
 import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.*;
-import com.sicdlib.util.ForeUtil.HotValueUtil;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
+/**舆情影响力
  * Created by init on 2017/6/14.
  */
 @Controller
@@ -69,25 +68,24 @@ public class InflucenceController {
     @Qualifier("bbsXiciPostService")
     private IBBSXiciPostService bbsXiciPostService;
 
-//    @RequestMapping(value="influcence")
-//    public String listDailyCommentNum(HttpServletRequest req, Model model){
-//        String postId = req.getParameter("postId");
-//        List<Map> commentNum = sentimentInflucenceService.getSentimentInflucenceMap(postId);
-//        model.addAttribute("keyWords",JSON.toJSON(commentNum));
-//        return null;
-//    }
 
     @RequestMapping(value="influcence")
     public String listDailyCommentNum(HttpServletRequest req, Model model){
+
+        System.out.println("ccccc");
         List<SourceArticleNum> sourceArticleNums = new ArrayList<>();
+
         String eventID = req.getParameter("eventID");
+
+        Map<String,Integer>map=tableService.getCommentNumByTableName("鹿晗手滑点赞");
+
         List<TbEventArticleEntity>  eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //1. 获得事件的开始文章
         TbEventArticleEntity starttimeEventArticle = eventService.getSourceEventArticle(eventID);
         //2. 获得事件的结束文章
         TbEventArticleEntity EndtimeEventArticle = eventService.getEndtimeSourceEventArticle(eventID);
 
-        //3. 时间平均划分10份，求每份中的热度
+        //3. 时间平均划分10份，求每份中的舆情影响力
         String startTimeStr = starttimeEventArticle.getTime();
         String endTimeStr = EndtimeEventArticle.getTime();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -99,6 +97,7 @@ public class InflucenceController {
         }catch (Exception e){
             e.printStackTrace();
         }
+        //得到的时间是毫秒，将毫秒转换成天数
         int days = (int) ((endDate.getTime() - startDate.getTime()) / (1000*3600*24));
         /**
          * 策略：时间T
@@ -120,16 +119,16 @@ public class InflucenceController {
                 ca.add(Calendar.DATE, internalDay*i);
                 String endtime = sf.format(ca.getTime());
                 //通过不同事件ID，开始时间，结束时间获得事件文章列表
-                List<TbEventArticleEntity> eventArticles_time = eventArticleService.getEventArticlesByStartEndTime(eventID, starttime, endtime);
+                List<TbSentimentInflucenceEntity> eventComment_time = eventArticleService.getInflucenceByStartEndTime(eventID, starttime, endtime);
                 int doubanNum = 0;
                 int bbs_peopleNum = 0;
                 SourceArticleNum sourceArticleNum_douban = new SourceArticleNum();
                 SourceArticleNum sourceArticleNum_bbspeople = new SourceArticleNum();
-                for (int j = 0;j<eventArticles_time.size();j++){
-                    if (eventArticles_time.get(i).getTable().getTableName().equals("douban_group_post")){
+                for(int j = 0;j<eventComment_time.size();j++){
+                    if (eventComment_time.get(i).getTable().getTableName().equals("douban_group_post")){
                         doubanNum++;
                     }
-                    if (eventArticles_time.get(i).getTable().getTableName().equals("bbs_people_post")){
+                    if (eventComment_time.get(i).getTable().getTableName().equals("bbs_people_post")){
                         bbs_peopleNum ++;
                     }
                 }
@@ -145,10 +144,10 @@ public class InflucenceController {
                 sourceArticleNum_bbspeople.setEndTime(endtime);
                 sourceArticleNum_bbspeople.setTableName("bbs_people_post");
                 sourceArticleNums.add(sourceArticleNum_bbspeople);
-                //
             }
         }
-        model.addAttribute("sourceArticleNums", sourceArticleNums);
-        return null;
+        model.addAttribute("sourceArticleNums",sourceArticleNums);
+        System.out.println("............"+sourceArticleNums);
+        return "influcence";
     }
 }

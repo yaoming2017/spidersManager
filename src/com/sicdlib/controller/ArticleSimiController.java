@@ -21,5 +21,6 @@ public class ArticleSimiController {
     public void ArticleSimi(HttpServletRequest req) {
         String eventID = req.getParameter("eventID");
         articleSimiService.setEventArticleSimi(eventID);
+
     }
 }

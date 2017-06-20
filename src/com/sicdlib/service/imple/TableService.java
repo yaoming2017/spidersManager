@@ -14,7 +14,7 @@ import com.sicdlib.util.UUIDUtil.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
+import java.util.Map;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -55,6 +55,11 @@ public class TableService implements ITableService{
     }
 
     @Override
+    public Map<String, Integer> getCommentNumByTableName(String eventname) {
+        return  tableDAO.getCommentNumByTableName(eventname);
+    }
+
+
     public void setAuthorAttributes(String eventID) throws Exception {
         //存储不同网站信息的Map
 //        Map<String, List<Object[]>> authorMap = new HashMap<>();
@@ -185,7 +190,6 @@ public class TableService implements ITableService{
                     authorEntity.setTable(articleTable);
                     eventMapping.setId(UUIDUtil.getUUID());
                     eventMapping.setAuthor(authorEntity);
-
                     authorDAO.saveAuthorEntity(authorEntity);
                     authorDAO.saveEventAuthorMapping(eventMapping, eventID);
                 }
@@ -195,7 +199,7 @@ public class TableService implements ITableService{
     }
 
     /**
-     * 计算影响力
+     * 计算影响力，（发布者发布文章数+发布者发布文章的评论数+发布者发布文章的阅读数+粉丝数）/4
      * @param postNum 发布者发布文章数
      * @param replyNum 发布者发布文章的评论数
      * @param readNum 发布者发布文章的阅读数
@@ -204,7 +208,6 @@ public class TableService implements ITableService{
      */
     private double calInfluence(int postNum, int replyNum, long readNum, int fansNum) {
         double influenceNum = (postNum + replyNum + readNum + fansNum) / 4;
-
         return influenceNum;
     }
 
@@ -216,7 +219,6 @@ public class TableService implements ITableService{
      */
     private double calActiveness(int postNum, int participateCommentNum) {
         double result = 0.7 * postNum + 0.3 * participateCommentNum;
-
         return result;
     }
 }

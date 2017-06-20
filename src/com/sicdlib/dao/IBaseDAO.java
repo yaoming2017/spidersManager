@@ -3,6 +3,7 @@ package com.sicdlib.dao;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -186,4 +187,6 @@ public interface IBaseDAO<T> {
      * @param oList
      */
     void batchSave(List<Object> oList);
+
+    BigDecimal getcount(String sql);
 }

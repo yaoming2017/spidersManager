@@ -32,4 +32,5 @@ public class ArticleHotValueService implements IArticleHotValueService {
     public boolean addArticleHotValueByEventID(ArticleHotValueEntity articleHotValue) {
         return articleHotValueDAO.addArticleHotValueByEventID(articleHotValue);
     }
+
 }

@@ -2,6 +2,7 @@ package com.sicdlib.dao.imple;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -311,4 +312,13 @@ public class BaseDAO<T> implements IBaseDAO<T> {
             tx.commit();
         }
     }
+
+    @Override
+    public BigDecimal getcount(String sql) {
+
+       return (BigDecimal)getCurrentSession().createSQLQuery(sql).uniqueResult();
+
+    }
+
+
 }

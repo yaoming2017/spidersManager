@@ -16,6 +16,8 @@ public class TbSourceArticleNumEntity {
     private TbTableEntity table;
     //多对一：多个对应一个事件
     private TbEventEntity event;
+//    private String tableId;
+//    private String eventId;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "event_id", referencedColumnName = "id")
@@ -100,4 +102,24 @@ public class TbSourceArticleNumEntity {
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         return result;
     }
+
+//    @Basic
+//    @Column(name = "table_id")
+//    public String getTableId() {
+//        return tableId;
+//    }
+//
+//    public void setTableId(String tableId) {
+//        this.tableId = tableId;
+//    }
+
+//    @Basic
+//    @Column(name = "event_id")
+//    public String getEventId() {
+//        return eventId;
+//    }
+
+//    public void setEventId(String eventId) {
+//        this.eventId = eventId;
+//    }
 }

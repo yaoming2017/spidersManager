@@ -3,9 +3,11 @@ package com.sicdlib.controller;
 import com.sicdlib.dto.*;
 import com.sicdlib.dto.entity.BbsPeoplePostEntity;
 import com.sicdlib.dto.entity.DoubanGroupPostEntity;
+import com.sicdlib.dto.entity.XinhuaNewsEntity;
 import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.IBBSPeoplePostService;
 import com.sicdlib.service.pythonService.IDoubanGroupPostService;
+import com.sicdlib.service.pythonService.IXINHUANewsService;
 import com.sicdlib.util.ForeUtil.HotValueUtil;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.OtherUtil.Segment;
 import com.sicdlib.util.NLPUtil.Word2VecUtil.Test.Word2Vec;
@@ -56,6 +58,9 @@ public class EventSimiEssayController {
     @Autowired
     @Qualifier("bbsPeoplePostService")
     private IBBSPeoplePostService bbsPeoplePostService;
+    @Autowired
+    @Qualifier("xinhuaNewsService")
+    private IXINHUANewsService xinhuaNewsService;
 
 
     /**
@@ -151,11 +156,11 @@ public class EventSimiEssayController {
     @RequestMapping("eventSimiEssayList")
     public String eventSimiEssayList(HttpServletRequest req, Model model) {
         String eventName ="旅行游玩";
-        Float userSetupSimiDegree = 0.0f;
+        Float userSetupSimiDegree = 0.4f;
         String tableName1 = "douban_group_post";
         String tableName2 = "bbs_people_post";
+//        String tableName3 = "xinhua_news";
         //用来存放数据库文章相似度,大于0.25的文章
-        userSetupSimiDegree = 0.25f;
 //        userSetupSimiDegree = Float.valueOf(req.getParameter("userSetupSimiDegree"));
         eventName = req.getParameter("eventName");
 
@@ -163,17 +168,22 @@ public class EventSimiEssayController {
         Long beginTime = new Date().getTime();
         List<DoubanGroupPostEntity> doubanGroupPostList = null;
         List<BbsPeoplePostEntity> bbsPeoplePostList = null;
+//        List<XinhuaNewsEntity> xinhuaNewsList = null;
         if (tableName1.equals("douban_group_post")){
             //1.获得豆瓣小组发布的所有信息
             doubanGroupPostList = doubanGroupPostService.getAllDoubanGroupPost();
         }
         if (tableName2.equals("bbs_people_post")){
-            //1.获得豆瓣小组发布的所有信息
+            //1.获得人民网BBS发布的所有信息
             bbsPeoplePostList = bbsPeoplePostService.getAllBbsPeoplePosts();
         }
+//        if (tableName3.equals("xinhua_news")){
+//            //1.获得新华网发布的所有信息
+//            xinhuaNewsList = xinhuaNewsService.getAllXinHuaNews();
+//        }
 
         List<String> eventWords = Segment.getWords(eventName);
-        System.out.println("事件大小：" + eventWords.size());
+        System.out.println("事件分词大小：" + eventWords.size());
         //4.输入关键词，得到该词的向量表示
         Word2Vec vec = new Word2Vec();
         //4.1 用来存放 所有关键词 取得的前10位相似性词的数组
@@ -201,7 +211,7 @@ public class EventSimiEssayController {
             keyWords.add(wordEntry.name);
         }
         int num = 0;
-        //用来存放数据库文章相似度,大于0.2的文章
+        //用来存放数据库文章相似度,大于0.4的文章
         List<EventEssaySimi> eventEssaySimis = new ArrayList<EventEssaySimi>();
         if (tableName1.equals("douban_group_post")){
             for (DoubanGroupPostEntity db : doubanGroupPostList){
@@ -222,7 +232,7 @@ public class EventSimiEssayController {
 
         if (tableName2.equals("bbs_people_post")){
             for (BbsPeoplePostEntity db : bbsPeoplePostList){
-                //获得数据库中每条豆瓣发布的内容信息的分词
+                //获得数据库中每条人民网BBS发布的内容信息的分词
                 List<String> words = Segment.getWords(db.getContent());
                 Float simiDegree = vec.sentenceSimilarity(keyWords, words);
                 //如果相似度>设定值，将添加到eventEssaySimis中
@@ -236,6 +246,22 @@ public class EventSimiEssayController {
                 num ++;
             }
         }
+//        if (tableName3.equals("xinhua_news")){
+//            for (XinhuaNewsEntity db : xinhuaNewsList){
+//                //获得数据库中每条新华网发布的内容信息的分词
+//                List<String> words = Segment.getWords(db.getContent());
+//                Float simiDegree = vec.sentenceSimilarity(keyWords, words);
+//                //如果相似度>设定值，将添加到eventEssaySimis中
+//                if(simiDegree > userSetupSimiDegree){
+//                    EventEssaySimi essaySimi = new EventEssaySimi();
+//                    essaySimi.setXinhuaNewsEntity(db);
+//                    essaySimi.setTablename("xinhua_news");
+//                    essaySimi.setSimi(simiDegree);
+//                    eventEssaySimis.add(essaySimi);
+//                }
+//                num ++;
+//            }
+//        }
         Long endTime = new Date().getTime();
         Long internalTime = (endTime - beginTime) / 1000;
         //5 对eventEssaySimis排序
@@ -264,6 +290,7 @@ public class EventSimiEssayController {
         eve = eventService.getEventByName(eventName);
         TbTableEntity tbTable1 = null;
         TbTableEntity tbTable2 = null;
+        TbTableEntity tbTable3 = null;
         if (tableName1.equals("douban_group_post")){
             //6.2 设置事件文章event_article中的source_table_id
             tbTable1 = tableService.getTable("douban_group_post");
@@ -280,13 +307,20 @@ public class EventSimiEssayController {
                 tbid = tbTable2.getId();
             }
         }
+//        if (tableName3.equals("xinhua_news")){
+//            //6.2 设置事件文章event_article中的source_table_id
+//            tbTable3 = tableService.getTable("xinhua_news");
+//            String tbid = "";
+//            if (tbTable3 != null){
+//                tbid = tbTable2.getId();
+//            }
+//        }
 
         int i = 0;
         for (EventEssaySimi essaySimi : eventEssaySimis){
 //            System.out.println(i + ":" + essaySimi.getSimi() + ":" + essaySimi.getDoubanGroupPostEntity().getContent());
             //6.2 设置事件event与事件文章event_article之间的关系
             TbEventArticleEntity eventArticle = new TbEventArticleEntity();
-
             if (essaySimi.getTablename().equals("douban_group_post")) {
                 String sourceArticleId = essaySimi.getDoubanGroupPostEntity().getId();
                 //设置来源文章ID
@@ -299,7 +333,6 @@ public class EventSimiEssayController {
                 eventArticle.setTable(tbTable1);
                 //设置事件文章的时间
                 String time = essaySimi.getDoubanGroupPostEntity().getDateTime();
-//                time = time.substring(0, 10) + " " + time.substring(10);
                 System.out.println(time);
                 eventArticle.setTime(time);
                 eventArticleService.saveOrUpdateEventArticle(eventArticle);
@@ -320,23 +353,53 @@ public class EventSimiEssayController {
                 eventArticle.setTable(tbTable2);
                 //设置事件文章的时间
                 String time = essaySimi.getBbsPeoplePostEntity().getDateTime();
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-                Date d = null;
-                try {
-                    d = sdf.parse(time);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (time != null && !time.equals("")){
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+                    Date d = null;
+                    try {
+                        d = sdf.parse(time);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(d);
+                    System.out.println(formatDate);
+                    eventArticle.setTime(formatDate);
                 }
-                String formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(d);
-                System.out.println(formatDate);
-                eventArticle.setTime(formatDate);
-
                 eventArticleService.saveOrUpdateEventArticle(eventArticle);
                 i++;
                 if (i > 200) {
                     break;
                 }
             }
+//            if (essaySimi.getTablename().equals("xinhua_news")) {
+//                String sourceArticleId = essaySimi.getXinhuaNewsEntity().getId();
+//                //设置来源文章ID
+//                eventArticle.setSourceArticleId(sourceArticleId);
+//                //设置事件与文章的相似度
+//                eventArticle.setSimiDegree(essaySimi.getSimi());
+//                //设置事件event
+//                eventArticle.setEvent(eve);
+//                //设置新华网的表ID
+//                eventArticle.setTable(tbTable3);
+//                //设置事件文章的时间
+//                String time = essaySimi.getXinhuaNewsEntity().getDateTime();
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+//                Date date = new Date();
+//                try {
+//                    date = sdf.parse(time);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                time = sf.format(date);
+//                System.out.println(time);
+//                eventArticle.setTime(time);
+//                eventArticleService.saveOrUpdateEventArticle(eventArticle);
+//                i++;
+//                if (i > 200) {
+//                    break;
+//                }
+//            }
         }
         System.out.println("耗时：\t" + internalTime + "秒");
         System.out.println("事件ID：" + eve.getId());
@@ -404,7 +467,6 @@ public class EventSimiEssayController {
         for (int i = 0; i < events.size(); i ++){
             String eventID = events.get(i).getId();
             List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
-
         }
 
         model.addAttribute("events", events);
@@ -436,6 +498,12 @@ public class EventSimiEssayController {
             //添加热度值
             HotValueUtil.insertHotValueBySourceArticles_bbsPeoplePosts(bbsPeoplePosts);
         }
+
+//        if (tableName.equals("xinhua_news")) {
+//            List<XinhuaNewsEntity> xinhuaNewsList = xinhuaNewsService.getAllXinHuaNews();
+//            //添加热度值
+//            HotValueUtil.insertHotValueBySourceArticles_xinhuanews(xinhuaNewsList);
+//        }
         return "success";
     }
 
@@ -443,7 +511,5 @@ public class EventSimiEssayController {
     /**
      * 命名实体识别NER
      */
-
-
 
 }

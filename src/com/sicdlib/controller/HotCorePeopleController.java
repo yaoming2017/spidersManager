@@ -80,6 +80,8 @@ public class HotCorePeopleController {
         model.addAttribute("tableHotValuestop10", tableHotValuestop10);
         model.addAttribute("tableHotValuestop10_doubans", tableHotValuestop10_doubans);
         model.addAttribute("tableHotValuestop10_bbsPeoples", tableHotValuestop10_bbsPeoples);
+        model.addAttribute("eventID", eventID);
+        req.getSession().setAttribute("eventID", eventID);
         return "hotCorePeople";
     }
 }

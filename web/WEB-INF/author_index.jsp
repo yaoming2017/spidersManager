@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: YH
-  Date: 2017/6/1
-  Time: 22:30
+  Date: 2017/6/19
+  Time: 23:34
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -71,34 +71,36 @@
     <ul style="display: block;background: #2E363F;height: 800px;">
         <li><a href="eventsList" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件列表</span></a> </li>
         <li><a href="event?eventID=${eventID}" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-tint"></i> <span>事件趋势</span></a> </li>
-        <li><a href="hotWords?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
-        <li class="active"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
+        <li><a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-signal"></i> <span>热点词</span></a> </li>
+        <li><a href="sourceWebsiteStatistics?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>媒体来源分析</span></a> </li>
         <li><a href="articleSpread?eventID=${eventID}" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-th"></i> <span>文章传播</span></a></li>
+        <li class="active"><a href="authorIndex?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>发布者指标</span></a></li>
+        <li><a href="eventTrend?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-inbox"></i> <span>事件走势</span></a> </li>
         <%--<li><a href="sentiment.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-fullscreen"></i> <span>表情分析</span></a></li>--%>
         <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-th-list"></i> <span>分析</span> <span class="label label-important">3</span></a>--%>
-            <%--<ul>--%>
-                <%--<li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>--%>
-                <%--<li><a href="sex.html" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>--%>
-                <%--<li><a href="count.html" style="font-family: 新宋体;font-size: 18px;">统计</a></li>--%>
-            <%--</ul>--%>
+        <%--<ul>--%>
+        <%--<li><a href="publish.html" style="font-family: 新宋体;font-size: 18px;">博主分析</a></li>--%>
+        <%--<li><a href="sex.html" style="font-family: 新宋体;font-size: 18px;">男女比例</a></li>--%>
+        <%--<li><a href="count.html" style="font-family: 新宋体;font-size: 18px;">统计</a></li>--%>
+        <%--</ul>--%>
         <%--</li>--%>
         <%--<li><a href="hotCorePeople.jsp" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-tint"></i><span>核心传播人</span></a></li>--%>
-        <%--<li><a href="hotInformation.jsp" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>--%>
+        <%--<li><a href="hot.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-pencil"></i><span>热门信息</span></a></li>--%>
         <%--<li><a href="data.html" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-file"></i><span>数据类型</span></a></li>--%>
         <%--<li class="submenu"> <a href="#" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-info-sign"></i> <span>发布</span> <span class="label label-important">3</span></a>--%>
-            <%--<ul>--%>
-                <%--<li><a href="weibo.html" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>--%>
-                <%--<li><a href="area.html" style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>--%>
-                <%--<li><a href="device.html" style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>--%>
-            <%--</ul>--%>
+        <%--<ul>--%>
+        <%--<li><a href="weibo.html" style="font-family: 新宋体;font-size: 18px;">微博分布</a></li>--%>
+        <%--<li><a href="area.html" style="font-family: 新宋体;font-size: 18px;">地域分布</a></li>--%>
+        <%--<li><a href="device.html" style="font-family: 新宋体;font-size: 18px;">设备分布</a></li>--%>
+        <%--</ul>--%>
         <%--</li>--%>
     </ul>
 </div>
 <div id="content">
     <div id="content-header">
         <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>主页</a> <a
-                href="#" class="current">媒体来源比例分析</a></div>
-        <h1>媒体来源比例分析</h1>
+                href="#" class="current">发布者影响力和活跃度</a></div>
+        <h1>发布者影响力和活跃度</h1>
         <hr>
     </div>
     <!--为Echarts准备一个具备大小（宽高）的Dom-->
@@ -110,47 +112,107 @@
 <script src="js/js1/echarts.min.js"></script><!--引入echarts.js-->
 <script src="js/js1/echarts-wordcloud.min.js"></script>
 <script  type="text/javascript">
-    //基于准备好的dom,初始化echarts实例
+    var influenceAndActiveness = JSON.parse('${influenceAndActiveness}');
+    var author_name = [];
+    var influence = [];
+    var activeness = [];
+    for(var key in influenceAndActiveness) {
+        author_name.push(key);
+        influence.push(influenceAndActiveness[key]['influence']);
+        activeness.push(influenceAndActiveness[key]['activeness']);
+    }
+
     var myChart = echarts.init(document.getElementById('main'));
 
-    var keyWords = JSON.parse('${websiteNum}');
-    //指定图表的配置项和数据
-    var option = {
+    myChart.hideLoading();
+
+    option = {
         tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow',
+                label: {
+                    show: true
+                }
+            }
         },
         toolbox: {
             show : true,
             feature : {
                 mark : {show: true},
                 dataView : {show: true, readOnly: false},
-                magicType : {
-                    show: true,
-                    type: ['pie', 'funnel']
-                },
+                magicType: {show: true, type: ['line', 'bar']},
                 restore : {show: true},
                 saveAsImage : {show: true}
             }
         },
         calculable : true,
+        legend: {
+            data:['影响力', '活跃度'],
+            itemGap: 5
+        },
+        grid: {
+            top: '12%',
+            left: '1%',
+            right: '10%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type : 'category',
+                data : author_name
+            }
+        ],
+        yAxis: [
+            {
+                type : 'value',
+                name : '',
+                axisLabel: {
+                    formatter: function (a) {
+                        a = +a;
+                        return isFinite(a)
+                            ? echarts.format.addCommas(+a / 1000)
+                            : '';
+                    }
+                }
+            }
+        ],
+        dataZoom: [
+            {
+                show: true,
+                start: 94,
+                end: 100
+            },
+            {
+                type: 'inside',
+                start: 94,
+                end: 100
+            },
+            {
+                show: true,
+                yAxisIndex: 0,
+                filterMode: 'empty',
+                width: 30,
+                height: '80%',
+                showDataShadow: false,
+                left: '93%'
+            }
+        ],
         series : [
             {
-                type:'pie',
-                radius : [50, 220],
-                center : ['50%', '50%'],
-                roseType : 'area',
-                data: keyWords
+                name: '影响力',
+                type: 'bar',
+                data: influence
+            },
+            {
+                name: '活跃度',
+                type: 'bar',
+                data: activeness
             }
         ]
     };
-    //使用刚指定的配置项和数据显示图表
-    myChart.setOption(option);
-    myChart.on('click', function (params) {
-        alert((params.name));
-        window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(params.name));
 
-    });
+    myChart.setOption(option);
 </script>
 </body>
 </html>

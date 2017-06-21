@@ -45,6 +45,7 @@ public class EventController {
         model.addAttribute("dateList", JSON.toJSON(dateList));
         model.addAttribute("data", JSON.toJSON(data));
         model.addAttribute("eventID", eventId);
+        req.getSession().setAttribute("eventID", eventId);
 
         return "event";
     }

@@ -21,4 +21,6 @@ public class IndexService implements IIndexService {
         boolean test = tableColumnDAO.isExistColumn("bbs_china_author", "id");
         System.out.println(test);
     }
+
+
 }

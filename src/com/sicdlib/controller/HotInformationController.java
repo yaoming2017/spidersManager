@@ -87,7 +87,12 @@ public class HotInformationController {
         model.addAttribute("tableHotValuestop10", tableHotValuestop10);
         model.addAttribute("tableHotValuestop10_doubans", tableHotValuestop10_doubans);
         model.addAttribute("tableHotValuestop10_bbsPeoples", tableHotValuestop10_bbsPeoples);
+
 //      model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);
+
+        model.addAttribute("eventID", eventID);
+        req.getSession().setAttribute("eventID", eventID);
+//        model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);
         return "hotInformation";
     }
 

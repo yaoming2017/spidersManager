@@ -28,6 +28,9 @@ public class Segmentation implements ISegmentation{
     public List<String> getWordsList() {
         List<String> textList = new LinkedList<>();
         for(String text: sourceTextList) {
+
+            text = text.replaceAll("\\d", "");
+
             // 创建分词对象
             StringReader reader = new StringReader(text);
 

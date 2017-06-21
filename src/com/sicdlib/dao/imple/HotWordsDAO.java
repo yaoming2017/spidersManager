@@ -32,4 +32,9 @@ public class HotWordsDAO implements IHotWordsDAO {
     public void batchSaveHotWords(List<TbHotWordEntity> hotWordsList) {
         baseDAO.batchSave(hotWordsList);
     }
+
+    @Override
+    public void saveHotWords(TbHotWordEntity hotWords) {
+        baseDAO.save(hotWords);
+    }
 }

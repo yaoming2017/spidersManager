@@ -38,7 +38,8 @@ public class ArticleSpreadController {
         Map<String, List> nodesAndEdges = articleSpreadService.getNodeAndEdgeAttributes(eventID);
 
         model.addAttribute("category", JSON.toJSONString(categoryName).replace("'", "\\\'"));
-        model.addAttribute("nodesAndEdges", JSON.toJSONString(nodesAndEdges).replace("'", "\\\'"));
+        model.addAttribute("nodesAndEdges", JSON.toJSONString(nodesAndEdges)
+                .replace("'", "\\\'"));
         model.addAttribute("eventID", eventID);
 
         return "article_spread";

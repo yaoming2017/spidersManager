@@ -52,16 +52,12 @@ public class EventSimiEssayController {
     private ITableService tableService;
 
     @Autowired
-    @Qualifier("sourceArticleNumService")
-    private ISourceArticleNumService sourceArticleNumService;
-
-    @Autowired
     @Qualifier("bbsPeoplePostService")
     private IBBSPeoplePostService bbsPeoplePostService;
-    @Autowired
-    @Qualifier("xinhuaNewsService")
-    private IXINHUANewsService xinhuaNewsService;
 
+    @Autowired
+    @Qualifier("preCalService")
+    private IPreCalService preCalService;
 
     /**
      * 初始化word2vec模型：将数据库中词映射到向量空间
@@ -404,7 +400,8 @@ public class EventSimiEssayController {
         System.out.println("耗时：\t" + internalTime + "秒");
         System.out.println("事件ID：" + eve.getId());
         //添加事件摘要、趋势类型、开始时间、结束时间等属性
-        eventService.setEventAttributes(eve.getId());
+
+        preCalService.cal(eve.getId());
 
         List<TbEventEntity> events = eventService.getAllEvent();
         model.addAttribute("events", events);

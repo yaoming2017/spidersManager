@@ -31,8 +31,7 @@ public class EventTrendController {
 
     @RequestMapping("eventTrend")
     public String event(HttpServletRequest req, Model model) {
-        String eventID = "0b5bea37-d934-4a7a-850c-8e08eab25d54";
-        eventID = req.getParameter("eventID");
+        String eventID = req.getParameter("eventID");
         List<TableHotValue> tableHotValues = new ArrayList<TableHotValue>();
         //1. 获得事件的开始文章
         TbEventArticleEntity starttimeEventArticle = eventService.getSourceEventArticle(eventID);
@@ -136,6 +135,7 @@ public class EventTrendController {
             }
         }
         model.addAttribute("tableHotValues", tableHotValues);
+        model.addAttribute("eventID", eventID);
         return "eventTrend";
     }
 }

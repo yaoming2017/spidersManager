@@ -128,9 +128,7 @@
                                     <ul>
                                         <c:forEach items="${events}" var="e">
                                             <li class="hotIn">
-                                                <ul class="control">
-                                                    <li><b class="icon-trash-o deleLi" onclick="delHot(this);" title="删除"></b></li>
-                                                </ul>
+
                                                 <div class="tx"><img src="images/67be458fjw8exz23yekkwj2050050t8q.jpg"></div>
                                                 <p class="mscrame"><a target="_blank" href="#" class="a1">${e.eventName}</a></p>
                                                 <p class="wbText">摘要：${e.eventIntroduction}</p>

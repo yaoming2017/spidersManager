@@ -294,19 +294,23 @@ public class BaseDAO<T> implements IBaseDAO<T> {
     public void batchSave(List<Object> oList) {
         Transaction tx = sessionFactory.openSession().getTransaction();
         tx.begin();
-
-        for(int i = 0; i < oList.size(); i++) {
-            Object o = oList.get(i);
-            getCurrentSession().save(o);
-            if(i % 100 == 0) {
-                getCurrentSession().flush();
-                getCurrentSession().clear();
+        int i = 0;
+        try{
+            for(; i < oList.size(); i++) {
+                Object o = oList.get(i);
+                getCurrentSession().save(o);
+                if(i % 100 == 0) {
+                    getCurrentSession().flush();
+                    getCurrentSession().clear();
+                }
             }
+        } catch (Exception e) {
+            System.err.println("第" + i + "条数据出错！！");
+        } finally {
+            getCurrentSession().flush();
+            getCurrentSession().clear();
+            tx.commit();
         }
-
-        getCurrentSession().flush();
-        getCurrentSession().clear();
-        tx.commit();
     }
 
     @Override

@@ -144,4 +144,11 @@ public class AuthorDAO implements IAuthorDAO {
 
         baseDAO.save(eventAuthor);
     }
+
+    @Override
+    public List<TbEventAuthorMappingEntity> getEventAuthorMappingByEventId(String eventID) {
+        String hql = "FROM TbEventAuthorMappingEntity eventAuthor " +
+                "WHERE eventAuthor.event.id = '" + eventID + "'";
+        return baseDAO.find(hql);
+    }
 }

@@ -17,6 +17,8 @@ public interface ITableDAO {
     //List<String> getArticleCommentNumByEventID(String eventID);
     List<TbTableEntity> getTableByEventID(String eventID);
     Map<String,Integer> getCommentNumByTableName(String eventname);
+    //网民的参与度
+    List<String[]> getActiveness(String eventID);
 
 }
 

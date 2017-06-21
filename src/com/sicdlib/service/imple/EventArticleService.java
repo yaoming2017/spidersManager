@@ -5,6 +5,7 @@ import com.sicdlib.dao.IEventDAO;
 import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbSentimentInflucenceEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.service.IEventArticleService;
 import com.sicdlib.service.IEventService;
 import com.sicdlib.util.UUIDUtil.UUIDUtil;
@@ -46,4 +47,5 @@ public class EventArticleService implements IEventArticleService {
     public List<TbSentimentInflucenceEntity> getInflucenceByStartEndTime(String eventId, String startTimeStr, String endTimeStr) {
         return eventArticleDAO.getInflucenceByStartEndTime(eventId, startTimeStr, endTimeStr);
     }
+
 }

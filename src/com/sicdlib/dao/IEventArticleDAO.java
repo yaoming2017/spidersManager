@@ -3,6 +3,7 @@ package com.sicdlib.dao;
 import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbSentimentInflucenceEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 
 import java.util.List;
 

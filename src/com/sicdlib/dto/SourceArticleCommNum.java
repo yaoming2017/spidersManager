@@ -7,7 +7,7 @@ import com.sicdlib.dto.entity.DoubanGroupPostEntity;
  * 源文章数量
  * Created by init on 2017/6/16.
  */
-public class SourceArticleNum {
+public class SourceArticleCommNum {
     private Integer num;
     private String startTime;
     private String endTime;

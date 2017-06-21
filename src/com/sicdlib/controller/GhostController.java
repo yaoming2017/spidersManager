@@ -33,8 +33,6 @@ public class GhostController {
         htable_name = "douban_group_author";
         hBaseData = new HBaseData(htable_name);
         hBaseData.getAllData();
-
-
 //        //豆瓣小组 - 评论
 //        htable_name = "douban_group_comment";
 //        hBaseData = new HBaseData(htable_name);
@@ -50,9 +48,6 @@ public class GhostController {
 //        model.addAttribute("douban_group_post_fields", douban_group_post_fields);
 //        List<KeyMeaningEntity> douban_group_post_keyMeaningEntities = keyMeaningService.getKeyMeanings(htable_name);
 //        model.addAttribute("douban_group_post_keyMeanings", douban_group_post_keyMeaningEntities);
-
-
-
         return "index";
     }
 }

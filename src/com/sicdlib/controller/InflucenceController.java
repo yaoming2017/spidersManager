@@ -76,11 +76,7 @@ public class InflucenceController {
 
         System.out.println("ccccc");
         List<SourceArticleCommNum> sourceArticleCommNums = new ArrayList<>();
-
         String eventID = req.getParameter("eventID");
-
-//        Map<String, Integer> map = tableService.getCommentNumByTableName("反腐倡廉");
-
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
 //        List<DoubanGroupPostEntity> doubanGroupPostList = new ArrayList<>();
 //        for (int i = 0;i < eventArticles.size(); i++){

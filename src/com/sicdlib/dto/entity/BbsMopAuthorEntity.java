@@ -4,21 +4,20 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/5/24.
+ * Created by YH on 2017/6/22.
  */
 @Entity
-@Table(name = "bbs_mop_author", schema = "socialmind", catalog = "")
+@Table(name = "bbs_mop_author", schema = "socialmind")
 public class BbsMopAuthorEntity {
+    private String id;
     private String authorId;
     private String authorName;
     private String sex;
-    private String location;
     private String age;
     private String level;
     private String levelNick;
     private Integer friendsNum;
     private Integer fansNum;
-    private String point;
     private Integer postNum;
     private Integer replyNum;
     private Integer hits;
@@ -32,7 +31,16 @@ public class BbsMopAuthorEntity {
     private String education;
     private String career;
     private Timestamp timeStamp;
-    private String id;
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Basic
     @Column(name = "author_id")
@@ -62,16 +70,6 @@ public class BbsMopAuthorEntity {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    @Basic
-    @Column(name = "location")
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     @Basic
@@ -122,16 +120,6 @@ public class BbsMopAuthorEntity {
 
     public void setFansNum(Integer fansNum) {
         this.fansNum = fansNum;
-    }
-
-    @Basic
-    @Column(name = "point")
-    public String getPoint() {
-        return point;
-    }
-
-    public void setPoint(String point) {
-        this.point = point;
     }
 
     @Basic
@@ -271,16 +259,15 @@ public class BbsMopAuthorEntity {
 
         BbsMopAuthorEntity that = (BbsMopAuthorEntity) o;
 
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (authorName != null ? !authorName.equals(that.authorName) : that.authorName != null) return false;
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
-        if (location != null ? !location.equals(that.location) : that.location != null) return false;
         if (age != null ? !age.equals(that.age) : that.age != null) return false;
         if (level != null ? !level.equals(that.level) : that.level != null) return false;
         if (levelNick != null ? !levelNick.equals(that.levelNick) : that.levelNick != null) return false;
         if (friendsNum != null ? !friendsNum.equals(that.friendsNum) : that.friendsNum != null) return false;
         if (fansNum != null ? !fansNum.equals(that.fansNum) : that.fansNum != null) return false;
-        if (point != null ? !point.equals(that.point) : that.point != null) return false;
         if (postNum != null ? !postNum.equals(that.postNum) : that.postNum != null) return false;
         if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
         if (hits != null ? !hits.equals(that.hits) : that.hits != null) return false;
@@ -300,16 +287,15 @@ public class BbsMopAuthorEntity {
 
     @Override
     public int hashCode() {
-        int result = authorId != null ? authorId.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
         result = 31 * result + (age != null ? age.hashCode() : 0);
         result = 31 * result + (level != null ? level.hashCode() : 0);
         result = 31 * result + (levelNick != null ? levelNick.hashCode() : 0);
         result = 31 * result + (friendsNum != null ? friendsNum.hashCode() : 0);
         result = 31 * result + (fansNum != null ? fansNum.hashCode() : 0);
-        result = 31 * result + (point != null ? point.hashCode() : 0);
         result = 31 * result + (postNum != null ? postNum.hashCode() : 0);
         result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
         result = 31 * result + (hits != null ? hits.hashCode() : 0);
@@ -324,15 +310,5 @@ public class BbsMopAuthorEntity {
         result = 31 * result + (career != null ? career.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         return result;
-    }
-
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

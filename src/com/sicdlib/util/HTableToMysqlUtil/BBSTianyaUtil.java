@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * Created by DeMH on 2017/5/17.
  */
-class HTableToMysqlUtil {
+public class BBSTianyaUtil {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     /**

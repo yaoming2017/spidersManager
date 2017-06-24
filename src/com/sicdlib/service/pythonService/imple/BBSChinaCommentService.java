@@ -25,4 +25,9 @@ public class BBSChinaCommentService implements IBBSChinaCommentService {
         }
         return bbsChinaCommentDAO.saveBBSChinaComment(bbsChinaComment);
     }
+
+    @Override
+    public void normalizeAuthorNameAndContent() {
+        bbsChinaCommentDAO.batchNormalizeAuthorNameAndContent();
+    }
 }

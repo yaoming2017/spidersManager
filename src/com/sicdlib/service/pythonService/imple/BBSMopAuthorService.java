@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 
 
 /**
@@ -26,5 +27,10 @@ public class BBSMopAuthorService implements IBBSMopAuthorService {
             bbsMopAuthor.setId(uuid);
         }
         return bbsMopAuthorDAO.saveBBSMopAuthor(bbsMopAuthor);
+    }
+
+    @Override
+    public void normalizeSexAgeBirthdayRegisterDate() throws ParseException {
+        bbsMopAuthorDAO.batchNormalizeSexAgeBirthdayRegisterDate();
     }
 }

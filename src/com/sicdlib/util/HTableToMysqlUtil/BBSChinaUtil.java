@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -189,7 +190,7 @@ public class BBSChinaUtil {
      * 中华网社区的文章信息转换到mysql中
      */
     @Test
-    public  void test_bbsChinaPost_HTableMysql() throws  Exception{
+    public static void test_bbsChinaPost_HTableMysql() throws  Exception{
         IBBSChinaPostService bbsChinaPostService = (IBBSChinaPostService) apx.getBean("bbsChinaPostService");
         Long beginTime = new Date().getTime();
         /**
@@ -206,7 +207,7 @@ public class BBSChinaUtil {
             i++;
             for(KeyValue rowKV : result.raw()){
                 //字段名
-                String qualifer = new String(rowKV.getQualifier());
+                String qualifer = new String(rowKV.getQualifier(), Charset.forName("utf-8"));
                 //值，字段对应的值
                 String value = new String(rowKV.getValue());
                 //数据公共清理
@@ -215,10 +216,10 @@ public class BBSChinaUtil {
                     case "post_id":
                         bbsChinaPost.setPostId(value);
                         break;
-                    case "comment_ids":
-                        List<String> listString = this.getCommentId(value);
-                        bbsChinaPost.setCommentNum(listString.size());
-                        break;
+//                    case "comment_ids":
+//                        List<String> listString = this.getCommentId(value);
+//                        bbsChinaPost.setCommentNum(listString.size());
+//                        break;
                     case  "author_id":
                         bbsChinaPost.setAuthorId(value);
                         break;
@@ -245,6 +246,9 @@ public class BBSChinaUtil {
                         break;
                     case   "level":
                         String contentValue = value.replaceAll("等级","");
+                        if(contentValue == null || contentValue.equals("")) {
+                            contentValue = "0";
+                        }
                         bbsChinaPost.setLevel(contentValue);
                         break;
                     case   "point":
@@ -264,7 +268,7 @@ public class BBSChinaUtil {
                         bbsChinaPost.setParticipantNum(Integer.parseInt(value));
                         break;
                     case   "reply_num":
-                        bbsChinaPost.setReplyNum(Integer.parseInt(value));
+                        bbsChinaPost.setCommentNum(Integer.parseInt(value));
                         break;
                     case  "url":
                         bbsChinaPost.setUrl(value);

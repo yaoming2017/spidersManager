@@ -302,6 +302,9 @@ public class BaseDAO<T> implements IBaseDAO<T> {
                 if(i % 100 == 0) {
                     getCurrentSession().flush();
                     getCurrentSession().clear();
+
+                    tx.commit();
+                    tx = sessionFactory.openSession().getTransaction();
                 }
             }
         } catch (Exception e) {

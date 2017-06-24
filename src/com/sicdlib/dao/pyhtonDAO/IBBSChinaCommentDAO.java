@@ -9,4 +9,5 @@ import com.sicdlib.util.HTableToMysqlUtil.BBSChinaUtil;
  */
 public interface IBBSChinaCommentDAO {
     Boolean saveBBSChinaComment(BbsChinaCommentEntity bbsChinaComment);
+    void batchNormalizeAuthorNameAndContent();
 }

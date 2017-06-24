@@ -7,4 +7,5 @@ import com.sicdlib.dto.entity.BbsMopPostEntity;
  */
 public interface IBBSMopPostDAO {
     Boolean saveBBSMopPost(BbsMopPostEntity bbsMopPost);
+    void batchNormalizeContent();
 }

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by init on 2017/6/16.
  */
 @Entity
-@Table(name = "kdnet_post", schema = "socialmind", catalog = "")
+@Table(name = "kdnet_post", schema = "socialmind")
 public class KdnetPostEntity {
     private String postId;
     private String authorId;
@@ -15,15 +15,13 @@ public class KdnetPostEntity {
     private String postUrl;
     private String title;
     private String author;
-    private String authorHref;
-    private String postTime;
+    private String dateTime;
     private String category;
     private Integer hits;
     private Integer commentNum;
     private String atUser;
     private String atHref;
     private String content;
-    private Timestamp parseTime;
     private Timestamp timeStamp;
     private String id;
 
@@ -88,23 +86,13 @@ public class KdnetPostEntity {
     }
 
     @Basic
-    @Column(name = "author_href")
-    public String getAuthorHref() {
-        return authorHref;
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setAuthorHref(String authorHref) {
-        this.authorHref = authorHref;
-    }
-
-    @Basic
-    @Column(name = "post_time")
-    public String getPostTime() {
-        return postTime;
-    }
-
-    public void setPostTime(String postTime) {
-        this.postTime = postTime;
+    public void setDateTime(String postTime) {
+        this.dateTime = postTime;
     }
 
     @Basic
@@ -168,16 +156,6 @@ public class KdnetPostEntity {
     }
 
     @Basic
-    @Column(name = "parse_time")
-    public Timestamp getParseTime() {
-        return parseTime;
-    }
-
-    public void setParseTime(Timestamp parseTime) {
-        this.parseTime = parseTime;
-    }
-
-    @Basic
     @Column(name = "time_stamp")
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -210,15 +188,13 @@ public class KdnetPostEntity {
         if (postUrl != null ? !postUrl.equals(that.postUrl) : that.postUrl != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
-        if (authorHref != null ? !authorHref.equals(that.authorHref) : that.authorHref != null) return false;
-        if (postTime != null ? !postTime.equals(that.postTime) : that.postTime != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
         if (hits != null ? !hits.equals(that.hits) : that.hits != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
         if (atUser != null ? !atUser.equals(that.atUser) : that.atUser != null) return false;
         if (atHref != null ? !atHref.equals(that.atHref) : that.atHref != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
@@ -233,15 +209,13 @@ public class KdnetPostEntity {
         result = 31 * result + (postUrl != null ? postUrl.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (authorHref != null ? authorHref.hashCode() : 0);
-        result = 31 * result + (postTime != null ? postTime.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (hits != null ? hits.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (atUser != null ? atUser.hashCode() : 0);
         result = 31 * result + (atHref != null ? atHref.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;

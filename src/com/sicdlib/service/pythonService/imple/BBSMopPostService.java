@@ -24,4 +24,5 @@ public class BBSMopPostService implements IBBSMopPostService {
         }
         return bbsMopPostDAO.saveBBSMopPost(bbsMopPost);
     }
+
 }

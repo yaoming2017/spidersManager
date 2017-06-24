@@ -250,7 +250,7 @@ public class KDNETUtil {
                         kdnetPost.setAtHref(value);
                         break;
                     case "post_time":
-                        kdnetPost.setPostTime(value);
+                        kdnetPost.setDateTime(value);
                         break;
                     case "category":
                         kdnetPost.setCategory(value);
@@ -273,7 +273,7 @@ public class KDNETUtil {
                     case  "parse_time":
                         Double time = Double.parseDouble(value) *1000;
                         Long longTime = new Long(time.longValue());
-                        kdnetPost.setParseTime(new Timestamp(longTime));
+                        kdnetPost.setDateTime(new Timestamp(longTime).toString());
                         break;
                 }
                 Long time = new Long(rowKV.getTimestamp());

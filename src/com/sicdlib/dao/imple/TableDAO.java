@@ -1,17 +1,12 @@
 package com.sicdlib.dao.imple;
-
-import com.google.protobuf.Internal;
 import com.sicdlib.dao.IBaseDAO;
 import com.sicdlib.dao.ITableDAO;
-import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.TbTableEntity;
-import org.jruby.RubyProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,12 +99,16 @@ public class TableDAO implements ITableDAO {
                 BigDecimal a=baseDAO.getcount(sqlnew);
                 System.out.println("----------" + a);
                 map.put(item.getTableName(),a.intValue());
-
             }
 
         }
-
          System.out.println("*********************"+map.get("douban_group_post"));
          return  map;
+    }
+    //网民参与度
+    @Override
+    public List<String[]> getActiveness(String eventID) {
+       String sql = "select activeness from tb_author";
+       return baseDAO.getSqlList(sql);
     }
 }

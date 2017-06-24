@@ -5,6 +5,7 @@ import com.sicdlib.dao.IEventArticleDAO;
 import com.sicdlib.dto.TbEventArticleEntity;
 import com.sicdlib.dto.TbSentimentInflucenceEntity;
 import com.sicdlib.dto.TbTableEntity;
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;

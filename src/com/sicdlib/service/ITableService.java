@@ -3,6 +3,7 @@ package com.sicdlib.service;
 
 import com.sicdlib.dto.TbTableEntity;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ITableService {
@@ -15,4 +16,5 @@ public interface ITableService {
      * @return key为tableID,value为[articleID, dateTime, authorID, authorName, postNum, replyNum, fansNum]
      */
     void setAuthorAttributes(String eventID) throws Exception;
+    List<String[]> getActivess(String eventID);
 }

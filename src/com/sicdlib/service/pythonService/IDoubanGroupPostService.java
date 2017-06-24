@@ -9,4 +9,5 @@ public interface IDoubanGroupPostService {
     public boolean saveDoubanGroupPost(DoubanGroupPostEntity doubanGroupPost);
     public List<DoubanGroupPostEntity> getAllDoubanGroupPost();
     public DoubanGroupPostEntity getDoubanGroupPost(String id);
+
 }

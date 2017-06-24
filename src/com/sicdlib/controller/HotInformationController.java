@@ -48,7 +48,7 @@ public class HotInformationController {
 
     @RequestMapping("hotInformation")
     public String hotInformation(HttpServletRequest req, Model model) {
-        String eventID = "0b5bea37-d934-4a7a-850c-8e08eab25d54";
+        String eventID = "5524a6e0-58cb-4e64-baab-b14ffb622b2e";
         eventID = req.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //获得热度值
@@ -56,12 +56,12 @@ public class HotInformationController {
         List<TableHotValue> tableHotValuestop10 = new ArrayList<TableHotValue>();
         List<TableHotValue> tableHotValuestop10_doubans = new ArrayList<TableHotValue>();
         List<TableHotValue> tableHotValuestop10_bbsPeoples = new ArrayList<TableHotValue>();
-//        List<TableHotValue> tableHotValuestop10_xinhuanews = new ArrayList<TableHotValue>();
+//      List<TableHotValue> tableHotValuestop10_xinhuanews = new ArrayList<TableHotValue>();
         int top10flag = 0;
         int top10_doubanflag = 0;
         int top10_bbsPeopleflag = 0;
 //        int top10_xinhuanewsflag = 0;
-        for (int i = 0;top10flag < 10 && top10_doubanflag < 10 && top10_bbsPeopleflag < 10|| i < tableHotValues.size(); i++){
+        for (int i = 0;top10flag < 10 && top10_doubanflag < 10 && top10_bbsPeopleflag < 10 || i < tableHotValues.size(); i++){
             //获得所有网站热度前10条信息
             if(top10flag < 10){
                 tableHotValuestop10.add(tableHotValues.get(i));
@@ -87,6 +87,9 @@ public class HotInformationController {
         model.addAttribute("tableHotValuestop10", tableHotValuestop10);
         model.addAttribute("tableHotValuestop10_doubans", tableHotValuestop10_doubans);
         model.addAttribute("tableHotValuestop10_bbsPeoples", tableHotValuestop10_bbsPeoples);
+
+//      model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);
+
         model.addAttribute("eventID", eventID);
         req.getSession().setAttribute("eventID", eventID);
 //        model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);

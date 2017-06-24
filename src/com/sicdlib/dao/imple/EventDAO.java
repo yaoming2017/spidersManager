@@ -113,8 +113,12 @@ public class EventDAO implements IEventDAO {
     public TbEventArticleEntity getSourceEventArticle(String eventID) {
         String hql = "FROM TbEventArticleEntity eventArticle WHERE eventArticle.event.id = '"
                 + eventID + "' ORDER BY eventArticle.time asc";
-
-        return (TbEventArticleEntity) baseDAO.find(hql, 0, 1).get(0);
+        System.out.println(baseDAO.find(hql).size());
+        if (baseDAO.find(hql, 0, 1).size() != 0 && baseDAO.find(hql, 0, 1) != null){
+            return (TbEventArticleEntity) baseDAO.find(hql, 0, 1).get(0);
+        }else{
+            return null;
+        }
     }
 
     @Override

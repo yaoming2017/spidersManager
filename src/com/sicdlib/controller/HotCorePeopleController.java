@@ -48,7 +48,7 @@ public class HotCorePeopleController {
 
     @RequestMapping("hotCorePeople")
     public String hotCorePeople(HttpServletRequest req, Model model) {
-        String eventID = "0b5bea37-d934-4a7a-850c-8e08eab25d54";
+        String eventID = "4b938766-c740-446f-92b7-d9025d500686";
         eventID = req.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //获得热度值

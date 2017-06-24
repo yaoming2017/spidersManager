@@ -62,7 +62,7 @@ public class TableService implements ITableService{
 
     public void setAuthorAttributes(String eventID) throws Exception {
         //存储不同网站信息的Map
-//        Map<String, List<Object[]>> authorMap = new HashMap<>();
+        //Map<String, List<Object[]>> authorMap = new HashMap<>();
 
         //获取事件下记录作者的网站名，如果没有单独的作者表，则返回post表
         List<TbTableEntity> tableList = tableDAO.getTableByEventID(eventID);
@@ -198,6 +198,11 @@ public class TableService implements ITableService{
 
     }
 
+    @Override
+    public List<String[]> getActivess(String eventID) {
+        return null;
+    }
+
     /**
      * 计算影响力，（发布者发布文章数+发布者发布文章的评论数+发布者发布文章的阅读数+粉丝数）/4
      * @param postNum 发布者发布文章数
@@ -219,6 +224,16 @@ public class TableService implements ITableService{
      */
     private double calActiveness(int postNum, int participateCommentNum) {
         double result = 0.7 * postNum + 0.3 * participateCommentNum;
+        return result;
+    }
+    /**
+     *网民参与度，参与回复数/点击数
+     * @param hitNum 点击数
+     * @param participateCommentNum 参与回复数
+     * @return 网民参与度
+     */
+    private double activeness(int hitNum, int participateCommentNum){
+        double result = participateCommentNum / hitNum ;
         return result;
     }
 }

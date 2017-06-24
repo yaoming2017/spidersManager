@@ -34,7 +34,7 @@
         <hr>
     </div>
     <!--为Echarts准备一个具备大小（宽高）的Dom-->
-    <div id="main" style="width: 1400px;height: 800px;"></div>
+    <div id="main" style="width: 900px;height: 700px;"></div>
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.ui.custom.js"></script>
@@ -76,6 +76,37 @@
     }
 
     option = {
+        visualMap: {
+        left: 'right',
+        top: '10%',
+        dimension: 1,
+        min: 0,
+        max: 50,
+        itemWidth: 30,
+        itemHeight: 120,
+        calculable: true,
+        precision: 0.1,
+        text: ['圆形大小：PM2.5'],
+        textGap: 30,
+        textStyle: {
+            color: '#fff'
+        },
+        inRange: {
+            symbolSize: [10, 70]
+        },
+        outOfRange: {
+            symbolSize: [10, 70],
+                color: ['rgba(255,255,255,.2)']
+        },
+        controller: {
+            inRange: {
+                color: ['#c23531']
+            },
+            outOfRange: {
+                color: ['#444']
+            }
+        }
+        },
         tooltip: {
             show: true,
             position: function (pos, params, dom, rect, size) {

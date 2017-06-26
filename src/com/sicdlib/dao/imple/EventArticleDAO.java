@@ -26,7 +26,11 @@ public class EventArticleDAO implements IEventArticleDAO {
         String tableName = ((TbTableEntity) baseDAO.get(TbTableEntity.class, tableID)).getTableName();
 
         String sql = "SELECT title FROM " + tableName + " WHERE id = '" + articleID + "'";
-        return (String) baseDAO.getSqlList(sql).get(0);
+        List<Object> resultList = baseDAO.getSqlList(sql);
+        if(resultList.size() > 0) {
+            return (String) resultList.get(0);
+        }
+        return "";
     }
 
     @Override

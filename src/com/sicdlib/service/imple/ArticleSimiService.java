@@ -59,9 +59,16 @@ public class ArticleSimiService implements IArticleSimiService {
         List<TbArticleSimilarityEntity> simiEntityList = new ArrayList<>();
         Map<String, TbEventArticleEntity> eventMap = new HashMap<>();
         eventMap.put(idList.get(0),eventArticleDAO.getEventArticleEntity(idList.get(0)));
+
+//        double simiSum = 0;
+//        int num = 0;
+
         for (int i = 1; i < wordsList.size(); i++) {
             for (int j = 0; j < i; j++) {
                 double simi = CosSimilarity.calculate(wordsList.get(i), wordsList.get(j));
+
+//                num++;
+//                simiSum += simi;
 
                 TbEventArticleEntity eventArticleA = eventArticleDAO.getEventArticleEntity(idList.get(i));
                 eventMap.put(idList.get(i),eventArticleA);
@@ -78,6 +85,18 @@ public class ArticleSimiService implements IArticleSimiService {
             }
         }
 
+//        double avg = simiSum / num;
+//        //计算标准差
+//        final double[] devSum = {0};
+//        simiEntityList.parallelStream().forEach(simiEntity-> devSum[0] += (simiEntity.getSimilarity() - avg) * (simiEntity.getSimilarity() - avg));
+//
+//        double standDev = Math.sqrt(devSum[0] / num);
+//
+//        //归一化
+//        simiEntityList.forEach(simiEntity-> simiEntity.setSimilarity((simiEntity.getSimilarity() - avg) / standDev));
+
+
         articleSimiDAO.batchSaveSimiEntity(simiEntityList);
+
     }
 }

@@ -17,7 +17,11 @@ import java.util.Date;
 /**
  * Created by DeMH on 2017/5/17.
  */
+<<<<<<< HEAD
 class BBSTianyaUtil {
+=======
+public class BBSTianyaUtil {
+>>>>>>> 8744fd2ad443ba46ca5ad6135eac063d018b5d68
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     /**

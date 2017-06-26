@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by init on 2017/6/6.
  */
 @Entity
-@Table(name = "bbs_china_post", schema = "socialmind", catalog = "")
+@Table(name = "bbs_china_post", schema = "socialmind")
 public class BbsChinaPostEntity {
     private String postId;
     private String authorId;

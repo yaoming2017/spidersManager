@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by init on 2017/6/25.
  */
 @Entity
-@Table(name = "kdnet_post", schema = "socialmind", catalog = "")
+@Table(name = "kdnet_post", schema = "socialmind")
 public class KdnetPostEntity {
     private String id;
     private String postId;
@@ -101,8 +101,13 @@ public class KdnetPostEntity {
         return dateTime;
     }
 
+<<<<<<< HEAD
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+=======
+    public void setDateTime(String postTime) {
+        this.dateTime = postTime;
+>>>>>>> 8744fd2ad443ba46ca5ad6135eac063d018b5d68
     }
 
     @Basic

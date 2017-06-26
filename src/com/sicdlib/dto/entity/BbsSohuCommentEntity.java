@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by init on 2017/5/24.
  */
 @Entity
-@Table(name = "bbs_sohu_comment", schema = "socialmind", catalog = "")
+@Table(name = "bbs_sohu_comment", schema = "socialmind")
 public class BbsSohuCommentEntity {
     private String commentId;
     private String postId;
@@ -17,7 +17,6 @@ public class BbsSohuCommentEntity {
     private String floor;
     private String content;
     private String dateTime;
-    private Integer pictureHrefsNum;
     private String quoteFloor;
     private Timestamp parseTime;
     private Timestamp timeStamp;
@@ -104,16 +103,6 @@ public class BbsSohuCommentEntity {
     }
 
     @Basic
-    @Column(name = "picture_hrefs_num")
-    public Integer getPictureHrefsNum() {
-        return pictureHrefsNum;
-    }
-
-    public void setPictureHrefsNum(Integer pictureHrefsNum) {
-        this.pictureHrefsNum = pictureHrefsNum;
-    }
-
-    @Basic
     @Column(name = "quote_floor")
     public String getQuoteFloor() {
         return quoteFloor;
@@ -158,8 +147,6 @@ public class BbsSohuCommentEntity {
         if (floor != null ? !floor.equals(that.floor) : that.floor != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
-        if (pictureHrefsNum != null ? !pictureHrefsNum.equals(that.pictureHrefsNum) : that.pictureHrefsNum != null)
-            return false;
         if (quoteFloor != null ? !quoteFloor.equals(that.quoteFloor) : that.quoteFloor != null) return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
@@ -177,7 +164,6 @@ public class BbsSohuCommentEntity {
         result = 31 * result + (floor != null ? floor.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
-        result = 31 * result + (pictureHrefsNum != null ? pictureHrefsNum.hashCode() : 0);
         result = 31 * result + (quoteFloor != null ? quoteFloor.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);

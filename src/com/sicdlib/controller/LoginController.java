@@ -1,6 +1,10 @@
 package com.sicdlib.controller;
 
+import com.sicdlib.dto.TbEventArticleEntity;
+import com.sicdlib.dto.TbEventEntity;
 import com.sicdlib.dto.UserEntity;
+import com.sicdlib.service.IEventArticleService;
+import com.sicdlib.service.IEventService;
 import com.sicdlib.service.ILoginService;
 
 import com.sicdlib.util.MD5Util.MD5Util;
@@ -9,6 +13,7 @@ import com.sicdlib.util.SMSUtil.SMSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +32,14 @@ public class LoginController {
     @Qualifier("loginService")
     private ILoginService loginService;
 
+    @Autowired
+    @Qualifier("eventService")
+    private IEventService eventService;
+
+    @Autowired
+    @Qualifier("eventArticleService")
+    private IEventArticleService eventArticleService;
+
     /**
      * 用户的登陆
      * @param req
@@ -35,13 +48,21 @@ public class LoginController {
      * @throws IOException
      */
     @RequestMapping("login")
-    public String login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public String login(HttpServletRequest req, Model model) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         UserEntity user = loginService.validateLogin(username, password);
         if (user != null){
             req.getSession().setAttribute("user", user);
-            return "index";
+            //获得所有事件信息
+            List<TbEventEntity> events = eventService.getAllEvent();
+            //添加事件中文章的热度
+            for (int i = 0; i < events.size(); i ++){
+                String eventID = events.get(i).getId();
+                List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
+            }
+            model.addAttribute("events", events);
+            return "eventsList";
         }
         return "redirect:failure.jsp";
     }

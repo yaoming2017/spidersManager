@@ -23,12 +23,23 @@ public class BbsChinaPostEntity {
     private String dateTime;
     private Integer readNum;
     private Integer participantNum;
-    private Integer replyNum;
     private Timestamp parseTime;
     private String url;
     private Timestamp timeStamp;
     private String id;
     private Integer commentNum;
+
+    @Basic
+    @Column(name = "reply_num")
+    public Integer getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(Integer replyNum) {
+        this.replyNum = replyNum;
+    }
+
+    private Integer replyNum;
 
     @Basic
     @Column(name = "post_id")
@@ -171,16 +182,6 @@ public class BbsChinaPostEntity {
     }
 
     @Basic
-    @Column(name = "reply_num")
-    public Integer getReplyNum() {
-        return replyNum;
-    }
-
-    public void setReplyNum(Integer replyNum) {
-        this.replyNum = replyNum;
-    }
-
-    @Basic
     @Column(name = "parse_time")
     public Timestamp getParseTime() {
         return parseTime;
@@ -252,7 +253,6 @@ public class BbsChinaPostEntity {
         if (readNum != null ? !readNum.equals(that.readNum) : that.readNum != null) return false;
         if (participantNum != null ? !participantNum.equals(that.participantNum) : that.participantNum != null)
             return false;
-        if (replyNum != null ? !replyNum.equals(that.replyNum) : that.replyNum != null) return false;
         if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (url != null ? !url.equals(that.url) : that.url != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
@@ -278,7 +278,6 @@ public class BbsChinaPostEntity {
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (readNum != null ? readNum.hashCode() : 0);
         result = 31 * result + (participantNum != null ? participantNum.hashCode() : 0);
-        result = 31 * result + (replyNum != null ? replyNum.hashCode() : 0);
         result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);

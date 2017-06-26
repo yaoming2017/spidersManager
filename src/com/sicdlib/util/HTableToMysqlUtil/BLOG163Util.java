@@ -210,7 +210,7 @@ public class BLOG163Util {
      */
     @Test
     public void test_BLOG163Post_HTableToMysql() throws Exception{
-        IBLOG163PostService blog163PostService = (IBLOG163PostService) apx.getBean("blog163PostService ");
+        IBLOG163PostService blog163PostService = (IBLOG163PostService) apx.getBean("blog163PostService");
         Long beginTime = new Date().getTime();
         /**
          * 网易博客
@@ -254,7 +254,8 @@ public class BLOG163Util {
                         blog163Post.setAuthorHref(value);
                         break;
                     case "content":
-                        String content_value = String.valueOf((new BASE64Decoder()).decodeBuffer(value));
+                        String content_value = value.replaceAll("\\s*|\t*|\n*|\n*","");
+                        content_value = content_value.replaceAll("[\\u00A0]+", "");
                         blog163Post.setContent(content_value);
                         break;
                     case "hrefs_in_post":

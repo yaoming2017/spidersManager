@@ -8,4 +8,5 @@ import com.sicdlib.dto.entity.KdnetPostEntity;
 public interface IKDNETPostService {
     //更新或新增凯迪社区
     public  boolean saveKDNETPost(KdnetPostEntity kdnetPost);
+    public KdnetPostEntity getKdnetPost(String id);
 }

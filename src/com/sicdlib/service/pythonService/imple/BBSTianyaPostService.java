@@ -24,4 +24,9 @@ public class BBSTianyaPostService  implements IBBSTianyaPostService{
         }
         return bbsTianyaPostDAO.saveBBSTianyaPost(bbsTianyaPost);
     }
+
+    @Override
+    public BbsTianyaPostEntity getBbsTianyaPost(String id) {
+        return bbsTianyaPostDAO.getBbsTianyaPost(id);
+    }
 }

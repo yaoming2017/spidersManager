@@ -24,4 +24,10 @@ public class BBSSohuPostDAO  implements IBBSSohuPostDAO {
             return  false;
         }
     }
+
+    @Override
+    public BbsSohuPostEntity getBbsSohuPost(String id) {
+        String hql = "from BbsSohuPostEntity sh where sh.id ='" + id + "'";
+        return (BbsSohuPostEntity) baseDAO.get(hql);
+    }
 }

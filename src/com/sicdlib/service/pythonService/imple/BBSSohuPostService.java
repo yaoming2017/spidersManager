@@ -24,4 +24,9 @@ public class BBSSohuPostService implements IBBSSohuPostService{
         }
         return bbsSohuPostDAO.saveBBSSohuPost(bbsSohuPost);
     }
+
+    @Override
+    public BbsSohuPostEntity getBbsSohuPost(String id) {
+        return bbsSohuPostDAO.getBbsSohuPost(id);
+    }
 }

@@ -24,4 +24,9 @@ public class BBSXiciPostService  implements IBBSXiciPostService{
         }
         return bbsXiciPostDAO.saveBBSXiciPost(bbsXiciPost);
     }
+
+    @Override
+    public BbsXiciPostEntity getBbsXiciPost(String id) {
+        return bbsXiciPostDAO.getBbsXiciPost(id);
+    }
 }

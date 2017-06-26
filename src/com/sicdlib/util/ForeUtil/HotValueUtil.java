@@ -50,7 +50,7 @@ public class HotValueUtil {
             }
         }
 
-        //对表(网站文章)的热度值进行排序
+       //对表(网站文章)的热度值进行排序
         Collections.sort(tableHotValues, new Comparator<TableHotValue>(){
             @Override
             public int compare(TableHotValue o1, TableHotValue o2) {
@@ -87,7 +87,6 @@ public class HotValueUtil {
             }
 
             if (tableName.equals("bbs_people_post")){
-                ArticleHotValueEntity articleHotValue = new ArticleHotValueEntity();
                 BbsPeoplePostEntity bbsPeoplePost = bbsPeoplePostService.getBbsPeoplePost(eventArticle.getSourceArticleId());
                 System.out.println(bbsPeoplePost);
                 if (bbsPeoplePost != null){

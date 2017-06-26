@@ -24,4 +24,9 @@ public class KDNETPostService  implements IKDNETPostService{
         }
         return kdnetPostDAO.saveKDNETPost(kdnetPost);
     }
+
+    @Override
+    public KdnetPostEntity getKdnetPost(String id) {
+        return kdnetPostDAO.getKdnetPost(id);
+    }
 }

@@ -4,28 +4,36 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by init on 2017/6/16.
+ * Created by init on 2017/6/25.
  */
 @Entity
 @Table(name = "kdnet_post", schema = "socialmind", catalog = "")
 public class KdnetPostEntity {
+    private String id;
     private String postId;
     private String authorId;
     private String postStatus;
     private String postUrl;
     private String title;
     private String author;
-    private String authorHref;
-    private String postTime;
+    private String dateTime;
     private String category;
     private Integer hits;
     private Integer commentNum;
     private String atUser;
     private String atHref;
     private String content;
-    private Timestamp parseTime;
     private Timestamp timeStamp;
-    private String id;
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Basic
     @Column(name = "post_id")
@@ -88,23 +96,13 @@ public class KdnetPostEntity {
     }
 
     @Basic
-    @Column(name = "author_href")
-    public String getAuthorHref() {
-        return authorHref;
+    @Column(name = "date_time")
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setAuthorHref(String authorHref) {
-        this.authorHref = authorHref;
-    }
-
-    @Basic
-    @Column(name = "post_time")
-    public String getPostTime() {
-        return postTime;
-    }
-
-    public void setPostTime(String postTime) {
-        this.postTime = postTime;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Basic
@@ -168,16 +166,6 @@ public class KdnetPostEntity {
     }
 
     @Basic
-    @Column(name = "parse_time")
-    public Timestamp getParseTime() {
-        return parseTime;
-    }
-
-    public void setParseTime(Timestamp parseTime) {
-        this.parseTime = parseTime;
-    }
-
-    @Basic
     @Column(name = "time_stamp")
     public Timestamp getTimeStamp() {
         return timeStamp;
@@ -187,16 +175,6 @@ public class KdnetPostEntity {
         this.timeStamp = timeStamp;
     }
 
-    @Id
-    @Column(name = "id")
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -204,46 +182,42 @@ public class KdnetPostEntity {
 
         KdnetPostEntity that = (KdnetPostEntity) o;
 
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (postId != null ? !postId.equals(that.postId) : that.postId != null) return false;
         if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (postStatus != null ? !postStatus.equals(that.postStatus) : that.postStatus != null) return false;
         if (postUrl != null ? !postUrl.equals(that.postUrl) : that.postUrl != null) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (author != null ? !author.equals(that.author) : that.author != null) return false;
-        if (authorHref != null ? !authorHref.equals(that.authorHref) : that.authorHref != null) return false;
-        if (postTime != null ? !postTime.equals(that.postTime) : that.postTime != null) return false;
+        if (dateTime != null ? !dateTime.equals(that.dateTime) : that.dateTime != null) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
         if (hits != null ? !hits.equals(that.hits) : that.hits != null) return false;
         if (commentNum != null ? !commentNum.equals(that.commentNum) : that.commentNum != null) return false;
         if (atUser != null ? !atUser.equals(that.atUser) : that.atUser != null) return false;
         if (atHref != null ? !atHref.equals(that.atHref) : that.atHref != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (parseTime != null ? !parseTime.equals(that.parseTime) : that.parseTime != null) return false;
         if (timeStamp != null ? !timeStamp.equals(that.timeStamp) : that.timeStamp != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = postId != null ? postId.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (postId != null ? postId.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (postStatus != null ? postStatus.hashCode() : 0);
         result = 31 * result + (postUrl != null ? postUrl.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (authorHref != null ? authorHref.hashCode() : 0);
-        result = 31 * result + (postTime != null ? postTime.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (hits != null ? hits.hashCode() : 0);
         result = 31 * result + (commentNum != null ? commentNum.hashCode() : 0);
         result = 31 * result + (atUser != null ? atUser.hashCode() : 0);
         result = 31 * result + (atHref != null ? atHref.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (parseTime != null ? parseTime.hashCode() : 0);
         result = 31 * result + (timeStamp != null ? timeStamp.hashCode() : 0);
-        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
     }
 }

@@ -48,7 +48,7 @@ public class HotInformationController {
 
     @RequestMapping("hotInformation")
     public String hotInformation(HttpServletRequest req, Model model) {
-        String eventID = "5524a6e0-58cb-4e64-baab-b14ffb622b2e";
+        String eventID = "b4502a60-f54b-4515-bcaf-0a1d09f4d807";
         eventID = req.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //获得热度值
@@ -87,12 +87,8 @@ public class HotInformationController {
         model.addAttribute("tableHotValuestop10", tableHotValuestop10);
         model.addAttribute("tableHotValuestop10_doubans", tableHotValuestop10_doubans);
         model.addAttribute("tableHotValuestop10_bbsPeoples", tableHotValuestop10_bbsPeoples);
-
-//      model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);
-
         model.addAttribute("eventID", eventID);
         req.getSession().setAttribute("eventID", eventID);
-//        model.addAttribute("tableHotValuestop10_xinhuanews", tableHotValuestop10_xinhuanews);
         return "hotInformation";
     }
 

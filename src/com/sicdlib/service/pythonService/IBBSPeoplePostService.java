@@ -12,5 +12,5 @@ public interface IBBSPeoplePostService {
     public  boolean saveBBSPeoplePost(BbsPeoplePostEntity bbsPeoplePost);
     //
     List<BbsPeoplePostEntity> getAllBbsPeoplePosts();
-    BbsPeoplePostEntity getBbsPeoplePost(String id);
+    public BbsPeoplePostEntity getBbsPeoplePost(String id);
 }

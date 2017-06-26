@@ -7,4 +7,5 @@ import com.sicdlib.dto.entity.BbsSohuPostEntity;
  */
 public interface IBBSSohuPostDAO {
     Boolean saveBBSSohuPost(BbsSohuPostEntity bbsSohuPost);
+    BbsSohuPostEntity getBbsSohuPost(String id);
 }

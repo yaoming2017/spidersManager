@@ -8,4 +8,5 @@ import com.sicdlib.dto.entity.BbsTianyaPostEntity;
 public interface IBBSTianyaPostService {
     //更新或新增天涯
     public  boolean saveBBSTianyaPost(BbsTianyaPostEntity bbsTianyaPost);
+    public BbsTianyaPostEntity getBbsTianyaPost(String id);
 }

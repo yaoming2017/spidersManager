@@ -1,11 +1,7 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
-import com.sicdlib.dto.entity.DoubanGroupAuthorEntity;
-import com.sicdlib.dto.entity.DoubanGroupCommentEntity;
-import com.sicdlib.dto.entity.DoubanGroupPostEntity;
-import com.sicdlib.service.pythonService.IDoubanGroupAuthorService;
-import com.sicdlib.service.pythonService.IDoubanGroupCommentService;
-import com.sicdlib.service.pythonService.IDoubanGroupPostService;
+import com.sicdlib.dto.entity.*;
+import com.sicdlib.service.pythonService.*;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -14,33 +10,34 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
 /**
  * Created by DeMH on 2017/5/17.
  */
-class HTableToMysqlUtil {
+class BBSTianyaUtil {
     static ApplicationContext apx = new ClassPathXmlApplicationContext("beans.xml");
 
     /**
      * 豆瓣htable_作者转换到Mysql中
      */
     @Test
-    public void test_doubanGroupAuthor_HTableToMysql() throws Exception{
-        IDoubanGroupAuthorService doubanGroupAuthorService = (IDoubanGroupAuthorService) apx.getBean("doubanGroupAuthorService");
+    public void test_bbsTianyaAuthor_HTableToMysql() throws Exception{
+        IBBSTianyaAuthorService bbsTianyaAuthorService = (IBBSTianyaAuthorService) apx.getBean("bbsTianyaAuthorService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         * 天涯社区
          */
-        //豆瓣小组 - 作者
-        String htable_name = "douban_group_author";
+        //天涯社区 - 作者
+        String htable_name = "bbs_tianya_author";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
         int i = 0;
         //输出结果
         for (Result result : results) {
-            DoubanGroupAuthorEntity doubanGroupAuthor = new DoubanGroupAuthorEntity();
+            BbsTianyaAuthorEntity bbsTianyaAuthor = new BbsTianyaAuthorEntity();
             i++;
             for (KeyValue rowKV : result.raw()) {
                 //字段名
@@ -51,32 +48,36 @@ class HTableToMysqlUtil {
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
                 switch (qualifer){
                     case "author_id":
-                        doubanGroupAuthor.setAuthorId(value);
+                        bbsTianyaAuthor.setAuthorId(value);
                         break;
                     case "author_name":
-                        doubanGroupAuthor.setAuthorName(value);
+                        bbsTianyaAuthor.setAuthorName(value);
                         break;
-                    case "introduction":
-                        doubanGroupAuthor.setIntroduction(value);
+                    case "friends_num":
+                        bbsTianyaAuthor.setFriendsNum(Integer.parseInt(value));
                         break;
-                    case "join_time":
-                        doubanGroupAuthor.setJoinTime(value);
+                    case "fans_num":
+                        bbsTianyaAuthor.setFansNum(Integer.parseInt(value));
+                        break;
+                    case "point":
+                        bbsTianyaAuthor.setPoint(value);
+                        break;
+                    case "login_num":
+                        bbsTianyaAuthor.setLoginNum(Integer.parseInt(value));
+                        break;
+                    case "register_date":
+                        bbsTianyaAuthor.setRegisterDate(value);
                         break;
                     case "location":
-                        doubanGroupAuthor.setLocation(value);
-                        break;
-                    case "logoff_time":
-                        doubanGroupAuthor.setLogoffTime(value);
-                        break;
-                    case "signature":
-                        doubanGroupAuthor.setSignature(value);
-                        break;
+                        bbsTianyaAuthor.setLocation(value);
                     case "url":
-                        doubanGroupAuthor.setUrl(value);
+                        bbsTianyaAuthor.setUrl(value);
                         break;
                 }
+                Long time = new Long(rowKV.getTimestamp());
+                bbsTianyaAuthor.setTimeStamp(new Timestamp(time));
             }
-            doubanGroupAuthorService.saveDoubanGroupAuthor(doubanGroupAuthor);
+           bbsTianyaAuthorService.saveBBSTianyaAuthor(bbsTianyaAuthor);
             //每隔100条打印一下时间
             if (i % 100 == 0){
                 int k = i/100;
@@ -91,23 +92,23 @@ class HTableToMysqlUtil {
     }
 
     /**
-     * 豆瓣htable_评论转换到Mysql中
+     * 天涯htable_评论转换到Mysql中
      */
     @Test
-    public void test_doubanGroupComment_HTableToMysql() throws Exception{
-        IDoubanGroupCommentService doubanGroupCommentService = (IDoubanGroupCommentService) apx.getBean("doubanGroupCommentService");
+    public void test_bbsTianyaComment_HTableToMysql() throws Exception{
+        IBBSTianyaCommentService bbsTianyaCommentService = (IBBSTianyaCommentService) apx.getBean("bbsTianyaCommentService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         * 天涯
          */
-        //豆瓣小组 - 评论
-        String htable_name = "douban_group_comment";
+        //天涯 - 评论
+        String htable_name = "bbs_tianya_comment";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
         int i = 0;
         //输出结果
         for (Result result : results) {
-            DoubanGroupCommentEntity doubanGroupComment = new DoubanGroupCommentEntity();
+            BbsTianyaCommentEntity bbsTianyaComment = new BbsTianyaCommentEntity();
             i++;
             for (KeyValue rowKV : result.raw()) {
                 //字段名
@@ -117,39 +118,32 @@ class HTableToMysqlUtil {
                 //将4字节表情或特殊字符去掉
                 value = value.replaceAll("[\\x{10000}-\\x{10FFFF}]", "");
                 switch (qualifer){
-                    case "author_href":
-                        doubanGroupComment.setAuthorHref(value);
-                        break;
-                    case "author_name":
-                        doubanGroupComment.setAuthorName(value);
-                        break;
                     case "comment_id":
-                        doubanGroupComment.setCommentId(value);
+                        bbsTianyaComment.setCommentId(value);
                         break;
-                    case "content":
-                        doubanGroupComment.setContent(value);
+                    case "author_id":
+                        bbsTianyaComment.setAuthorId(value);
                         break;
                     case "post_id":
-                        doubanGroupComment.setPostId(value);
+                        bbsTianyaComment.setPostId(value);
                         break;
-                    case "prise_num":
-                        doubanGroupComment.setPriseNum(Integer.valueOf(value));
+                    case "author_name":
+                        bbsTianyaComment.setAuthorName(value);
                         break;
-//                    case "pub_time":
-//                        doubanGroupComment.setPubTime(value);
-//                        break;
-//                    case "quote_author_href":
-//                        doubanGroupComment.setQuoteAuthorHref(value);
-//                        break;
-                    case "quote_content":
-                        doubanGroupComment.setQuoteContent(value);
+                    case "author_href":
+                        bbsTianyaComment.setAuthorHref(value);
                         break;
-                    case "url":
-                        doubanGroupComment.setUrl(value);
+                    case "content":
+                        bbsTianyaComment.setContent(value);
+                        break;
+                    case "date_time":
+                        bbsTianyaComment.setDateTime(value);
                         break;
                 }
+                Long time = new Long(rowKV.getTimestamp());
+                bbsTianyaComment.setTimeStamp(new Timestamp(time));
             }
-            doubanGroupCommentService.saveDoubanGroupComment(doubanGroupComment);
+           bbsTianyaCommentService.saveBBSTianyaComment(bbsTianyaComment);
             //每隔100条打印一下时间
             if (i % 100 == 0){
                 int k = i/100;
@@ -165,23 +159,23 @@ class HTableToMysqlUtil {
 
 
     /**
-     * 豆瓣htable_发布信息转换到Mysql中
+     * 天涯htable_发布信息转换到Mysql中
      */
     @Test
-    public void test_doubanGroupPost_HTableToMysql() throws Exception{
-        IDoubanGroupPostService doubanGroupPostService = (IDoubanGroupPostService) apx.getBean("doubanGroupPostService");
+    public void test_bbsTianyaPost_HTableToMysql() throws Exception{
+        IBBSTianyaPostService bbsTianyaPostService = (IBBSTianyaPostService) apx.getBean("bbsTianyaPostService");
         Long beginTime = new Date().getTime();
         /**
-         * 豆瓣小组
+         * 天涯
          */
-        //豆瓣小组 -文章
-        String htable_name = "douban_group_post";
+        //天涯 -文章
+        String htable_name = "bbs_tianya_post";
         HBaseData hBaseData = new HBaseData(htable_name);
         ResultScanner results = hBaseData.getAllData();
         int i = 0;
         //输出结果
         for (Result result : results) {
-            DoubanGroupPostEntity doubanGrouppost = new DoubanGroupPostEntity();
+           BbsTianyaPostEntity bbsTianyaPost = new BbsTianyaPostEntity();
             i++;
             for (KeyValue rowKV : result.raw()) {
                 //字段名
@@ -191,54 +185,50 @@ class HTableToMysqlUtil {
                 //数据公共清理
                 value = CleanPublicUtil.publicCleanMethods(value);
                 switch (qualifer){
-                    case "author_href":
-                        doubanGrouppost.setAuthorHref(value);
-                        break;
-                    case "author_name":
-                        doubanGrouppost.setAuthorName(value);
+                    case "post_id":
+                        bbsTianyaPost.setPostId(value);
                         break;
                     case "author_id":
-                        doubanGrouppost.setAuthorId(value);
+                        bbsTianyaPost.setAuthorId(value);
                         break;
-                    case "content":
-                        doubanGrouppost.setContent(value);
+                    case "url":
+                        bbsTianyaPost.setUrl(value);
                         break;
-                    case "post_id":
-                        doubanGrouppost.setPostId(value);
+                    case "author_name":
+                        bbsTianyaPost.setAuthorName(value);
                         break;
-//                    case "comment_ids":
-//                        doubanGrouppost.setCommentIds(value);
-//                        break;
-                    case "date_time":
-                        doubanGrouppost.setDateTime(value);
-                        break;
-                    case "group_href":
-                        doubanGrouppost.setGroupHref(value);
-                        break;
-                    case "group_id":
-                        doubanGrouppost.setGroupId(value);
-                        break;
-                    case "group_name":
-                        doubanGrouppost.setGroupName(value);
-                        break;
-                    case "like_num":
-                        doubanGrouppost.setLikeNum(Integer.valueOf(value));
-                        break;
-                    case "recommend_num":
-                        doubanGrouppost.setRecommendNum(Integer.valueOf(value));
+                    case "author_url":
+                        bbsTianyaPost.setAuthorUrl(value);
                         break;
                     case "title":
-                        doubanGrouppost.setTitle(value);
+                        bbsTianyaPost.setTitle(value);
                         break;
-//                    case "picture_hrefs_num":
-//                        doubanGrouppost.setPictureHrefsNum(Integer.valueOf(value));
-//                        break;
-                    case "url":
-                        doubanGrouppost.setUrl(value);
+                    case "key_words":
+                        bbsTianyaPost.setKeyWords(value);
+                        break;
+                    case "tags":
+                        bbsTianyaPost.setTags(value);
+                        break;
+                    case "date_time":
+                        bbsTianyaPost.setDateTime(value);
+                        break;
+                    case "create_time":
+                        bbsTianyaPost.setCreateTime(value);
+                        break;
+                    case "content":
+                        bbsTianyaPost.setContent(value);
+                        break;
+                    case "category":
+                        bbsTianyaPost.setCategory(value);
+                        break;
+                    case "comment_num":
+                        bbsTianyaPost.setCommentNum(Integer.parseInt(value));
                         break;
                 }
+                Long time = new Long(rowKV.getTimestamp());
+                bbsTianyaPost.setTimeStamp(new Timestamp(time));
             }
-            doubanGroupPostService.saveDoubanGroupPost(doubanGrouppost);
+            bbsTianyaPostService.saveBBSTianyaPost(bbsTianyaPost);
             //每隔100条打印一下时间
             if (i % 100 == 0){
                 int k = i/100;

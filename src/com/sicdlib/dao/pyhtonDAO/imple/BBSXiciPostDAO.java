@@ -23,4 +23,10 @@ public class BBSXiciPostDAO  implements IBBSXiciPostDAO{
             return false;
         }
     }
+
+    @Override
+    public BbsXiciPostEntity getBbsXiciPost(String id) {
+        String hql = "from BbsXiciPostEntity xc where xc.id = '" + id + "' ";
+        return (BbsXiciPostEntity) baseDAO.get(hql);
+    }
 }

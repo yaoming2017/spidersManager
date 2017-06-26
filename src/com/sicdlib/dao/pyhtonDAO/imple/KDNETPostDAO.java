@@ -24,4 +24,10 @@ public class KDNETPostDAO  implements IKDNETPostDAO{
         }
 
     }
+
+    @Override
+    public KdnetPostEntity getKdnetPost(String id) {
+        String hql = "from  KdnetPostEntity k where k.id =' " + id + "'";
+        return (KdnetPostEntity) baseDAO.get(hql);
+    }
 }

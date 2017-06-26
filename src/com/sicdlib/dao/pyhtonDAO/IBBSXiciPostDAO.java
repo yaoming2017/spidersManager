@@ -7,4 +7,5 @@ import com.sicdlib.dto.entity.BbsXiciPostEntity;
  */
 public interface IBBSXiciPostDAO {
     Boolean saveBBSXiciPost(BbsXiciPostEntity bbsXiciPost);
+    BbsXiciPostEntity getBbsXiciPost(String id);
 }

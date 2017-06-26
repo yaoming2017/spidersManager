@@ -245,6 +245,9 @@ public class BBSChinaUtil {
                         break;
                     case   "level":
                         String contentValue = value.replaceAll("等级","");
+                        if(contentValue == null || contentValue.equals("")) {
+                            contentValue = "0";
+                        }
                         bbsChinaPost.setLevel(contentValue);
                         break;
                     case   "point":

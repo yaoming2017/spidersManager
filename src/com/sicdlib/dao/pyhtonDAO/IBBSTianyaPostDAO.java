@@ -7,4 +7,5 @@ import com.sicdlib.dto.entity.BbsTianyaPostEntity;
  */
 public interface IBBSTianyaPostDAO {
     Boolean saveBBSTianyaPost(BbsTianyaPostEntity bbsTianyaPost);
+    BbsTianyaPostEntity getBbsTianyaPost(String id);
 }

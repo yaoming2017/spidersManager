@@ -1,5 +1,6 @@
 package com.sicdlib.dao.pyhtonDAO;
 
+import com.sicdlib.dto.entity.DoubanGroupPostEntity;
 import com.sicdlib.dto.entity.KdnetPostEntity;
 
 /**
@@ -7,4 +8,5 @@ import com.sicdlib.dto.entity.KdnetPostEntity;
  */
 public interface IKDNETPostDAO {
     Boolean saveKDNETPost(KdnetPostEntity kdnetPost);
+    KdnetPostEntity getKdnetPost(String id);
 }

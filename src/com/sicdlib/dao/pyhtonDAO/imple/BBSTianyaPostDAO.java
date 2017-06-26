@@ -23,4 +23,10 @@ public class BBSTianyaPostDAO implements IBBSTianyaPostDAO {
             return false;
         }
     }
+
+    @Override
+    public BbsTianyaPostEntity getBbsTianyaPost(String id) {
+        String hql = "from BbsTianyaPostEntity ty where ty.id = '" + id + "'";
+        return (BbsTianyaPostEntity) baseDAO.get(hql);
+    }
 }

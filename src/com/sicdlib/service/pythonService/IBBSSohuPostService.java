@@ -8,4 +8,5 @@ import com.sicdlib.dto.entity.BbsSohuPostEntity;
 public interface IBBSSohuPostService {
     //更新或新增搜狐
     public boolean saveBBSSohuPost(BbsSohuPostEntity bbsSohuPost);
+    public BbsSohuPostEntity getBbsSohuPost(String id);
 }

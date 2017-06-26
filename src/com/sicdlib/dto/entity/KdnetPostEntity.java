@@ -100,16 +100,9 @@ public class KdnetPostEntity {
     public String getDateTime() {
         return dateTime;
     }
-
-<<<<<<< HEAD
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
-=======
-    public void setDateTime(String postTime) {
-        this.dateTime = postTime;
->>>>>>> 8744fd2ad443ba46ca5ad6135eac063d018b5d68
     }
-
     @Basic
     @Column(name = "category")
     public String getCategory() {
@@ -125,7 +118,6 @@ public class KdnetPostEntity {
     public Integer getHits() {
         return hits;
     }
-
     public void setHits(Integer hits) {
         this.hits = hits;
     }

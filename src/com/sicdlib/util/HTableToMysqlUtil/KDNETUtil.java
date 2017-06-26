@@ -246,15 +246,11 @@ public class KDNETUtil {
                     case "author":
                         kdnetPost.setAuthor(value);
                         break;
-<<<<<<< HEAD
                     case "date_time":
-=======
+                        kdnetPost.setDateTime(value);
+                        break;
                     case "author_href":
                         kdnetPost.setAtHref(value);
-                        break;
-                    case "post_time":
->>>>>>> 8744fd2ad443ba46ca5ad6135eac063d018b5d68
-                        kdnetPost.setDateTime(value);
                         break;
                     case "category":
                         kdnetPost.setCategory(value);
@@ -274,14 +270,11 @@ public class KDNETUtil {
                     case "content":
                         kdnetPost.setContent(value);
                         break;
-<<<<<<< HEAD
-=======
                     case  "parse_time":
                         Double time = Double.parseDouble(value) *1000;
                         Long longTime = new Long(time.longValue());
                         kdnetPost.setDateTime(new Timestamp(longTime).toString());
                         break;
->>>>>>> 8744fd2ad443ba46ca5ad6135eac063d018b5d68
                 }
                 Long time = new Long(rowKV.getTimestamp());
                 kdnetPost.setTimeStamp(new Timestamp(time));

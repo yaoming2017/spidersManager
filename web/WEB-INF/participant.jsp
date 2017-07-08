@@ -82,15 +82,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </ul>
     </div>
     <!--sidebar-menu-->
-<div class="search-wrapper search-wrapper2">
-    <div class="search" style="margin-left:300px;width:600px;margin-top:60px;">
-    <span style="margin-left:100px;">
-	<input type="text" class="keyWord searchkey" name="keywords" onkeydown="enterClick(event)" onmousedown="history()" oninput="thinkKeywords(this,0)" maxlength="20"  id="search-keyword" value="事件关键词">
-	</span>
-        <span><a href="javascript:void(0);" onclick="getEventSearch();" class="searchBtn">搜索</a>
-	</span>
+    <!--search start-->
+    <div class="search-wrapper search-wrapper2">
+        <form action="keywords" method="post">
+            <div class="search" style="margin-left:300px;width:600px;margin-top:60px;">
+                <span style="margin-left:100px;"><input type="text" class="keyWord searchkey" name="keywords"   maxlength="20"  id="search-keyword" value="事件关键词"></span>
+                <span><button type="submit" class="searchBtn">搜索</button></span>
+            </div>
+        </form>
     </div>
-</div>
+    <!--search end-->
 <!--main-container-part-->
 <div id="content">
     <div id="content-header" style="margin-top:65px;">

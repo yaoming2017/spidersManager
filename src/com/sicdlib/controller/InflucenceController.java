@@ -8,7 +8,9 @@ import com.sicdlib.dto.*;
 import com.sicdlib.dto.entity.*;
 import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.*;
+import com.sicdlib.util.ForeUtil.HotValueUtil;
 import com.sicdlib.util.ForeUtil.SentimentInflucenceUtil;
+import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -79,21 +81,29 @@ public class InflucenceController {
     private IXINWEN110NewsService xinwen110NewsService;
 
 
+    @Autowired
+    @Qualifier("searchService")
+    private  ISearchService searchService;
+
+    /**
+     * 搜索
+     * @return
+     */
+    //sentiment.jsp的搜索功能
+    @RequestMapping(value="keywords")
+    public String search(HttpServletRequest request,Model model,String dateTime){
+        String keywords = request.getParameter("search-keyword");
+        List<TbSentimentInflucenceEntity>   searh_keyword= searchService.getSentimentByDateTime(keywords);
+        model.addAttribute("keywords", searh_keyword);
+        return "sentiment";
+    }
+
     @RequestMapping(value="sentiment")
     public String listDailyCommentNum(HttpServletRequest req, Model model) {
         System.out.println("加载到舆情影响力..........");
         List<SourceArticleCommNum> sourceArticleCommNums = new ArrayList<>();
         String eventID = req.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
-//        List<DoubanGroupPostEntity> doubanGroupPostList = new ArrayList<>();
-//        for (int i = 0;i < eventArticles.size(); i++){
-//            TbEventArticleEntity eventArticle = eventArticles.get(i);
-//            TbTableEntity table = eventArticle.getTable();
-//            if (table.getTableName().equals("douban_group_post")){
-//                DoubanGroupPostEntity doubanGroupPost = doubanGroupPostService.getDoubanGroupPost(eventArticle.getSourceArticleId());
-//                doubanGroupPostList.add(doubanGroupPost);
-//            }
-//        }
         TbEventArticleEntity starttimeEventArticle = null;
         if (eventService.getSourceEventArticle(eventID) != null){
             //1. 获得事件的开始文章
@@ -699,5 +709,55 @@ public class InflucenceController {
                model.addAttribute("indexList",JSON.toJSON(sourceArticleIndexList));
                System.out.println("舆情负面指数的json格式...." +JSON.toJSON(sourceArticleIndexList));
                return "negativeIndex";
+    }
+
+
+    /**
+     * 舆情的爆发点
+     * explore
+     */
+    public String getExplore(HttpServletRequest request,Model model){
+        System.out.println("记载舆情的爆发点.........");
+        String eventID = request.getParameter("eventID");
+        List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
+        //获得网民的信息，体现舆情的爆发点
+        List<TableHotValue> hotValues =  HotValueUtil.getTableHotValueByArticles(eventArticles);
+        List<TableHotValue> hotValuestop10 = new ArrayList<>();
+        List<TableHotValue> hotValuestop10_douban = new ArrayList<>();
+        List<TableHotValue> hotValuestop10_bbspeople = new ArrayList<>();
+        List<TableHotValue> hotValuestop10_bbssohu = new ArrayList<>();
+        int top10flag = 0;
+        int top10_doubanflag = 0;
+        int top10_bbspeopleflag = 0;
+        int top10_bbssohuflag = 0;
+        for( int i = 0;top10flag < 10 && top10_doubanflag < 10 && top10_bbspeopleflag < 10 && top10_bbssohuflag < 10 || i < hotValues.size();i++){
+            //获得所有网站热度的前十条
+            if(top10flag < 10){
+                hotValuestop10.add(hotValues.get(i));
+                top10flag ++;
+            }
+            //豆瓣小组:热度前10条
+            if(top10_doubanflag <10 && hotValues.get(i).getDoubanGroupPost() != null){
+                hotValuestop10_douban.add(hotValues.get(i));
+                top10_doubanflag ++;
+            }
+            //人民网：热度前10天
+            if(top10_bbspeopleflag < 10 && hotValues.get(i).getBbsPeoplePost() !=null){
+                hotValuestop10_bbspeople.add(hotValues.get(i));
+                top10_bbspeopleflag ++;
+            }
+            if(top10_bbssohuflag < 10 && hotValues.get(i).getBbssohuPost() !=null){
+                hotValuestop10_bbssohu.add(hotValues.get(i));
+                top10_bbssohuflag ++;
+            }
+        }
+        System.out.println("引爆点....."+hotValuestop10.size()+":"+hotValuestop10_douban.size()+":"+hotValuestop10_bbspeople.size()+":"+hotValuestop10_bbssohu.size());
+        model.addAttribute("hotValuestop10",hotValuestop10);
+        model.addAttribute("hotValuestop10_douban",hotValuestop10_douban);
+        model.addAttribute("hotValuestop10_bbspeople",hotValuestop10_bbspeople);
+        model.addAttribute("hotValuestop10_bbssohu",hotValuestop10_bbssohu);
+        model.addAttribute("eventID",eventID);
+        request.getSession().setAttribute("eventID",eventID);
+        return "explore";
     }
 }

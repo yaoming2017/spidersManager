@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--close-top-serch-->
 
-<!--sidebar-menu-->
+<!--sidebar-menu start-->
 <div id="sidebar">
   <ul style="display: block;background: #2E363F;height: 800px;">
     <li><a href="eventsList" style="font-family:新宋体;font-size: 18px;"><i class="icon icon-home"></i> <span>事件列表</span></a> </li>
@@ -81,16 +81,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <li ><a href="negativeIndex?eventID=${eventID}" style="font-family: 新宋体;font-size: 18px;"><i class="icon icon-home"></i><span>舆情负面指数</span></a></li>
   </ul>
 </div>
-<!--sidebar-menu-->
+<!--sidebar-menu end-->
+<!--search start-->
 <div class="search-wrapper search-wrapper2">
+  <form action="keywords" method="post">
   <div class="search" style="margin-left:300px;width:600px;margin-top:60px;">
-    <span style="margin-left:100px;">
-	<input type="text" class="keyWord searchkey" name="keywords" onkeydown="enterClick(event)" onmousedown="history()" oninput="thinkKeywords(this,0)" maxlength="20"  id="search-keyword" value="事件关键词">
-	</span>
-    <span><a href="javascript:void(0);" onclick="getEventSearch();" class="searchBtn">搜索</a>
-	</span>
+    <span style="margin-left:100px;"><input type="text" class="keyWord searchkey" name="keywords"   maxlength="20"  id="search-keyword" value="事件关键词"></span>
+    <span><button type="submit" class="searchBtn">搜索</button></span>
   </div>
+  </form>
 </div>
+<!--search end-->
   <div>
   <!--为Echarts准备一个具备大小（宽高）的Dom-->
   <div id="main" style="width: 1200px;height: 600px;margin-top:100px;">

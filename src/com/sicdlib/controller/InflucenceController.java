@@ -10,7 +10,6 @@ import com.sicdlib.service.*;
 import com.sicdlib.service.pythonService.*;
 import com.sicdlib.util.ForeUtil.HotValueUtil;
 import com.sicdlib.util.ForeUtil.SentimentInflucenceUtil;
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -52,9 +50,6 @@ public class InflucenceController {
     @Qualifier("doubanGroupPostService")
     private IDoubanGroupPostService doubanGroupPostService;
 
-    @Autowired
-    @Qualifier("bbsPeoplePostService")
-    private IBBSPeoplePostService bbsPeoplePostService;
 
     @Autowired
     @Qualifier("kdnetPostService")
@@ -80,6 +75,31 @@ public class InflucenceController {
     @Qualifier("xinwen110NewsService")
     private IXINWEN110NewsService xinwen110NewsService;
 
+    @Autowired
+    @Qualifier("bbsChinaPostService")
+    private IBBSChinaPostService bbsChinaPostService;
+
+    @Autowired
+    @Qualifier("bbsMopPostService")
+    private  IBBSMopPostService bbsMopPostService;
+
+    @Autowired
+    @Qualifier("bbsPeoplePostService")
+    private IBBSPeoplePostService bbsPeoplePostService;
+
+
+    @Autowired
+    @Qualifier("blog163PostService")
+    private IBLOG163PostService blog163PostService;
+
+
+    @Autowired
+    @Qualifier("blogSinaPostService")
+    private IBLOGSinaPostService blogSinaPostService;
+
+    @Autowired
+    @Qualifier("blogChinaBlogService")
+    private IBLOGChinaBlogService blogChinaBlogService;
 
     @Autowired
     @Qualifier("searchService")
@@ -105,12 +125,13 @@ public class InflucenceController {
         String eventID = req.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         TbEventArticleEntity starttimeEventArticle = null;
+        TbEventArticleEntity EndtimeEventArticle = null;
         if (eventService.getSourceEventArticle(eventID) != null){
             //1. 获得事件的开始文章
             starttimeEventArticle = eventService.getSourceEventArticle(eventID);
         }
         //2. 获得事件的结束文章
-        TbEventArticleEntity EndtimeEventArticle = eventService.getEndtimeSourceEventArticle(eventID);
+            EndtimeEventArticle = eventService.getEndtimeSourceEventArticle(eventID);
         //3. 时间平均划分10份，求每份中的舆情影响力
         String startTimeStr = starttimeEventArticle.getTime();
         String endTimeStr = EndtimeEventArticle.getTime();
@@ -152,7 +173,18 @@ public class InflucenceController {
                 SourceArticleCommNum sourceArticleCommNum_kdnet = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbssohu = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbstianya = new SourceArticleCommNum();
-                SourceArticleCommNum sourceArticleCommNum_xici = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbsxici = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbsmop = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbschina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_bbsnews = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blog163 = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogsina = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogchina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_people_news = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sanqin = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_xinhua = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_xinwen110 = new SourceArticleCommNum();
                 List<DoubanGroupPostEntity> doubanGroupPostList_parttime = new ArrayList<>();
                 int douban_commentNum_temp = 0;
                 int bbsPeople_commentNum_temp = 0;
@@ -160,6 +192,17 @@ public class InflucenceController {
                 int bbssohu_commentNum_temp = 0;
                 int bbstianya_commentNum_temp = 0;
                 int bbsxici_commentNum_temp = 0;
+                int bbsmop_commentNum_temp = 0;
+                int bbschina_commentNum_temp = 0;
+                //int bbsnews_commentNum_temp = 0;
+                int blog163_commentNum_temp = 0;
+                int blogsina_commentNum_temp = 0;
+                int blogchina_commentNum_temp = 0;
+                //int people_news_commentNum_temp = 0;
+                //int news_sanqin_commentNum_temp = 0;
+                //int news_sina_commentNum_temp = 0;
+                //int xinhua_commentNum_temp = 0;
+                int xinwen110_commentNum_temp = 0;
 
                 for (int j = 0; j < eventArticle_parttime.size(); j++) {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("douban_group_post")) {
@@ -188,6 +231,24 @@ public class InflucenceController {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_xici_post")){
                         BbsXiciPostEntity bbsXici = bbsXiciPostService.getBbsXiciPost(eventArticle_parttime.get(j).getSourceArticleId());
                         bbsxici_commentNum_temp +=bbsXici.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_china_post")){
+                        BbsChinaPostEntity bbsChina =bbsChinaPostService.getBbsChinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbschina_commentNum_temp +=bbsChina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_mop_post")){
+                        BbsMopPostEntity bbsMop = bbsMopPostService.getBbsMopPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbsmop_commentNum_temp +=bbsMop.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_163_post")){
+                        Blog163PostEntity blog163 = blog163PostService.getBlog163Post(eventArticle_parttime.get(j).getSourceArticleId());
+                        blog163_commentNum_temp += blog163.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_sina_post")){
+                        BlogSinaPostEntity blogSina = blogSinaPostService.getBlogSinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        blogsina_commentNum_temp += blogSina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blogchina_blog")){
+                      BlogchinaBlogEntity blogchina = blogChinaBlogService.getBlogchinaBlog(eventArticle_parttime.get(j).getSourceArticleId());
+                      blogchina_commentNum_temp +=blogchina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("xinwen110_news")){
+                        Xinwen110NewsEntity xinwen = xinwen110NewsService.getXinwen110News(eventArticle_parttime.get(j).getSourceArticleId());
+                        xinwen110_commentNum_temp +=xinwen.getCommentNum();
                     }
                 }
                 //豆瓣
@@ -221,11 +282,47 @@ public class InflucenceController {
                 sourceArticleCommNum_bbstianya.setTableName("bbs_tianya_post");
                 sourceArticleCommNumList.add(sourceArticleCommNum_bbstianya);
                 //西祠社区
-                sourceArticleCommNum_xici.setNum(bbsxici_commentNum_temp);
-                sourceArticleCommNum_xici.setStartTime(starttime);
-                sourceArticleCommNum_xici.setEndTime(endtime);
-                sourceArticleCommNum_xici.setTableName("bbs_xici_post");
-                sourceArticleCommNumList.add(sourceArticleCommNum_xici);
+                sourceArticleCommNum_bbsxici.setNum(bbsxici_commentNum_temp);
+                sourceArticleCommNum_bbsxici.setStartTime(starttime);
+                sourceArticleCommNum_bbsxici.setEndTime(endtime);
+                sourceArticleCommNum_bbsxici.setTableName("bbs_xici_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsxici);
+                //中华网论坛
+                sourceArticleCommNum_bbschina.setNum(bbschina_commentNum_temp);
+                sourceArticleCommNum_bbschina.setStartTime(starttime);
+                sourceArticleCommNum_bbschina.setEndTime(endtime);
+                sourceArticleCommNum_bbschina.setTableName("bbs_china_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbschina);
+                //猫扑社区
+                sourceArticleCommNum_bbsmop.setNum(bbsmop_commentNum_temp);
+                sourceArticleCommNum_bbsmop.setStartTime(starttime);
+                sourceArticleCommNum_bbsmop.setEndTime(endtime);
+                sourceArticleCommNum_bbsmop.setTableName("bbs_mop_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsmop);
+                //网易博客
+                sourceArticleCommNum_blog163.setNum(blog163_commentNum_temp);
+                sourceArticleCommNum_blog163.setStartTime(starttime);
+                sourceArticleCommNum_blog163.setEndTime(endtime);
+                sourceArticleCommNum_blog163.setTableName("blog_163_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blog163);
+                //新浪博客
+                sourceArticleCommNum_blogsina.setNum(blogsina_commentNum_temp);
+                sourceArticleCommNum_blogsina.setStartTime(starttime);
+                sourceArticleCommNum_blogsina.setEndTime(endtime);
+                sourceArticleCommNum_blogsina.setTableName("blog_sina_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogsina);
+                //博客中国
+                sourceArticleCommNum_blogchina.setNum(blogchina_commentNum_temp);
+                sourceArticleCommNum_blogchina.setStartTime(starttime);
+                sourceArticleCommNum_blogchina.setEndTime(endtime);
+                sourceArticleCommNum_blogchina.setTableName("blogchina_blog");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogchina);
+                //中国社会新闻网
+                sourceArticleCommNum_xinwen110.setNum(xinwen110_commentNum_temp);
+                sourceArticleCommNum_xinwen110.setStartTime(starttime);
+                sourceArticleCommNum_xinwen110.setEndTime(endtime);
+                sourceArticleCommNum_xinwen110.setTableName("xinwen110_news");
+                sourceArticleCommNumList.add(sourceArticleCommNum_xinwen110);
             }
 
         }
@@ -246,7 +343,18 @@ public class InflucenceController {
                 SourceArticleCommNum sourceArticleCommNum_kdnet = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbssohu = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbstianya = new SourceArticleCommNum();
-                SourceArticleCommNum sourceArticleCommNum_xici = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbsxici = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbsmop = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbschina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_bbsnews = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blog163 = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogsina = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogchina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_people_news = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sanqin = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_xinhua = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_xinwen110 = new SourceArticleCommNum();
                 List<DoubanGroupPostEntity> doubanGroupPostList_parttime = new ArrayList<>();
                 int douban_commentNum_temp = 0;
                 int bbsPeople_commentNum_temp = 0;
@@ -254,6 +362,18 @@ public class InflucenceController {
                 int bbssohu_commentNum_temp = 0;
                 int bbstianya_commentNum_temp = 0;
                 int bbsxici_commentNum_temp = 0;
+                int bbsmop_commentNum_temp = 0;
+                int bbschina_commentNum_temp = 0;
+                //int bbsnews_commentNum_temp = 0;
+                int blog163_commentNum_temp = 0;
+                int blogsina_commentNum_temp = 0;
+                int blogchina_commentNum_temp = 0;
+                //int people_news_commentNum_temp = 0;
+                //int news_sanqin_commentNum_temp = 0;
+                //int news_sina_commentNum_temp = 0;
+                //int xinhua_commentNum_temp = 0;
+                int xinwen110_commentNum_temp = 0;
+
                 for (int j = 0; j < eventArticle_parttime.size(); j++) {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("douban_group_post")) {
                         DoubanGroupPostEntity douban = doubanGroupPostService.getDoubanGroupPost(eventArticle_parttime.get(j).getSourceArticleId());
@@ -267,7 +387,7 @@ public class InflucenceController {
                         KdnetPostEntity kdnet = kdnetPostService.getKdnetPost(eventArticle_parttime.get(j).getSourceArticleId());
                         if(kdnet !=null){
                             kdnet_commentNum_temp += kdnet.getCommentNum();
-                            System.out.println("凯迪社区的评论数:"+kdnet.getCommentNum());
+                            System.out.println("凯迪bbs评论数：" + kdnet.getCommentNum());
                         }
                     }
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_sohu_post")){
@@ -281,6 +401,24 @@ public class InflucenceController {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_xici_post")){
                         BbsXiciPostEntity bbsXici = bbsXiciPostService.getBbsXiciPost(eventArticle_parttime.get(j).getSourceArticleId());
                         bbsxici_commentNum_temp +=bbsXici.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_china_post")){
+                        BbsChinaPostEntity bbsChina =bbsChinaPostService.getBbsChinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbschina_commentNum_temp +=bbsChina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_mop_post")){
+                        BbsMopPostEntity bbsMop = bbsMopPostService.getBbsMopPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbsmop_commentNum_temp +=bbsMop.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_163_post")){
+                        Blog163PostEntity blog163 = blog163PostService.getBlog163Post(eventArticle_parttime.get(j).getSourceArticleId());
+                        blog163_commentNum_temp += blog163.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_sina_post")){
+                        BlogSinaPostEntity blogSina = blogSinaPostService.getBlogSinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        blogsina_commentNum_temp += blogSina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blogchina_blog")){
+                        BlogchinaBlogEntity blogchina = blogChinaBlogService.getBlogchinaBlog(eventArticle_parttime.get(j).getSourceArticleId());
+                        blogchina_commentNum_temp +=blogchina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("xinwen110_news")){
+                        Xinwen110NewsEntity xinwen = xinwen110NewsService.getXinwen110News(eventArticle_parttime.get(j).getSourceArticleId());
+                        xinwen110_commentNum_temp +=xinwen.getCommentNum();
                     }
                 }
                 //豆瓣
@@ -314,11 +452,47 @@ public class InflucenceController {
                 sourceArticleCommNum_bbstianya.setTableName("bbs_tianya_post");
                 sourceArticleCommNumList.add(sourceArticleCommNum_bbstianya);
                 //西祠社区
-                sourceArticleCommNum_xici.setNum(bbsxici_commentNum_temp);
-                sourceArticleCommNum_xici.setStartTime(starttime);
-                sourceArticleCommNum_xici.setEndTime(endtime);
-                sourceArticleCommNum_xici.setTableName("bbs_xici_post");
-                sourceArticleCommNumList.add(sourceArticleCommNum_xici);
+                sourceArticleCommNum_bbsxici.setNum(bbsxici_commentNum_temp);
+                sourceArticleCommNum_bbsxici.setStartTime(starttime);
+                sourceArticleCommNum_bbsxici.setEndTime(endtime);
+                sourceArticleCommNum_bbsxici.setTableName("bbs_xici_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsxici);
+                //中华网论坛
+                sourceArticleCommNum_bbschina.setNum(bbschina_commentNum_temp);
+                sourceArticleCommNum_bbschina.setStartTime(starttime);
+                sourceArticleCommNum_bbschina.setEndTime(endtime);
+                sourceArticleCommNum_bbschina.setTableName("bbs_china_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbschina);
+                //猫扑社区
+                sourceArticleCommNum_bbsmop.setNum(bbsmop_commentNum_temp);
+                sourceArticleCommNum_bbsmop.setStartTime(starttime);
+                sourceArticleCommNum_bbsmop.setEndTime(endtime);
+                sourceArticleCommNum_bbsmop.setTableName("bbs_mop_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsmop);
+                //网易博客
+                sourceArticleCommNum_blog163.setNum(blog163_commentNum_temp);
+                sourceArticleCommNum_blog163.setStartTime(starttime);
+                sourceArticleCommNum_blog163.setEndTime(endtime);
+                sourceArticleCommNum_blog163.setTableName("blog_163_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blog163);
+                //新浪博客
+                sourceArticleCommNum_blogsina.setNum(blogsina_commentNum_temp);
+                sourceArticleCommNum_blogsina.setStartTime(starttime);
+                sourceArticleCommNum_blogsina.setEndTime(endtime);
+                sourceArticleCommNum_blogsina.setTableName("blog_sina_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogsina);
+                //博客中国
+                sourceArticleCommNum_blogchina.setNum(blogchina_commentNum_temp);
+                sourceArticleCommNum_blogchina.setStartTime(starttime);
+                sourceArticleCommNum_blogchina.setEndTime(endtime);
+                sourceArticleCommNum_blogchina.setTableName("blogchina_blog");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogchina);
+                //中国社会新闻网
+                sourceArticleCommNum_xinwen110.setNum(xinwen110_commentNum_temp);
+                sourceArticleCommNum_xinwen110.setStartTime(starttime);
+                sourceArticleCommNum_xinwen110.setEndTime(endtime);
+                sourceArticleCommNum_xinwen110.setTableName("xinwen110_news");
+                sourceArticleCommNumList.add(sourceArticleCommNum_xinwen110);
             }
 
         }
@@ -341,8 +515,18 @@ public class InflucenceController {
                 SourceArticleCommNum sourceArticleCommNum_kdnet = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbssohu = new SourceArticleCommNum();
                 SourceArticleCommNum sourceArticleCommNum_bbstianya = new SourceArticleCommNum();
-                SourceArticleCommNum sourceArticleCommNum_xici = new SourceArticleCommNum();
-
+                SourceArticleCommNum sourceArticleCommNum_bbsxici = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbsmop = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_bbschina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_bbsnews = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blog163 = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogsina = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_blogchina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_people_news = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sanqin = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_news_sina = new SourceArticleCommNum();
+                //SourceArticleCommNum sourceArticleCommNum_xinhua = new SourceArticleCommNum();
+                SourceArticleCommNum sourceArticleCommNum_xinwen110 = new SourceArticleCommNum();
                 List<DoubanGroupPostEntity> doubanGroupPostList_parttime = new ArrayList<>();
                 int douban_commentNum_temp = 0;
                 int bbsPeople_commentNum_temp = 0;
@@ -350,8 +534,19 @@ public class InflucenceController {
                 int bbssohu_commentNum_temp = 0;
                 int bbstianya_commentNum_temp = 0;
                 int bbsxici_commentNum_temp = 0;
+                int bbsmop_commentNum_temp = 0;
+                int bbschina_commentNum_temp = 0;
+                //int bbsnews_commentNum_temp = 0;
+                int blog163_commentNum_temp = 0;
+                int blogsina_commentNum_temp = 0;
+                int blogchina_commentNum_temp = 0;
+                //int people_news_commentNum_temp = 0;
+                //int news_sanqin_commentNum_temp = 0;
+                //int news_sina_commentNum_temp = 0;
+                //int xinhua_commentNum_temp = 0;
+                int xinwen110_commentNum_temp = 0;
 
-                for(int j = 0; j < eventArticle_parttime.size(); j++) {
+                for (int j = 0; j < eventArticle_parttime.size(); j++) {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("douban_group_post")) {
                         DoubanGroupPostEntity douban = doubanGroupPostService.getDoubanGroupPost(eventArticle_parttime.get(j).getSourceArticleId());
                         douban_commentNum_temp += douban.getCommentNum();
@@ -364,6 +559,7 @@ public class InflucenceController {
                         KdnetPostEntity kdnet = kdnetPostService.getKdnetPost(eventArticle_parttime.get(j).getSourceArticleId());
                         if(kdnet !=null){
                             kdnet_commentNum_temp += kdnet.getCommentNum();
+                            System.out.println("凯迪bbs评论数：" + kdnet.getCommentNum());
                         }
                     }
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_sohu_post")){
@@ -377,6 +573,24 @@ public class InflucenceController {
                     if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_xici_post")){
                         BbsXiciPostEntity bbsXici = bbsXiciPostService.getBbsXiciPost(eventArticle_parttime.get(j).getSourceArticleId());
                         bbsxici_commentNum_temp +=bbsXici.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_china_post")){
+                        BbsChinaPostEntity bbsChina =bbsChinaPostService.getBbsChinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbschina_commentNum_temp +=bbsChina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("bbs_mop_post")){
+                        BbsMopPostEntity bbsMop = bbsMopPostService.getBbsMopPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        bbsmop_commentNum_temp +=bbsMop.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_163_post")){
+                        Blog163PostEntity blog163 = blog163PostService.getBlog163Post(eventArticle_parttime.get(j).getSourceArticleId());
+                        blog163_commentNum_temp += blog163.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blog_sina_post")){
+                        BlogSinaPostEntity blogSina = blogSinaPostService.getBlogSinaPost(eventArticle_parttime.get(j).getSourceArticleId());
+                        blogsina_commentNum_temp += blogSina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("blogchina_blog")){
+                        BlogchinaBlogEntity blogchina = blogChinaBlogService.getBlogchinaBlog(eventArticle_parttime.get(j).getSourceArticleId());
+                        blogchina_commentNum_temp +=blogchina.getCommentNum();
+                    }if(eventArticle_parttime.get(j).getTable().getTableName().equals("xinwen110_news")){
+                        Xinwen110NewsEntity xinwen = xinwen110NewsService.getXinwen110News(eventArticle_parttime.get(j).getSourceArticleId());
+                        xinwen110_commentNum_temp +=xinwen.getCommentNum();
                     }
                 }
                 //豆瓣
@@ -410,11 +624,47 @@ public class InflucenceController {
                 sourceArticleCommNum_bbstianya.setTableName("bbs_tianya_post");
                 sourceArticleCommNumList.add(sourceArticleCommNum_bbstianya);
                 //西祠社区
-                sourceArticleCommNum_xici.setNum(bbsxici_commentNum_temp);
-                sourceArticleCommNum_xici.setStartTime(starttime);
-                sourceArticleCommNum_xici.setEndTime(endtime);
-                sourceArticleCommNum_xici.setTableName("bbs_xici_post");
-                sourceArticleCommNumList.add(sourceArticleCommNum_xici);
+                sourceArticleCommNum_bbsxici.setNum(bbsxici_commentNum_temp);
+                sourceArticleCommNum_bbsxici.setStartTime(starttime);
+                sourceArticleCommNum_bbsxici.setEndTime(endtime);
+                sourceArticleCommNum_bbsxici.setTableName("bbs_xici_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsxici);
+                //中华网论坛
+                sourceArticleCommNum_bbschina.setNum(bbschina_commentNum_temp);
+                sourceArticleCommNum_bbschina.setStartTime(starttime);
+                sourceArticleCommNum_bbschina.setEndTime(endtime);
+                sourceArticleCommNum_bbschina.setTableName("bbs_china_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbschina);
+                //猫扑社区
+                sourceArticleCommNum_bbsmop.setNum(bbsmop_commentNum_temp);
+                sourceArticleCommNum_bbsmop.setStartTime(starttime);
+                sourceArticleCommNum_bbsmop.setEndTime(endtime);
+                sourceArticleCommNum_bbsmop.setTableName("bbs_mop_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_bbsmop);
+                //网易博客
+                sourceArticleCommNum_blog163.setNum(blog163_commentNum_temp);
+                sourceArticleCommNum_blog163.setStartTime(starttime);
+                sourceArticleCommNum_blog163.setEndTime(endtime);
+                sourceArticleCommNum_blog163.setTableName("blog_163_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blog163);
+                //新浪博客
+                sourceArticleCommNum_blogsina.setNum(blogsina_commentNum_temp);
+                sourceArticleCommNum_blogsina.setStartTime(starttime);
+                sourceArticleCommNum_blogsina.setEndTime(endtime);
+                sourceArticleCommNum_blogsina.setTableName("blog_sina_post");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogsina);
+                //博客中国
+                sourceArticleCommNum_blogchina.setNum(blogchina_commentNum_temp);
+                sourceArticleCommNum_blogchina.setStartTime(starttime);
+                sourceArticleCommNum_blogchina.setEndTime(endtime);
+                sourceArticleCommNum_blogchina.setTableName("blogchina_blog");
+                sourceArticleCommNumList.add(sourceArticleCommNum_blogchina);
+                //中国社会新闻网
+                sourceArticleCommNum_xinwen110.setNum(xinwen110_commentNum_temp);
+                sourceArticleCommNum_xinwen110.setStartTime(starttime);
+                sourceArticleCommNum_xinwen110.setEndTime(endtime);
+                sourceArticleCommNum_xinwen110.setTableName("xinwen110_news");
+                sourceArticleCommNumList.add(sourceArticleCommNum_xinwen110);
             }
         }
         System.out.println(sourceArticleCommNumList.size());
@@ -713,11 +963,12 @@ public class InflucenceController {
 
 
     /**
-     * 舆情的爆发点
+     * 舆情的引爆点
      * explore
      */
-    public String getExplore(HttpServletRequest request,Model model){
-        System.out.println("记载舆情的爆发点.........");
+    @RequestMapping(value="explore")
+    public String explore(HttpServletRequest request,Model model){
+        System.out.println("加载舆情的引爆点.........");
         String eventID = request.getParameter("eventID");
         List<TbEventArticleEntity> eventArticles = eventArticleService.getEventArticleByEventID(eventID);
         //获得网民的信息，体现舆情的爆发点

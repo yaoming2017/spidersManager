@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--sidebar-menu-->
     <!--search start-->
     <div class="search-wrapper search-wrapper2">
-        <form action="keywords" method="post">
+        <form action="keywords" method="post" style="margin-top:-50px;">
             <div class="search" style="margin-left:300px;width:600px;margin-top:60px;">
                 <span style="margin-left:100px;"><input type="text" class="keyWord searchkey" name="keywords"   maxlength="20"  id="search-keyword" value="事件关键词"></span>
                 <span><button type="submit" class="searchBtn">搜索</button></span>
@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="wyqBorder wyqBorder2">
                             <div class="mwblist mwblist2" id="hotPeople">
                                 <ul>
-                                <c:forEach items="${tbNetizenParticiTop10}" var="h">
+                                <c:forEach items="${tbNetizenParticiTop10}" var="h" varStatus="isindex">
                                   <c:if test="${h.doubanGroupPost != null}">
                                     <li>
                                         <div class="tx"><img src="images/images3/1.jpg"></div>

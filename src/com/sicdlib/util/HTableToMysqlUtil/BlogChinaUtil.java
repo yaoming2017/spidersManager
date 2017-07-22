@@ -1,9 +1,9 @@
 package com.sicdlib.util.HTableToMysqlUtil;
 
 import com.sicdlib.dto.entity.*;
-import com.sicdlib.service.imple.BLOGChinaAuthorService;
-import com.sicdlib.service.imple.BLOGChinaBlogService;
-import com.sicdlib.service.imple.BLOGChinaCommentService;
+import com.sicdlib.service.pythonService.imple.BLOGChinaAuthorService;
+import com.sicdlib.service.pythonService.imple.BLOGChinaBlogService;
+import com.sicdlib.service.pythonService.imple.BLOGChinaCommentService;
 import com.sicdlib.util.HBaseUtil.HBaseData;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.client.Result;
@@ -68,11 +68,8 @@ public class BlogChinaUtil {
                     case "introduce":
                         blogchinaAuthor.setIntroduce(value);
                         break;
-                    case "image":
-                        blogchinaAuthor.setImage(value);
-                        break;
-                    case "b_image":
-                        blogchinaAuthor.setbImage(value);
+                    case "image_url":
+                        blogchinaAuthor.setImageUrl(value);
                         break;
                     case "article_num":
                         blogchinaAuthor.setArticleNum(Integer.parseInt(value));

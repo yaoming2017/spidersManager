@@ -13,6 +13,8 @@ public class TbTableEntity {
     private String id;
     private String tableName;
     private String websiteId;
+    //手动添加
+    private String entityName;
     //一对多：一个表对应多个事件文章
     private Set<TbEventArticleEntity> eventArticleEntitySet = new HashSet<TbEventArticleEntity>();
     //一对多：一个表对应多个源事件数量
@@ -65,6 +67,12 @@ public class TbTableEntity {
     public void setWebsiteId(String websiteId) {
         this.websiteId = websiteId;
     }
+    //手动添加
+    @Basic
+    @Column(name = "entityName")
+    public String getEntityName(){ return entityName;}
+
+    public void setEntityName(String entityName){this.entityName =entityName;}
 
     @Override
     public boolean equals(Object o) {

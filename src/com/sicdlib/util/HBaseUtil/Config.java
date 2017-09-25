@@ -14,7 +14,7 @@ public class Config {
         //取得一个数据库连接的配置参数对象
         Configuration conf = HBaseConfiguration.create();
         //设置连接参数：HBase数据库所在的主机IP
-        conf.set("hbase.zookeeper.quorum", "115.154.137.58");
+        conf.set("hbase.zookeeper.quorum", "192.168.100.201");
         // 设置连接参数：HBase数据库使用的端口
         conf.set("hbase.zookeeper.property.clientPort", "2181");
         try {
